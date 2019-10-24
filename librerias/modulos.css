@@ -1,0 +1,122 @@
+.panel-default {
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12); 
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.12);
+}
+.panel-heading{
+	 font-weight: bold;
+	background: linear-gradient(to right, rgba(0,0,0,0), #51A8B1);
+}
+
+DIV.box0{
+	position: absolute;
+	color: #000000;	
+	top:62px;
+	background:white;
+	left:1px;	
+	right: 1px;
+	bottom: 1px;
+	overflow: auto;
+	display: block;
+	padding: 5px 5px 5px 5px;
+	z-index:1;
+}
+
+div.ventana {
+    float: left;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    border: 0px;
+    overflow: auto;
+    padding: 0px;
+    background: #000;
+    overflow: auto;
+    z-index: 100;
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.filex{
+	width:100%;
+	overflow: auto;
+	height:100px;
+	position:relative;
+}
+.filex > div {
+	float: left;
+	width: 80px;
+	height: 30px;
+	margin-left: 2px;
+	margin-top: 2px;
+	font-size: 10px;
+	color: transparent;
+	background: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #87CEEB;
+	vertical-align: middle;
+	border-radius:5px;
+}
+.filex > div > input {
+	position: absolute;	
+	top: 0px;
+	left:0px;
+    display: block !important;
+    width: 80px !important;
+    height: 30px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+	z-index: 1;
+}
+.filex > div > i {
+	color: black;
+	font-size: 22px;
+}
+.filex > .div> > span{
+	position: absolute;	
+	top: 17px;
+	left:20px;
+	width: 40px;
+	height: 40px;
+	color: black;
+}
+
+.filex > .archivosdrop{
+	position: absolute;	
+	border: 1px solid #87CEEB;
+	bottom:2px;
+	top:2px;
+	right:2px;
+	left:2px;
+    text-align: center;
+	z-index:1;
+}
+.filex > .archivosdrop:before{
+	position: absolute;	
+	border: 0px;
+	bottom:2px;
+	top: 80%;
+	right:2px;
+	left:2px;
+    text-align: center;
+	z-index: -1;
+	color:#4f5f70;
+	content: "Arrastre aqui los archivos a subir!";
+}
+
+
+.barra{
+	background-color: #F58634 !important;
+	color:white;
+}
+.barra .navbar-nav>li>a{
+	color:white;
+
+}
+
+.moneda{
+	text-align: right;
+}

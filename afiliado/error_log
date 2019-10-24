@@ -1,0 +1,12 @@
+[20-Jul-2018 23:48:17 America/Chicago] PHP Parse error:  syntax error, unexpected 'number_format' (T_STRING), expecting ',' or ';' in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 79
+[20-Jul-2018 23:49:01 America/Chicago] PHP Parse error:  syntax error, unexpected 'number_format' (T_STRING), expecting ',' or ';' in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 79
+[20-Jul-2018 23:49:51 America/Chicago] PHP Parse error:  syntax error, unexpected 'number_format' (T_STRING), expecting ',' or ';' in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 79
+[20-Jul-2018 23:50:04 America/Chicago] PHP Parse error:  syntax error, unexpected 'number_format' (T_STRING), expecting ',' or ';' in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 79
+[27-Feb-2019 12:22:03 America/Chicago] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on 'sagyc2.com.mx' (111) in /home1/sagyce18/cajaseccion15snte.com.mx/conn.php on line 9
+[27-Feb-2019 12:22:03 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home1/sagyce18/cajaseccion15snte.com.mx/conn.php:9) in /home1/sagyce18/cajaseccion15snte.com.mx/conn.php on line 12
+[27-Feb-2019 12:22:03 America/Chicago] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 4
+[27-Feb-2019 12:22:03 America/Chicago] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 4
+[27-Feb-2019 12:22:08 America/Chicago] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on 'sagyc2.com.mx' (111) in /home1/sagyce18/cajaseccion15snte.com.mx/conn.php on line 9
+[27-Feb-2019 12:22:08 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home1/sagyce18/cajaseccion15snte.com.mx/conn.php:9) in /home1/sagyce18/cajaseccion15snte.com.mx/conn.php on line 12
+[27-Feb-2019 12:22:08 America/Chicago] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 4
+[27-Feb-2019 12:22:08 America/Chicago] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home1/sagyce18/cajaseccion15snte.com.mx/afiliado/afiliado.php on line 4
