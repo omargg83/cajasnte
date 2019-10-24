@@ -1,13 +1,11 @@
 <?php
-	include '../conn.php';
-	$sql="select * from afiliados where idfolio='".$_SESSION['idfolio']."'";
-	$row=mysqli_fetch_array(mysqli_query($link,$sql));
-
+	require_once("../control_db.php");
+	$row=$db->afiliado();
+	echo "<div class='container'>";
 	echo "<div class='row'>";
 		echo  "<div class='col-sm-12'>";
-			echo "<div class='card'>
-				  <div class='card-header'>Registro";
-				  echo "</div>";
+			echo "<div class='card'>";
+
 					echo "<div class='card-body'>";
 
 						echo "<div class='row'>";
@@ -25,13 +23,27 @@
 								echo "</div>";
 							echo "</div>";
 
-							echo  "<div class='col-xl-2 col-lg-6 col-md-6 col-sm-5'>";
+							echo  "<div class='col-xl-3 col-lg-6 col-md-6 col-sm-5'>";
 								echo "<div class='form-group'>";
 									echo "<label for='c_psp'>Clave Presupuestal</label>";
 									echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal' readonly>";
 								echo "</div>";
 							echo "</div>";
 
+							echo  "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
+								echo "<div class='form-group'>";
+									echo "<label for='r_reg'>Región</label>";
+									echo "<input class='form-control' type='text' id='r_reg' NAME='r_reg' value='".$row['r_reg']." ".$row['r_rrg']."' placeholder='Región' readonly>";
+								echo "</div>";
+							echo "</div>";
+
+							echo  "<div class='col-xl-3 col-lg-3 col-md-3 col-sm-4'>";
+								echo "<div class='form-group'>";
+									echo "<label for='d_dom'>Correo</label>";
+									echo "<input class='form-control' type='text' id='mail' NAME='mail' value='".$row['correo']."' placeholder='Correo' readonly>";
+								echo "</div>";
+							echo "</div>";
+							
 
 
 							echo  "<div class='col-xl-2 col-lg-4 col-md-4 col-sm-4'>";
@@ -55,12 +67,7 @@
 								echo "</div>";
 							echo "</div>";
 
-							echo  "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
-								echo "<div class='form-group'>";
-									echo "<label for='r_reg'>Región</label>";
-									echo "<input class='form-control' type='text' id='r_reg' NAME='r_reg' value='".$row['r_reg']." ".$row['r_rrg']."' placeholder='Región' readonly>";
-								echo "</div>";
-							echo "</div>";
+
 
 							$Fecha_Ingreso=$row['Fecha_Ingreso'];
 							list($Fecha_Ingreso,$hora) = explode(" ",$Fecha_Ingreso);
@@ -82,12 +89,7 @@
 								echo "</div>";
 							echo "</div>";
 
-							echo  "<div class='col-xl-3 col-lg-3 col-md-3 col-sm-4'>";
-								echo "<div class='form-group'>";
-									echo "<label for='d_dom'>Correo</label>";
-									echo "<input class='form-control' type='text' id='mail' NAME='mail' value='".$row['correo']."' placeholder='Correo' readonly>";
-								echo "</div>";
-							echo "</div>";
+
 
 							echo  "<div class='col-xl-3 col-lg-3 col-md-4 col-sm-4'>";
 								echo "<div class='form-group'>";
@@ -138,5 +140,5 @@
 	echo "<strong>Nota:</strong> solo se muestra la información del ciclo anterior y actual, para mas detalles acuda a las oficinas de caja de ahorro";
 	echo "</div>";
 	echo "<hr>";
-
+	echo "</div>";
 ?>

@@ -1,0 +1,28 @@
+.barra{
+	background-color: #F58634 !important;
+	color:white;
+}
+.barra .navbar-nav>li>a{
+	color:white;
+}
+
+.main {
+	margin-left: 1px; /* Same as the width of the sidenav */
+	padding: 10px;
+	padding-top:0px;
+	overflow:auto;
+	position: fixed;
+	z-index: 1;
+	top: 65px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	transition: 0.5s all;
+
+	background-repeat: no-repeat;
+    background-attachment: fixed ;
+    background-position: top ;
+	-webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
