@@ -1,12 +1,10 @@
 <?php
 	require_once("../control_db.php");
+	$resp=$db->creditos();
 ?>
 	<div class='card'>
 		<div class='card-header'>
 		<?php
-		/*
-		$sql="select * from creditos where filiacion='".$_SESSION['filiacion']."'";
-		$resp=mysqli_query($link,$sql);*/
 		echo "<div class='row'>";
 			echo  "<div class='col-sm-2'>";
 				echo "<label>";
@@ -14,13 +12,11 @@
 				echo "</label>";
 			echo "</div>";
 			echo  "<div class='col-sm-10'>";
-				echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control'>";
+				echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onclick='clv_cred()'>";
 				echo "<option value='' disabled selected style='color: silver;'>Seleccione un credito</option>";
-				/*
-					while ($row1 = mysqli_fetch_array($resp)){
-						echo  "<option value='".$row1['clv_cred']."'>#".$row1['clv_cred']." ".$row1['fecha']." : ".number_format($row1['monto'],2)."</option>";
+					foreach($resp as $key){
+						echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".$key['fecha']." : ".number_format($key['monto'],2)."</option>";
 					}
-					*/
 				echo  "</select>";
 			echo "</div>";
 		echo "</div>";

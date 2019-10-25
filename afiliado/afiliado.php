@@ -142,3 +142,25 @@
 		echo "</div>";
 	echo "</div>";
 ?>
+<script type="text/javascript">
+
+function clv_cred(){
+	var id=$("#clv_cred").val();
+	var xyId = 0;
+	 $.ajax({
+			data:  {
+				"clv_cred":id
+			},
+			url:  "creditos/datos.php",
+			type:  'post',
+		beforeSend: function () {
+			$("#datos_cred").html("Procesando, espere por favor...");
+		},
+		success:  function (response) {
+			$("#datos_cred").html('');
+			$("#datos_cred").html(response);
+		}
+	});
+}
+
+</script
