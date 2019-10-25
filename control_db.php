@@ -59,7 +59,6 @@
 							$x.="</li>";
 						$x.="</ul>";
 
-
 						$x.="<ul class='navacceso navbar-nav navbar-right' id='notificaciones'></ul>";
 
 						$x.="<ul class='nav navbar-nav navbar-right'>";
@@ -81,7 +80,7 @@
 			}
 			else {
 				///////////////////////////login
-				$valor=$_SESSION['idfondo'];
+				$valor="fondo/fondo5.jpg";
 				$x="<form id='acceso' action=''>
 						<div class='container'>
 								<center><img src='img/caja.png' width='150px'></center>
@@ -1056,7 +1055,7 @@
 		if(strlen($function)>0){
 			echo $db->$function();
 		}
-	
+
 	function moneda($valor){
 		return "$ ".number_format( $valor, 2, "." , "," );
 	}
