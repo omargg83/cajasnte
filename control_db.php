@@ -47,16 +47,7 @@
 					$x.="<div class='collapse navbar-collapse' id='principal'>";
 
 						$x.="<ul class='navbar-nav mr-auto'>";
-							$x.="<li class='nav-item dropdown'>";
-								$x.="<a class='nav-link navbar-brand' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-user-edit'></i> Datos</a>";
-							$x.="</li>";
 
-							$x.="<li class='nav-item dropdown'>";
-								$x.="<a class='nav-link navbar-brand' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-money-check-alt'></i> Crédito</a>";
-							$x.="</li>";
-							$x.="<li class='nav-item dropdown'>";
-								$x.="<a class='nav-link navbar-brand' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-university'></i> Ahorro</a>";
-							$x.="</li>";
 						$x.="</ul>";
 
 						$x.="<ul class='navacceso navbar-nav navbar-right' id='notificaciones'></ul>";
@@ -72,7 +63,37 @@
 				$x.="</nav>";
 
 				$y="";
-				$y.="<div class='fijaproceso main' id='contenido'>";
+				$y.="<div class='wrapper'>";
+					$y.="<div class='content navbar-default'>";
+						$y.="<div class='container-fluid'>";
+							$y.="<div class='sidebar sidenav' id='navx'>";
+
+								$nombre=$_SESSION['nombre']." ".$_SESSION['ape_pat']." ".$_SESSION['ape_mat'];
+								$y.="<div class='text-center'> ";
+									$y.=$_SESSION['filiacion']."<br>";
+									$y.=$nombre;
+								$y.="</div>";
+
+								$y.="<hr>";
+								$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+								$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
+								$y.="<a href='#afiliado/datos' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
+								$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
+								$y.="<hr>";
+
+								$y.="<a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Creditos</span></a>";
+								$y.="<a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>";			////////////// Listo
+								$y.="<hr>";
+
+								$y.="<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>";			////////////// Listo
+								$y.="<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";			////////////// Listo
+
+							$y.="</div>";
+						$y.="</div>";
+
+						$y.="<div class='fijaproceso main' id='contenido'>";
+						$y.="</div>";
+					$y.="</div>";
 				$y.="</div>";
 
 				$arreglo=array('sess'=>"abierta", 'header'=>$x, 'cuerpo'=>$y, 'admin'=>"");
@@ -229,12 +250,17 @@
 				return "------->$sql <------------- Database access FAILED!".$e->getMessage();
 			}
 		}
-		public function general($sql){
+		public function general($sql,$tipo=1){
 			try{
 				self::set_names();
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
-				return $sth->fetchAll();
+				if($tipo==1){
+					return $sth->fetchAll();
+				}
+				else{
+					return $sth->fetch();
+				}
 			}
 			catch(PDOException $e){
 				return "Database access FAILED!".$e->getMessage();
@@ -280,6 +306,19 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
+		public function credito_detalle($clv_cred){
+			try{
+				self::set_names();
+				$sql="select anio,if (estado=1,'A',if(estado=6,'Inicial',if(estado=7,'Reim',ROUND(quincena,0)))) as quin_nombre,saldo_anterior,monto,saldo_actual, observaciones from detallepago where idcredito=:clv_cred order by anio,quincena,iddetalle";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":clv_cred",$clv_cred);
+				$sth->execute();
+				return $sth->fetchAll();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
 		public function aporta($clv_cred){
 			try{
 				self::set_names();
@@ -294,6 +333,169 @@
 			}
 		}
 
+		public function datos_ahorro($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,
+				if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio and anio=:anio_tmp
+				order by anio,quincena,idregistro asc";
+				$sth = $this->dbh->prepare($sql);
+
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetchAll();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function ahorro($anio_tmp){
+			try{
+				self::set_names();
+
+				$sql="select sum(monto) as monto,sum(montointeres) as interesx from registro where idfolio=:idfolio and anio=:anio_tmp";
+				$sth = $this->dbh->prepare($sql);
+
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function anio_ant_interes($anio_tmp){
+			try{
+				self::set_names();
+				$ANIX=$anio_tmp-1;
+
+				$sql="select SUM(montointeres) as interestotal from registro where idfolio=:idfolio and anio=:anio_tmp order by anio,quincena";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$ANIX);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function xahorro_anterior($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select * from registro where idfolio=:idfolio and anio<:anio_tmp order by anio desc,quincena desc";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function ahorro_tmp($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select sum(monto) as monto from registro where idfolio=:idfolio and anio=:anio_tmp and monto>=0";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function retiro_tmp($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select sum(monto) as montoxy from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto<0";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function ahorro_anual($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select sum(monto) as ahorroanual from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto>0";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->bindValue(":anio_tmp",$anio_tmp);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function saldofinal($anio_tmp){
+			try{
+				self::set_names();
+				$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio order by anio desc,quincena desc,idregistro desc";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function guardar_datos(){
+			$x="";
+
+			$arreglo =array();
+			if (isset($_REQUEST['numero'])){
+				$arreglo+=array('numero'=>$_REQUEST['numero']);
+			}
+
+			if (isset($_REQUEST['frecibido'])){
+				$fx=explode("-",$_REQUEST['frecibido']);
+				$arreglo+=array('frecibido'=>$fx['2']."-".$fx['1']."-".$fx['0']);
+			}
+
+			$arreglo+=array('modificado'=>date("Y-m-d H:i:s"));
+
+			//$x.=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			//return $x;
+			return "Guardando";
+		}
+		public function guardar_acceso(){
+			$x="";
+
+			$arreglo =array();
+			if (isset($_REQUEST['correo'])){
+				$arreglo+=array('correo'=>$_REQUEST['correo']);
+			}
+			if (isset($_REQUEST['telefono'])){
+				$arreglo+=array('celular'=>$_REQUEST['telefono']);
+			}
+
+			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			return $x;
+		}
+		public function guardar_pass(){
+			$x="";
+			$arreglo =array();
+			if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
+				$arreglo+=array('password'=>trim($_REQUEST['pass1']));
+				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+				return $x;
+			}
+			else{
+				return "No coinciden contraseñas";
+			}
+		}
 	}
 
 	$db = new Sagyc();

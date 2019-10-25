@@ -1,139 +1,58 @@
 <?php
-	include '../conn.php';
-	$id=$_SESSION['idfolio'];
-	
+	require_once("../control_db.php");
 	$anio_tmp=date("Y");
-	
-		$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal, 
-		if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio='$id' and anio='$anio_tmp'
-		order by anio,quincena,idregistro asc";
-		$resp=mysqli_query($link,$sql);
-		
-		$sql="select sum(monto) as monto,sum(montointeres) as interesx from registro where idfolio='$id' and anio='$anio_tmp'";
-		$ahortmp=mysqli_query($link,$sql);
-		$ahorronum=mysqli_num_rows($ahortmp);
-		$ahorro=mysqli_fetch_array($ahortmp);
-		
+
+	$resp=$db->datos_ahorro($anio_tmp);
+	$ahorro=$db->ahorro($anio_tmp);
+	$ahorronum=count($db->ahorro($anio_tmp));
+
+	echo "<div class='container'>";
 		echo "<div class='card'>
 		  <div class='card-header'><b>Caja de ahorro</b></div>";
 			echo "<div class='card-body'>";
 				echo "<div class='row'>";
 					/////////INTERES AÑO Anterior
-					$ANIX=$anio_tmp-1;
-					$sql="select SUM(montointeres) as interestotal from registro where idfolio='$id' and anio='$ANIX' order by anio,quincena";
-					$anio_ant_interes=mysqli_fetch_array(mysqli_query($link,$sql));
-					
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Interes Año Anterior</label>";
-							// echo "<input class='form-control moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($anio_ant_interes['interestotal'],2)."' placeholder='Interes Año Anterior' readonly>";
-						// echo "</div>";
-					// echo "</div>";
-					
-					
-					
+					$anio_ant_interes=$db->anio_ant_interes($anio_tmp);
+
 					$P_INTERESANTERIOR=$anio_ant_interes['interestotal'];
+					$xahorro_anterior=$db->xahorro_anterior($anio_tmp);
+					$xahorro_anterior=$xahorro_anterior['saldofinal']-$P_INTERESANTERIOR;
 
-
-					$csql="select * from registro where idfolio='$id' and anio<$anio_tmp order by anio desc,quincena desc";
-					$anio_ant=mysqli_fetch_array(mysqli_query($link,$csql));
-					$xahorro_anterior=$anio_ant['saldofinal']-$P_INTERESANTERIOR;
-					
-					//////////////////////////Ahorro anterior
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Ahorro Anterior</label>";
-							// echo "<input class='form-control moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($xahorro_anterior,2)."' placeholder='Ahorro Año Anterior' readonly>";
-						// echo "</div>";
-					// echo "</div>";
-					
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Saldo Anterior</label>";
-							// echo "<input class='form-control moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($anio_ant['saldofinal'],2)."' placeholder='Saldo Año Anterior' readonly>";
-						// echo "</div>";
-					// echo "</div>";
-					
-					
 					///////////////////
-					
-					
-					
-					$sql="select sum(monto) as monto from registro where idfolio=$id and anio='$anio_tmp' and monto>=0";
-					$ahorro_tmp=mysqli_fetch_array(mysqli_query($link,$sql));		
-					// //////Ahorro actual
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Ahorro actual</label>";
-							// echo "<input class='form-control  moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($ahorro_tmp['monto'],2)."' placeholder='Ahorro actual' readonly>";
-						// echo "</div>";
-					// echo "</div>";
-					
-					
-					$sql="select sum(monto) as montoxy from registro where idfolio='$id' and anio='$anio_tmp' and registro.monto<0";
-					$retiro_tmp=mysqli_fetch_array(mysqli_query($link,$sql));
-					// ////retiro actual
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Retiro anual</label>";
-							// echo "<input class='form-control moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($retiro_tmp['montoxy'],2)."' placeholder='Retiro anual' readonly >";
-						// echo "</div>";
-					// echo "</div>";
-					
-					$sql="select sum(monto) as ahorroanual from registro where idfolio='$id' and anio='$anio_tmp' and registro.monto>0";
-					$ahorro_anual=mysqli_fetch_array(mysqli_query($link,$sql));
-				
-					// ///////////AHORRO TOTAL
-					// echo  "<div class='col-sm-3'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Ahorro total actual</label>";
-							// echo "<input class='form-control  moneda' type='text' id='idfolio' NAME='idfolio' value='".number_format($ahorro_anual['ahorroanual'],2)."' placeholder='Ahorro Total' readonly>";
-						// echo "</div>";
-					// echo "</div>";
-				
-					$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio='$id' order by anio desc,quincena desc,idregistro desc";
-					$saldofinal=mysqli_fetch_array(mysqli_query($link,$sql));
-				
+					$ahorro_tmp=$db->ahorro_tmp($anio_tmp);
+					$retiro_tmp=$db->retiro_tmp($anio_tmp);
+					$ahorro_anual=$db->ahorro_anual($anio_tmp);
+					$saldofinal=$db->saldofinal($anio_tmp);
+
 					if ($ahorronum==0){
 						$val=number_format($saldofinal['saldofinal'],2);
 					}
 					else{
 						$val=number_format($saldofinal['saldofinal']-$ahorro['interesx'],2);
-					}	
+					}
 					//////////////DISPONIBLE
 					echo  "<div class='col-sm-3'>";
 						echo "<div class='form-group'>";
 							echo "<label for='idfolio'>Disponible anual</label>";
-							echo "<input class='form-control  moneda' type='text' id='idfolio' NAME='idfolio' value='$ ".$val."' placeholder='Disponible anual' readonly>";
+							echo "<input class='form-control text-right' type='text' id='idfolio' NAME='idfolio' value='$ ".$val."' placeholder='Disponible anual' readonly>";
 						echo "</div>";
 					echo "</div>";
-					
-					
+
 					////////interes
 					echo  "<div class='col-sm-3'>";
 						echo "<div class='form-group'>";
 							echo "<label for='idfolio'>Interes anual</label>";
-							echo "<input class='form-control moneda' type='text' id='idfolio' NAME='idfolio' value='$ ".number_format($ahorro['interesx'],2)."' placeholder='Interes anual' readonly>";
+							echo "<input class='form-control text-right' type='text' id='idfolio' NAME='idfolio' value='$ ".number_format($ahorro['interesx'],2)."' placeholder='Interes anual' readonly>";
 						echo "</div>";
 					echo "</div>";
-					
-					// echo  "<div class='col-sm-2 col-md-offset-6'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='idfolio'>Hoy ya tienes</label>";
-							// echo "<input class='form-control' type='text' id='idfolio' NAME='idfolio' value='".number_format($saldofinal['saldofinal'],2)."' placeholder='Hoy ya tienes' readonly dir=rtl>";
-						// echo "</div>";
-					// echo "</div>";
-				
 				echo "</div>";
 			echo "</div>";
-			
+
 			echo "<div class='card-footer'>";
 				echo "<div class='row'>";
-					echo "<div class='col-sm-2'>";
+					echo "<div class='col-sm-6'>";
 						echo "<div class='btn-group'>";
-						echo "<button class='btn btn-warning' id='imprime_A'>
-							  <i class='fa fa-print'></i> Imprimir
-							</button>";
+						echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='ahorro/imprimir' data-tipo='1' data-select='periodo' type='button'><i class='fas fa-print'></i>Imprimir</button>";
 						echo "</div>";
 					echo "</div>";
 
@@ -152,53 +71,44 @@
 					echo "</div>";
 				echo "</div>";
 			echo "</div>";
-		echo "</div>";	
-		
-			
-		
+		echo "</div>";
+		echo "<br>";
 		echo "<div class='card'>
 		  <div class='card-header'>Registro</div>";
-			
-				echo "<table class='table table-striped table-sm'>";			
+
+				echo "<table class='table table-striped table-sm'>";
 				echo "<tr>";
 				echo "<th><center>Año</center></th>";
 				echo "<th><center>Quincena</center></th>";
-				// echo "<th>Saldo anterior</th>";
 				echo "<th><center>Retiro</center></th>";
 				echo "<th><center>Monto</center></th>";
-				// echo "<th>Interes</th>";
-				// echo "<th>Monto de interes</th>";
-				// echo "<th>Interes total</th>";
-				// echo "<th>Ahorro total</th>";
-				// echo "<th>Saldo Final</th>";
-				// echo "<th>Observaciones</th>";
 				echo "</tr>";
 				echo "</thead><tbody>";
 				$anio=0;
 				$monto=0;
 				$int_ant=0;
-				while($row=mysqli_fetch_array($resp)){
-					if($anio!=$row['anio']){
-						$anio=$row['anio'];
+				foreach($resp as $key){
+					if($anio!=$key['anio']){
+						$anio=$key['anio'];
 						$int_ant=0;
 					}
-					$int_ant=$int_ant+$row['montointeres'];
-					$s_final=$row['saldofinal'] - $int_ant;
-									
+					$int_ant=$int_ant+$key['montointeres'];
+					$s_final=$key['saldofinal'] - $int_ant;
+
 					echo "<tr>";
 						echo "<td><center>";
-						echo $row['anio'];
-						echo "</center></td>";
-						
-						echo "<td><center>";
-						echo $row['quin_nombre'];
+						echo $key['anio'];
 						echo "</center></td>";
 
-						if ($row['monto']>0){
+						echo "<td><center>";
+						echo $key['quin_nombre'];
+						echo "</center></td>";
+
+						if ($key['monto']>0){
 							echo "<td>";
 							echo "</td>";
 							echo "<td style='text-align: right;'>";
-							echo number_format($row['monto'],2);
+							echo number_format($key['monto'],2);
 							echo "</td>";
 						}
 						else{
@@ -206,11 +116,12 @@
 							echo $s_final;
 							echo "</td>";
 						}
-						
+
 					echo "</tr>";
 				}
-				
+
 				echo "</table>";
 		echo "</div>";
-		
+echo "</div>";
+
 ?>

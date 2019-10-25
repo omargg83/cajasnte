@@ -2,6 +2,7 @@
 	require_once("../control_db.php");
 	$resp=$db->creditos();
 ?>
+<div class='container'>
 	<div class='card'>
 		<div class='card-header'>
 		<?php
@@ -25,3 +26,26 @@
 		<div class='card-body' id='datos_cred'>
 		</div>
 	</div>
+</div>
+	<script type="text/javascript">
+
+	function clv_cred(){
+		var id=$("#clv_cred").val();
+		var xyId = 0;
+		 $.ajax({
+				data:  {
+					"clv_cred":id
+				},
+				url:  "creditos/datos.php",
+				type:  'post',
+			beforeSend: function () {
+				$("#datos_cred").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
+			},
+			success:  function (response) {
+				$("#datos_cred").html('');
+				$("#datos_cred").html(response);
+			}
+		});
+	}
+
+	</script>

@@ -68,7 +68,7 @@
 			type: "POST",
 			timeout:30000,
 			beforeSend: function () {
-				$("#contenido").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga.gif' width='300px'></center></div>");
+				$("#contenido").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
 			},
 			success:  function (response) {
 				$("#contenido").html(response);
@@ -487,9 +487,10 @@
 				type:  'post',
 				timeout:30000,
 				beforeSend: function () {
-					$(contenido).html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga.gif' width='300px'></center></div>");
+					$(contenido).html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
 				},
 				success:  function (response) {
+					console.log(response);
 					$(contenido).html(response);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {

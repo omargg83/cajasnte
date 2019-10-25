@@ -5,6 +5,7 @@
 
 	$dat_credito=$db->datos_credito($clv_cred);
 	$aportax=$db->aporta($clv_cred);
+	$c_detalle=$db->credito_detalle($clv_cred);
 
 	/////////////////////////////////////////////////
 	$txt_estado=$dat_credito['cred_esta'];
@@ -31,6 +32,7 @@
 	$txt_abono=$aportax['aporta'];
 	$s_saldo=$dat_credito['total']-$aportax['aporta'];
 	$txt_saldo=$s_saldo;
+				echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$txt_credito."' placeholder='Crédito' readonly>";
 
 				echo "<div class='row'>";
 					echo  "<div class='col-sm-2'>";
@@ -39,7 +41,6 @@
 							echo "<input class='form-control' type='text' id='txt_credito' NAME='txt_credito' value='".$txt_credito."' placeholder='Crédito' readonly>";
 						echo "</div>";
 					echo "</div>";
-
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
 							echo "<label for='txt_qini'>Q.Inicial</label>";
@@ -53,6 +54,7 @@
 							echo "<input class='form-control' type='text' id='txt_qfin' NAME='txt_qfin' value='".$txt_qfin."' placeholder='Q.Final' readonly>";
 						echo "</div>";
 					echo "</div>";
+
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
 							echo "<label for='txt_monto'>Monto Credito</label>";
@@ -95,6 +97,7 @@
 						echo "</div>";
 					echo "</div>";
 
+
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
 							echo "<label for='txt_plazo'>Plazo</label>";
@@ -124,60 +127,37 @@
 
 			echo "<div class='panel-footer'>";
 				echo "<div  class='btn-group'>";
-
-				echo "<button class='btn btn-warning' id='imprime_C'>
-				  <i class='fa fa-print'></i> Imprimir
-				</button>";
-
+				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";
 				echo "</div>";
-
 			echo "</div>";
 
-			$csql="select anio,if (estado=1,'A',if(estado=6,'Inicial',if(estado=7,'Reim',ROUND(quincena,0)))) as quin_nombre,saldo_anterior,monto,saldo_actual, observaciones from detallepago where idfolio='$id' and
-			idcredito='".$dat_credito['clv_cred']."' order by anio,quincena,iddetalle";
-			$resp=mysqli_query($link,$csql);
-
 			echo "<hr>";
-
 			echo "<table class='table table-striped table-sm'>";
 			echo "<thead>";
 			echo "<tr><th><center>Año</center></th><th><center>Quincena</center></th>";
-			// echo "<th>Saldo anterior</th>";
-			echo "<th><center>Monto</center></th><th><center>Saldo actual</center></th>";
-
-			// echo "<th>Observaciones</th>";
+			echo "<th><center>Monto</center></th><th ><center>Saldo actual</center></th>";
 			echo "</tr>";
 			echo "</thead><tbody>";
-			while($saldofinal=mysqli_fetch_array($resp)){
+			foreach($c_detalle as $key){
 				echo "<tr>";
 					echo "<td><center>";
-					echo $saldofinal['anio'];
+					echo $key['anio'];
 					echo "</td>";
 
 					echo "<td><center>";
-					echo $saldofinal['quin_nombre'];
+					echo $key['quin_nombre'];
 					echo "</td>";
 
-					// echo "<td dir='rtl'>";
-					// echo moneda($saldofinal['saldo_anterior']);
-					// echo "</td>";
-
-					echo "<td class='moneda'>$ ";
-					echo number_format($saldofinal['monto'],2);
+					echo "<td class = 'text-right'>$ ";
+					echo number_format($key['monto'],2);
 					echo "</td>";
 
-					echo "<td class='moneda'>$ ";
-					echo number_format($saldofinal['saldo_actual'],2);
+					echo "<td class = 'text-right'>$ ";
+					echo number_format($key['saldo_actual'],2);
 					echo "</td>";
 
-					// echo "<td>";
-					// echo $saldofinal['observaciones'];
-					// echo "</td>";
 				echo "</tr>";
 			}
-
 			echo "</table>";
 		echo "</div>";
-
-
 ?>
