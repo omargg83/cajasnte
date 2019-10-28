@@ -73,7 +73,9 @@
 								$y.="</div>";
 
 								if($_SESSION['administrador']==1){
-
+									$y.="<hr>";
+									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+									$y.="<a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>";
 								}
 								else{
 									$y.="<hr>";
@@ -590,7 +592,7 @@
 		public function guardar_datos(){
 			$x="";
 			$arreglo =array();
-			
+
 			////////////////////////////////////////aca
 			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
 			$sth = $this->dbh->prepare($sql);
@@ -724,22 +726,136 @@
 		public function guardar_beneficiarios(){
 			$x="";
 			$arreglo =array();
-			/*aqui agregar todos los campos necesarios aguas con los nombres*/
-			if (isset($_REQUEST['bene1'])){
-				$arreglo+=array('bene1'=>$_REQUEST['bene1']);
+			/////BEN1
+			if (isset($_REQUEST['ben1'])){
+				$arreglo+=array('BA'=>$_REQUEST['ben1']);
 			}
-			if (isset($_REQUEST['par1'])){
-				$arreglo+=array('par1'=>$_REQUEST['par1']);
+			if (isset($_REQUEST['parentesco1'])){
+				$arreglo+=array('PA'=>$_REQUEST['parentesco1']);
 			}
 			if (isset($_REQUEST['porcentaje1'])){
-				$arreglo+=array('porcentaje1'=>$_REQUEST['porcentaje1']);
+				$arreglo+=array('BFA'=>$_REQUEST['porcentaje1']);
 			}
 
-			$x.=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			/////BEN 2
+			if (isset($_REQUEST['ben2'])){
+				$arreglo+=array('BB'=>$_REQUEST['ben2']);
+			}
+			if (isset($_REQUEST['parentesco2'])){
+				$arreglo+=array('PB'=>$_REQUEST['parentesco2']);
+			}
+			if (isset($_REQUEST['porcentaje2'])){
+				$arreglo+=array('BFB'=>$_REQUEST['porcentaje2']);
+			}
+
+			/////BEN 3
+			if (isset($_REQUEST['ben3'])){
+				$arreglo+=array('BC'=>$_REQUEST['ben3']);
+			}
+			if (isset($_REQUEST['parentesco3'])){
+				$arreglo+=array('PC'=>$_REQUEST['parentesco3']);
+			}
+			if (isset($_REQUEST['porcentaje3'])){
+				$arreglo+=array('BFC'=>$_REQUEST['porcentaje3']);
+			}
+
+			/////BEN 4
+			if (isset($_REQUEST['ben3'])){
+				$arreglo+=array('BD'=>$_REQUEST['ben3']);
+			}
+			if (isset($_REQUEST['parentesco3'])){
+				$arreglo+=array('PD'=>$_REQUEST['parentesco3']);
+			}
+			if (isset($_REQUEST['porcentaje3'])){
+				$arreglo+=array('BFD'=>$_REQUEST['porcentaje3']);
+			}
+
+			/////BEN 5
+			if (isset($_REQUEST['ben5'])){
+				$arreglo+=array('BE'=>$_REQUEST['ben5']);
+			}
+			if (isset($_REQUEST['parentesco5'])){
+				$arreglo+=array('PE'=>$_REQUEST['parentesco5']);
+			}
+			if (isset($_REQUEST['porcentaje5'])){
+				$arreglo+=array('BFE'=>$_REQUEST['porcentaje5']);
+			}
+
+			////////////////////////////////////////aca
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$fecha=date("Y-m-d H:i:s");
+			$arreglo+=array('fecha'=>$fecha);
+
+			if($contar==1){
+				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			}
+			else{
+				$arreglo+=array('estado'=>0);
+				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+				$arreglo+=array('nombre'=>$_SESSION['nombre']);
+				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$this->insert('bit_datos', $arreglo);
+			}
+			////////////////////////////
 			return $x;
 		}
 
+		public function bloques(){
+			self::set_names();
+			$x="";
+			$arreglo =array();
 
+			if (isset($_REQUEST['usuario'])){
+				$arreglo+=array('usuario'=>$_REQUEST['usuario']);
+			}
+			else{
+				$arreglo+=array('usuario'=>0);
+			}
+			if (isset($_REQUEST['aportacion'])){
+				$arreglo+=array('aportacion'=>$_REQUEST['aportacion']);
+			}
+			else{
+				$arreglo+=array('aportacion'=>0);
+			}
+			if (isset($_REQUEST['beneficiarios'])){
+				$arreglo+=array('beneficiarios'=>$_REQUEST['beneficiarios']);
+			}
+			else{
+				$arreglo+=array('beneficiarios'=>0);
+			}
+
+			$sql="select * from bit_bloques limit 1";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+			if($contar==1){
+				$this->update('bit_bloques',array('id'=>$row['id']), $arreglo);
+			}
+			else{
+				$this->insert('bit_bloques', $arreglo);
+			}
+			return "hola mundo";
+		}
+		public function blo_lista(){
+			try{
+				self::set_names();
+				$sql="select * from bit_bloques limit 1";
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
 	}
 
 	$db = new Sagyc();

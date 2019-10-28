@@ -6,7 +6,7 @@
   $ape_pat=$row['ape_pat'];
   $ape_mat=$row['ape_mat'];
   $nombre=$row['nombre'];
-  $e_civ=$row['e_civ'];
+
   $a_qui=$row['a_qui'];
 
     echo "<div class='container'>";
