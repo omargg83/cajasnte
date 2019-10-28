@@ -11,8 +11,6 @@
 		public $nivel_personal;
 		public $nivel_captura;
 		public $derecho=array();
-		public $lema;
-		public $personas;
 		public $arreglo;
 		public $limite=300;
 
@@ -74,20 +72,24 @@
 									$y.=$nombre;
 								$y.="</div>";
 
-								$y.="<hr>";
-								$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
-								$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
-								$y.="<a href='#afiliado/datos' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
-								$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
-								$y.="<hr>";
+								if($_SESSION['administrador']==1){
 
-								$y.="<a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Creditos</span></a>";
-								$y.="<a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>";			////////////// Listo
-								$y.="<hr>";
+								}
+								else{
+									$y.="<hr>";
+									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
+									$y.="<a href='#afiliado/datos' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
+									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
+									$y.="<hr>";
 
-								$y.="<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>";			////////////// Listo
-								$y.="<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";			////////////// Listo
+									$y.="<a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Creditos</span></a>";
+									$y.="<a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>";			////////////// Listo
+									$y.="<hr>";
 
+									$y.="<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>";			////////////// Listo
+									$y.="<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";			////////////// Listo
+								}
 							$y.="</div>";
 						$y.="</div>";
 
@@ -99,6 +101,8 @@
 				$arreglo=array('sess'=>"abierta", 'header'=>$x, 'cuerpo'=>$y, 'admin'=>"");
 				///////////////////////////fin sesion abierta
 			}
+
+
 			else {
 				///////////////////////////login
 				$valor="fondo/fondo5.jpg";
@@ -120,7 +124,7 @@
 									<input class='form-control' placeholder='Contraseña' type='password'  id='passAcceso' name='passAcceso' required>
 								</div>
 								<button class='btn btn-warning btn-block' type='submit'><i class='fa fa-check'></i>Aceptar</button>
-								<button class='btn btn-outline-info btn-block' type='button' id='recuperar'><i class='fas fa-key'></i>Recuperar contraseña</button>
+								<button class='btn btn-outline-info btn-block' type='button' onclick='recuperar()'><i class='fas fa-key'></i>Recuperar contraseña</button>
 								<center>http://sagyc.com.mx</center>
 						</div>
 					</form>";
@@ -130,10 +134,8 @@
 			return json_encode($arreglo);
 		}
 		public function acceso(){
-
 			$userPOST = htmlspecialchars($_REQUEST["userAcceso"]);
-			$passPOST = $_REQUEST["passAcceso"];
-
+			$passPOST = htmlspecialchars($_REQUEST["passAcceso"]);
 
 			self::set_names();
 			$sql="select * from afiliados where Filiacion=:usuario and password=:pass";
@@ -155,11 +157,6 @@
 					$_SESSION['idfolio']=$datos['idfolio'];
 					$_SESSION['llave']=md5(rand(10000,99999).$passwordBD);
 
-					$_SESSION['anio']=date("Y");
-					$_SESSION['mes']=date("m");
-					$_SESSION['dia']=date("d");
-					$_SESSION['nocuenta'] = 1;
-					$_SESSION['ventana'] = "";
 					$_SESSION['administrador']=0;
 					$_SESSION['hasta']=date("Y");
 					$_SESSION['foco']=mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
@@ -170,9 +167,148 @@
 				}
 			}
 			else {
-				$arr=array();
-				$arr=array('acceso'=>0,'idpersona'=>0);
-				return json_encode($arr);
+				$sql="select * from usuarios where NOMBRE=:usuario and CLAVE_ACC=:pass";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":usuario",$userPOST);
+				$sth->bindValue(":pass",$passPOST);
+				$sth->execute();
+				$datos=$sth->fetch();
+				if(is_array($datos)){
+					$userBD = trim($datos['NOMBRE']);
+					$passwordBD = trim($datos['CLAVE_ACC']);
+					if($userPOST == $userBD and $passPOST==$passwordBD){
+						$_SESSION['autoriza']=1;
+						$_SESSION['filiacion']=$datos['RFC'];
+						$_SESSION['nombre']=$datos['NOMBRE'];
+						$_SESSION['idfolio']=$datos['CLV_PER'];
+						$_SESSION['ape_pat']="";
+						$_SESSION['ape_mat']="";
+
+						$_SESSION['administrador']=1;
+						$_SESSION['hasta']=date("Y");
+						$_SESSION['foco']=mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
+
+						$arr=array();
+						$arr=array('acceso'=>1,'idpersona'=>0);
+						return json_encode($arr);
+					}
+				}
+				else{
+					$arr=array();
+					$arr=array('acceso'=>0,'idpersona'=>0);
+					return json_encode($arr);
+				}
+			}
+		}
+
+		public function recuperar_form(){
+			$x="<form id='recuperarx' action=''>
+				<div class='container'>
+						<center><img src='img/caja.png' width='150px'></center>
+						<br><center><h5>Recuperar contraseña</h5></center>
+						<hr>
+						<p class='input_title'><center>Correo electrónico o Número telefónico registrado</center></p>
+						<div class='form-group input-group'>
+							<div class='input-group-prepend'>
+								<span class='input-group-text'> <i class='fa fa-lock'></i> </span>
+							</div>
+							<input class='form-control' placeholder='Correo o telefono' type='text'  id='telefono' name='telefono' required>
+						</div>
+
+						<button class='btn btn-warning btn-block' type='submit' ><i class='fas fa-share-square'></i>Recuperar</button>
+						<button class='btn btn-outline-info btn-block' type='button' onclick='acceso()'><i class='fas fa-long-arrow-alt-left'></i>Regresar</button>
+
+						<center>http://sagyc.com.mx</center>
+				</div>
+			</form>";
+			return $x;
+		}
+		public function manda_pass(){
+			require 'librerias15/PHPMailer-5.2-stable/PHPMailerAutoload.php';
+			$telefono = $_REQUEST["telefono"];
+
+			$sql="select * from afiliados where correo='$telefono' or celular='$telefono'";
+			$rx=$this->general($sql,1);
+
+			$fecha=date("Y-m-d H:i:s");
+			if(count($rx)>0){
+				$correo=$rx[0]['correo'];
+				$pass=$rx[0]['password'];
+				$filiacion=$rx[0]['Filiacion'];
+				$tipo=2;
+
+				if (filter_var(trim($correo), FILTER_VALIDATE_EMAIL) and trim($correo)==trim($telefono)) {
+					$mail = new PHPMailer();
+					$mail->CharSet = 'UTF-8';
+					$mail->IsSMTP();
+					$mail->SMTPAuth = true;
+					$mail->SMTPSecure = "ssl";
+					$mail->Host = "cs8.webhostbox.net";
+					$mail->Port = 465;
+					$mail->Username = "no_reply@snte.sagyc.com.mx";
+					$mail->Password = "1234567890";
+
+					$mail->From = "no_reply@snte.sagyc.com.mx";
+					$mail->FromName = "SNTE";
+					$mail->Subject = "SNTE";
+					$mail->AltBody = "AVISO";
+
+					$t="<br>Sistema de Credito y caja de ahorro<br>";
+					$t.="la contraseña es: <b>".$pass."</b>";
+
+					$mail->MsgHTML($t);
+
+					$mail->AddAddress("$correo");
+					$mail->AddAttachment("img/caja.png");
+
+					$mail->IsHTML(true);
+					if(!$mail->Send()) {
+						echo $mail->ErrorInfo;
+					} else {
+
+					}
+					$tipo="R:$telefono";
+					$sql="insert into abitacora (acceso, fecha, tipo,enviado) values ('$filiacion','$fecha','$tipo','1') ";
+					$rx=$this->general($sql,1);
+				}
+				else{
+					$numero=$rx[0]['celular'];
+					$t=trim($rx[0]['password']);
+					$filiacion=$rx[0]['Filiacion'];
+					$tipo=2;
+
+					if ($numero==$telefono){
+						//////////////esto es lo nuevo
+
+						$telefono="+52".$telefono;
+						$texto="SNTE La clave es: $t";
+						$user='sagyc';
+						$pass = 'sagyc123';
+						$url="http://usa.bulksms.com/eapi/submission/send_sms/2/2.0?username=".$user."&password=".$pass."&message=".urlencode($texto)."&msisdn=".$telefono;
+
+						$curl = curl_init();
+						curl_setopt($curl, CURLOPT_URL, $url);
+						curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($curl, CURLOPT_HEADER, false);
+						$str = curl_exec($curl);
+						curl_close($curl);
+
+						///////////hasta aqui se envia.. comienza la comprobación.
+						list($status,$descripcion,$batch)=explode("|",$str);
+
+						$url="http://usa.bulksms.com/eapi/reception/get_inbox/1/1.1?username=".$user."&password=".$pass."&last_retrieved_id=".$batch;
+						$curl = curl_init();
+						curl_setopt($curl, CURLOPT_URL, $url);
+						curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($curl, CURLOPT_HEADER, false);
+						$str = curl_exec($curl);
+						curl_close($curl);
+
+					}
+				}
+			}
+			else{
+				return "No registrado";
 			}
 		}
 
@@ -495,6 +631,24 @@
 			else{
 				return "No coinciden contraseñas";
 			}
+		}
+
+		public function guardar_beneficiarios(){
+			$x="";
+			$arreglo =array();
+			/*aqui agregar todos los campos necesarios aguas con los nombres*/
+			if (isset($_REQUEST['bene1'])){
+				$arreglo+=array('bene1'=>$_REQUEST['bene1']);
+			}
+			if (isset($_REQUEST['par1'])){
+				$arreglo+=array('par1'=>$_REQUEST['par1']);
+			}
+			if (isset($_REQUEST['porcentaje1'])){
+				$arreglo+=array('porcentaje1'=>$_REQUEST['porcentaje1']);
+			}
+
+			$x.=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			return $x;
 		}
 	}
 

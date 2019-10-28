@@ -45,6 +45,63 @@
 			}
 		});
 	}
+
+	function recuperar(){
+		$.ajax({
+			data:  {
+				"ctrl":"control",
+				"function":"recuperar_form"
+			},
+			url:   'control_db.php',
+			type:  'post',
+			success:  function (response) {
+				$("#modal_form").html(response);
+			}
+		});
+	}
+	$(document).on('submit','#recuperarx',function(e){
+		e.preventDefault();
+		var telefono=$('#telefono').val();
+		telefono=telefono.trim();
+		if(telefono.length>2){
+			var parametros={
+				"ctrl":"control",
+				"function":"manda_pass",
+				"telefono":telefono
+			};
+			$.ajax({
+				url: "control_db.php",
+				type: "POST",
+				data: parametros,
+				timeout:10000,
+				beforeSend: function () {
+					$("#cargando").addClass("is-active");
+				},
+				success:function(response){
+					if (response !== "") {
+						Swal.fire({
+								type: 'error',
+								title: response,
+								showConfirmButton: false,
+								timer: 1000
+						})
+					} else {
+						Swal.fire({
+								type: 'success',
+								title: 'Se notificó correctamente',
+								showConfirmButton: false,
+								timer: 1000
+						})
+					}
+				}
+			});
+		}
+		else{
+			$( "#telefono" ).focus();
+			$( "#telefono" ).val("");
+		}
+		$("#cargando").removeClass("is-active");
+	});
 	$(window).on('hashchange',function(){
 		loadContent(location.hash.slice(1));
 	});
@@ -80,146 +137,6 @@
 			}
 		});
 		$("#cargando").removeClass("is-active");
-	}
-	function notificarx(){
-		$.ajax({
-			data:  {
-				"ctrl":"control",
-				"function":"notificarx"
-			},
-			url:   'control_db.php',
-			type:  'post',
-			timeout:3000,
-			error: function(jqXHR, textStatus, errorThrown) {
-				if(textStatus==="timeout") {
-				}
-			}
-		});
-
-		$.ajax({
-			data:  {
-				"ctrl":"control",
-				"function":"alertas"
-			},
-			url:   'control_db.php',
-			type:  'post',
-			timeout:2000,
-			success:  function (response) {
-				var data = JSON.parse(response);
-				if(data.entra==1){
-					msg_notificacion(data.texto);
-					Swal.fire({
-					  title: '¿Aprobar correspondencia?',
-					  text: data.numero+" - >"+data.nombre+" <----> "+data.asunto,
-					  type: 'question',
-					  showCancelButton: true,
-					  confirmButtonColor: '#3085d6',
-					  cancelButtonColor: '#d33',
-					  confirmButtonText: 'Turnar'
-					}).then((result) => {
-					  if (result.value) {
-							if(data.tipo==1){
-								lugar="a_corresp/db_.php";
-							}
-							if(data.tipo==2){
-								lugar="a_corresps/db_.php";
-							}
-							$.ajax({
-								data:  {
-									"id":data.idoficio,
-									"idrel":data.id,
-									"function":"turnasol"
-								},
-								url:   lugar,
-								type:  'post',
-								success:  function (response) {
-									Swal.fire(
-							      'Turnado!'+response,
-							      'Oficio turnado',
-							      'success'
-							    )
-								}
-							});
-
-							$.ajax({
-								data:  {
-									"texto":"Oficio No:"+ data.numero+" Turnado ",
-									"id":data.idpersona,
-									"function":"manda"
-								},
-								url:   "chat/chat.php",
-								type:  'post',
-								success:  function (response) {
-								}
-							});
-					  }
-					});
-				}
-			}
-		});
-	}
-	function msg_notificacion(texto){
-		if  (Notification.permission  ===  "granted")  {
-			var  options  =   {
-					body:   texto,
-					icon:   "img/escudo.jpg",
-					dir :   "ltr"
-			};
-			var  notification  =  new  Notification("Sistema Administrativo de Salud Pública", options);
-		}
-	}
-	function notifyMe(){
-    if  (!("Notification"  in  window))  {
-
-    }
-    else  if  (Notification.permission  ===  "granted")  {
-
-    }
-    else  if  (Notification.permission  !==  'denied')  {
-        Notification.requestPermission(function (permission)  {
-            if  (!('permission'  in  Notification))  {
-                Notification.permission  =  permission;
-            }
-            if  (permission  ===  "granted")  {
-
-            }
-        });
-    }
-	}
-	function correo(){
-		var parametros={
-			"ctrl":"control",
-			"function":"correo"
-		};
-		$.ajax({
-			data:  parametros,
-			url: "control_db.php",
-			type: "post",
-			beforeSend: function () {
-			},
-			success:  function (response) {
-				if(response=="correo"){
-					$('#myModal').modal('show');
-					$("#modal_form").load("escritorio/correo.php");
-				}
-			}
-		});
-	}
-	function fondos(){
-		var parametros={
-			"ctrl":"control",
-			"function":"fondo_carga"
-		};
-		$.ajax({
-			data:  parametros,
-			url: "control_db.php",
-			type: "post",
-			beforeSend: function () {
-			},
-			success:  function (response) {
-				$("#fondo").html(response);
-			}
-		});
 	}
 	function lista(id) {
 		$('#'+id).DataTable({
@@ -300,6 +217,7 @@
 				"passAcceso":passAcceso
 		  },
 		  success: function( response ) {
+				console.log(response);
 				var data = JSON.parse(response);
 				if (data.acceso==1){
 					acceso();
@@ -490,7 +408,6 @@
 					$(contenido).html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
 				},
 				success:  function (response) {
-					console.log(response);
 					$(contenido).html(response);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
@@ -727,28 +644,6 @@
 			}
 		});
 	});
-	$(document).on("change","#yearx_val",function(e){
-		e.preventDefault();
-		var id=$(this).val();
-		$.ajax({
-			data:  {
-				"id":id,
-				"ctrl":"control",
-				"function":"anioc"
-			},
-			url:   "control_db.php",
-			type:  'post',
-			success:  function (response) {
-				$("#contenido").load('escritorio/dashboard.php');
-				Swal.fire({
-				  type: 'success',
-				  title: response,
-				  showConfirmButton: false,
-				  timer: 1000
-				});
-			}
-		});
-	});
 	$(document).on("click","[id^='delfile_']",function(e){
 		e.preventDefault();
 		var ruta = $(this).data('ruta');
@@ -828,19 +723,6 @@
 		$("#modal_form").load(lugar+".php?id="+id+"&id2="+id2+"&id3="+id3);
 		$('#myModal').modal({backdrop: 'static', keyboard: false})
 		$('#myModal').modal('show');
-	});
-	$(document).on("click",'#recuperar',function(e){
-		e.preventDefault();
-		$.ajax({
-			url:   'acceso/recuperar.php',
-			  beforeSend: function () {
-					$("#data").html("Procesando, espere por favor...");
-			  },
-			  success:  function (response) {
-				$("#data").html('');
-				$("#data").html(response);
-			  }
-		});
 	});
 	$(document).on('submit','#recovery',function(e){
 			e.preventDefault();
