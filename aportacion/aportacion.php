@@ -6,7 +6,6 @@
   $ape_pat=$row['ape_pat'];
   $ape_mat=$row['ape_mat'];
   $nombre=$row['nombre'];
-
   $a_qui=$row['a_qui'];
 
     echo "<div class='container'>";
@@ -65,8 +64,16 @@
           echo "</div>";
         echo "</div>";
 
+        $row=$db->blo_lista();
+        $aportacion=$row['aportacion'];
+        $faportacion=fecha($row['faportacion']);
+        $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+        $fecha_entrada = strtotime($faportacion);
+
     		echo "<div class='card-footer'>";
-    			echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+          if(($aportacion==1 and $fecha_actual <= $fecha_entrada) or ($aportacion==1 and strlen($faportacion)==0)){
+    			  echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+          }
     		echo "</div>";
       echo "</div>";
     	echo "</form>";

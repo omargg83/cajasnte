@@ -115,14 +115,19 @@ echo "<div class='container'>";
             echo "<input class='form-control' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Conyugue'>";
           echo "</div>";
         echo "</div>";
-
-
-
-
       echo "</div>";
     echo "</div>";
+
+		$row=$db->blo_lista();
+		$usuario=$row['usuario'];
+		$fusuario=fecha($row['fusuario']);
+		$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+		$fecha_entrada = strtotime($fusuario);
+
 		echo "<div class='card-footer'>";
-			echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+			if(($usuario==1 and $fecha_actual <= $fecha_entrada) or ($usuario==1 and strlen($fusuario)==0)){
+				echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+			}
 		echo "</div>";
   echo "</div>";
 	echo "</form>";
