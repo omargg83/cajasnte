@@ -11,7 +11,6 @@
 			<th>-</th>
 			<th>Foto</th>
 			<th>Nombre</th>
-			<th>Area</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -26,6 +25,7 @@
 					echo "</td>";
 
 					echo "<td>".$key["nombre"]."</td>";
+					echo "<td>".$key["asunto"]."</td>";
 					echo "</tr>";
 				}
 			?>

@@ -3,10 +3,12 @@
   $id=$_REQUEST['id'];
   $nombre="";
   $texto="";
+  $corto="";
   if($id>0){
     $row = $db->blog_editar($id);
     $nombre=$row['nombre'];
     $texto=$row['texto'];
+    $corto=$row['corto'];
   }
 
   echo "<div class='container'>";
@@ -18,9 +20,14 @@
         echo "</div>";
         echo "<div class='card-body'>";
           echo "<div class='row'>";
-            echo  "<div class='col-sm-6'>";
+            echo  "<div class='col-sm-4'>";
               echo "<label>Nombre</label>";
-              echo "<input class='form-control' type='text' id='nombre' NAME='nombre' value='$nombre' maxlength='45' placeholder='nombre del mensaje'>";
+              echo "<input class='form-control' type='text' id='nombre' NAME='nombre' value='$nombre' maxlength='45' placeholder='Nombre del mensaje'>";
+            echo "</div>";
+
+            echo  "<div class='col-sm-6'>";
+              echo "<label>Asunto</label>";
+              echo "<input class='form-control' type='text' id='corto' NAME='corto' value='$corto' maxlength='200' placeholder='Asunto'>";
             echo "</div>";
           echo "</div>";
 

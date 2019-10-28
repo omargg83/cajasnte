@@ -15,9 +15,8 @@
 		echo "<div class='card' style='width: 18rem;'>
 			<div class='card-body'>
 				<h5 class='card-title'>".$key['nombre']."</h5>
-				<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				<a href='#' class='card-link'>Card link</a>
-				<a href='#' class='card-link'>Another link</a>
+				<p class='card-text'>".$key['corto']."</p>
+				<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_pass' data-id='".$key['id']."' data-lugar='admin/blog_leer' title='Cambiar contraseña' ><i class='fas fa-key'></i>Leer</button>
 			</div>
 		</div>";
 	}

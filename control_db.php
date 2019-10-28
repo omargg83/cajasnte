@@ -919,6 +919,9 @@
 			if (isset($_REQUEST['texto'])){
 				$arreglo+=array('texto'=>$_REQUEST['texto']);
 			}
+			if (isset($_REQUEST['corto'])){
+				$arreglo+=array('corto'=>$_REQUEST['corto']);
+			}
 
 			if($id==0){
 				$x.=$this->insert('bit_blog', $arreglo);
