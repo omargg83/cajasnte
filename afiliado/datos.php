@@ -6,7 +6,14 @@
   $ape_pat=$row['ape_pat'];
   $ape_mat=$row['ape_mat'];
   $nombre=$row['nombre'];
-  $e_civ=$row['e_civ'];
+
+
+	$d_dom=$row['d_dom'];
+	$l_loc=$row['l_loc'];
+	$m_mun=$row['m_mun'];
+
+	$e_civ=$row['e_civ'];
+	$conyuge=$row['n_con'];
 
 echo "<div class='container'>";
 	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos'>";
@@ -52,40 +59,6 @@ echo "<div class='container'>";
           echo "</div>";
         echo "</div>";
 
-        echo "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='r_reg'>Región</label>";
-            echo "<input class='form-control' type='text' id='r_reg' NAME='r_reg' value='".$row['r_reg']." ".$row['r_rrg']."' placeholder='Región' readonly>";
-          echo "</div>";
-        echo "</div>";
-
-        echo "<div class='col-xl-3 col-lg-6 col-md-6 col-sm-5'>";
-          echo "<div class='form-group'>";
-            echo "<label for='c_psp'>Clave Presupuestal</label>";
-            echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal' readonly>";
-          echo "</div>";
-        echo "</div>";
-
-        echo "<div class='col-xl-3 col-lg-3 col-md-3 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='d_dom'>Correo</label>";
-            echo "<input class='form-control' type='text' id='mail' NAME='mail' value='".$row['correo']."' placeholder='Correo' readonly>";
-          echo "</div>";
-        echo "</div>";
-
-        echo  "<div class='col-xl-3 col-lg-3 col-md-4 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='d_dom'>Celular</label>";
-            echo "<input class='form-control' type='text' id='celular' NAME='celular' value='".$row['celular']."' placeholder='Celular' readonly>";
-          echo "</div>";
-        echo "</div>";
-
-				echo "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='a_qui'>Aportacion Ahorro</label>";
-            echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .number_format($row['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
-          echo "</div>";
-        echo "</div>";
 
 			echo "</div>";
 			echo "<hr>";
@@ -103,8 +76,21 @@ echo "<div class='container'>";
 
 						echo "<select class='form-control' name='e_civ' id='e_civ'>";
 						echo "<option value='' selected style='color: silver;'>Seleccione...</option>";
-							echo  "<option value='SOLTERO'"; if ($e_civ=='SOLTERO'){echo  " selected";}			echo  ">Soltero</option>";
+							echo  "<option value='CASADA'"; if ($e_civ=='CASADA'){echo  " selected";}			echo  ">CASADA</option>";
+							echo  "<option value='CASADO '"; if ($e_civ=='CASADO'){echo  " selected";}			echo  ">CASADO</option>";
+							echo  "<option value='CONCUBINATO'"; if ($e_civ=='CONCUBINATO'){echo  " selected";}			echo  ">CONCUBINATO</option>";
 							echo  "<option value='DIVORCIADA '"; if ($e_civ=='DIVORCIADA'){echo  " selected";}			echo  ">DIVORCIADA</option>";
+							echo  "<option value='DIVORCIADO'"; if ($e_civ=='DIVORCIADO'){echo  " selected";}			echo  ">DIVORCIADO</option>";
+							echo  "<option value='MADRE SOLTERA '"; if ($e_civ=='MADRE SOLTERA'){echo  " selected";}			echo  ">MADRE SOLTERA</option>";
+							echo  "<option value='PADRE SOLTERO'"; if ($e_civ=='PADRE SOLTERO'){echo  " selected";}			echo  ">PADRE SOLTERO</option>";
+							echo  "<option value='SEPARADA '"; if ($e_civ=='SEPARADA'){echo  " selected";}			echo  ">SEPARADA</option>";
+
+							echo  "<option value='SEPARADO '"; if ($e_civ=='SEPARADO'){echo  " selected";}			echo  ">SEPARADO</option>";
+							echo  "<option value='SOLTERA'"; if ($e_civ=='SOLTERA'){echo  " selected";}			echo  ">SOLTERA</option>";
+							echo  "<option value='SOLTERO'"; if ($e_civ=='SOLTERO'){echo  " selected";}			echo  ">SOLTERO</option>";
+							echo  "<option value='UNIÓN LIBRE'"; if ($e_civ=='UNIÓN LIBRE'){echo  " selected";}			echo  ">UNIÓN LIBRE</option>";
+							echo  "<option value='VIUDA'"; if ($e_civ=='VIUDA'){echo  " selected";}			echo  ">VIUDA</option>";
+							echo  "<option value='VIUDO'"; if ($e_civ=='VIUDO'){echo  " selected";}			echo  ">VIUDO</option>";
 						echo  "</select>";
 					echo "</div>";
 				echo "</div>";
@@ -118,68 +104,20 @@ echo "<div class='container'>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
-            echo "<label for='n_con'>Localidad</label>";
-            echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
+            echo "<label for='l_loc'>Localidad</label>";
+            echo "<input class='form-control' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Conyugue'>";
           echo "</div>";
         echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
-            echo "<label for='n_con'>Municipio</label>";
-            echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
+            echo "<label for='m_mun'>Municipio</label>";
+            echo "<input class='form-control' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Conyugue'>";
           echo "</div>";
         echo "</div>";
 
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='n_con'>Telefono</label>";
-            echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-          echo "</div>";
-        echo "</div>";
-      echo "</div>";
 
-			echo "<div class='row'>";
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Clave del centro de trabajo</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
 
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Ubicación</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
-
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Delegación</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
-
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Región</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
-
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Clave Presupuestal</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
-
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Per. Quincenal</label>";
-						echo "<input class='form-control' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-					echo "</div>";
-				echo "</div>";
 
       echo "</div>";
     echo "</div>";
