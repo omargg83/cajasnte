@@ -9,7 +9,8 @@
   $e_civ=$row['e_civ'];
 
 echo "<div class='container'>";
-	echo "<form id='form_comision' action='' data-lugar='control_db' data-destino='datos/editar' data-funcion='guardar_datos'>";
+	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos'>";
+	  echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
   echo "<div class='card'>";
 		echo "<div class='card-header'>";
 			echo "Datos generales";
@@ -65,8 +66,6 @@ echo "<div class='container'>";
           echo "</div>";
         echo "</div>";
 
-
-
         echo "<div class='col-xl-3 col-lg-3 col-md-3 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='d_dom'>Correo</label>";
@@ -81,17 +80,6 @@ echo "<div class='container'>";
           echo "</div>";
         echo "</div>";
 
-        $Fecha_Ingreso=$row['Fecha_Ingreso'];
-        list($Fecha_Ingreso,$hora) = explode(" ",$Fecha_Ingreso);
-        list($anio,$mes,$dia) = explode("-",$Fecha_Ingreso);
-        $Fecha_Ingreso=$dia."-".$mes."-".$anio;
-
-        /*echo  "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
-        echo "<div class='form-group'>";
-        echo "<label for='Fecha_Ingreso'>Fecha de ingreso</label>";
-        echo "<input class='form-control' type='text' id='Fecha_Ingreso' NAME='Fecha_Ingreso' value='".$Fecha_Ingreso."' placeholder='Fecha de ingreso' readonly>";
-        echo "</div>";
-        echo "</div>";*/
 				echo "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='a_qui'>Aportacion Ahorro</label>";
@@ -105,7 +93,7 @@ echo "<div class='container'>";
         echo "<div class='col-xl-12 col-lg-8 col-md-8 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='d_dom'>Domicilio</label>";
-            echo "<input class='form-control' type='text' id='d_dom' NAME='d_dom' value='".$row['d_dom']."' placeholder='Dirección' readonly>";
+            echo "<input class='form-control' type='text' id='d_dom' NAME='d_dom' value='".$row['d_dom']."' placeholder='Dirección'>";
           echo "</div>";
         echo "</div>";
 

@@ -79,7 +79,7 @@
 									$y.="<hr>";
 									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
-									$y.="<a href='#afiliado/datos' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
+									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
 									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
 									$y.="<hr>";
 
@@ -589,26 +589,35 @@
 		}
 		public function guardar_datos(){
 			$x="";
-
 			$arreglo =array();
-			if (isset($_REQUEST['numero'])){
-				$arreglo+=array('numero'=>$_REQUEST['numero']);
+			
+			////////////////////////////////////////aca
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$fecha=date("Y-m-d H:i:s");
+			$arreglo+=array('fecha'=>$fecha);
+
+			if($contar==1){
+				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
-
-			if (isset($_REQUEST['frecibido'])){
-				$fx=explode("-",$_REQUEST['frecibido']);
-				$arreglo+=array('frecibido'=>$fx['2']."-".$fx['1']."-".$fx['0']);
+			else{
+				$arreglo+=array('estado'=>0);
+				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+				$arreglo+=array('nombre'=>$_SESSION['nombre']);
+				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$this->insert('bit_datos', $arreglo);
 			}
-
-			$arreglo+=array('modificado'=>date("Y-m-d H:i:s"));
-
-			//$x.=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-			//return $x;
-			return "Guardando";
+			////////////////////////////
+			return $x;
 		}
 		public function guardar_acceso(){
 			$x="";
-
 			$arreglo =array();
 			if (isset($_REQUEST['correo'])){
 				$arreglo+=array('correo'=>$_REQUEST['correo']);
@@ -616,8 +625,31 @@
 			if (isset($_REQUEST['telefono'])){
 				$arreglo+=array('celular'=>$_REQUEST['telefono']);
 			}
-
 			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+
+
+			////////////////////////////////////////aca
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$fecha=date("Y-m-d H:i:s");
+			$arreglo+=array('fecha'=>$fecha);
+
+			if($contar==1){
+				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			}
+			else{
+				$arreglo+=array('estado'=>0);
+				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+				$arreglo+=array('nombre'=>$_SESSION['nombre']);
+				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$x=$this->insert('bit_datos', $arreglo);
+			}
 			return $x;
 		}
 		public function guardar_pass(){
@@ -626,13 +658,69 @@
 			if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
 				$arreglo+=array('password'=>trim($_REQUEST['pass1']));
 				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+
+				////////////////////////////////////////aca
+				$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				$row=$sth->fetch();
+				$contar=$sth->rowCount();
+
+				$fecha=date("Y-m-d H:i:s");
+				$arreglo+=array('fecha'=>$fecha);
+
+				if($contar==1){
+					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				}
+				else{
+					$arreglo+=array('estado'=>0);
+					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('nombre'=>$_SESSION['nombre']);
+					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+					$this->insert('bit_datos', $arreglo);
+				}
+				////////////////////////////
 				return $x;
 			}
 			else{
 				return "No coinciden contraseñas";
 			}
-		}
 
+
+		}
+		public function guardar_aportacion(){
+			$arreglo =array();
+
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$arreglo=array();
+			if (isset($_REQUEST['a_qui'])){
+				$arreglo+=array('aportacion'=>$_REQUEST['a_qui']);
+			}
+
+			$fecha=date("Y-m-d H:i:s");
+			$arreglo+=array('fecha'=>$fecha);
+
+			if($contar==1){
+				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			}
+			else{
+				$arreglo+=array('estado'=>0);
+				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+				$arreglo+=array('nombre'=>$_SESSION['nombre']);
+				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$x=$this->insert('bit_datos', $arreglo);
+			}
+			return $_SESSION['idfolio'];
+		}
 		public function guardar_beneficiarios(){
 			$x="";
 			$arreglo =array();
@@ -650,6 +738,8 @@
 			$x.=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 			return $x;
 		}
+
+
 	}
 
 	$db = new Sagyc();
