@@ -657,21 +657,6 @@
 			else{
 				$arreglo+=array('c_psp'=>NULL);
 			}
-
-
-			/*
-						d_dom
-						e_civ
-						n_con
-						l_loc
-						m_mun
-						c_c_t
-						u_bic
-						d_sin
-						r_rrg
-						c_psp
-			*/
-
 			////////////////////////////////////////aca
 			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
 			$sth = $this->dbh->prepare($sql);
