@@ -590,9 +590,87 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
+
 		public function guardar_datos(){
 			$x="";
 			$arreglo =array();
+
+			$x="";
+			$arreglo =array();
+			if (isset($_REQUEST['d_dom']) and strlen($_REQUEST['d_dom'])>0){
+				$arreglo+=array('d_dom'=>$_REQUEST['d_dom']);
+			}
+			else{
+				$arreglo+=array('d_dom'=>NULL);
+			}
+			if (isset($_REQUEST['e_civ']) and strlen($_REQUEST['e_civ'])>0){
+				$arreglo+=array('e_civ'=>$_REQUEST['e_civ']);
+			}
+			else{
+				$arreglo+=array('e_civ'=>NULL);
+			}
+			if (isset($_REQUEST['n_con']) and strlen($_REQUEST['n_con'])>0){
+				$arreglo+=array('n_con'=>$_REQUEST['n_con']);
+			}
+			else{
+				$arreglo+=array('n_con'=>NULL);
+			}
+			if (isset($_REQUEST['l_loc']) and strlen($_REQUEST['l_loc'])>0){
+				$arreglo+=array('l_loc'=>$_REQUEST['l_loc']);
+			}
+			else{
+				$arreglo+=array('l_loc'=>NULL);
+			}
+			if (isset($_REQUEST['m_mun']) and strlen($_REQUEST['m_mun'])>0){
+				$arreglo+=array('m_mun'=>$_REQUEST['m_mun']);
+			}
+			else{
+				$arreglo+=array('m_mun'=>NULL);
+			}
+			if (isset($_REQUEST['c_c_t']) and strlen($_REQUEST['c_c_t'])>0){
+				$arreglo+=array('c_c_t'=>$_REQUEST['c_c_t']);
+			}
+			else{
+				$arreglo+=array('c_c_t'=>NULL);
+			}
+			if (isset($_REQUEST['u_bic']) and strlen($_REQUEST['u_bic'])>0){
+				$arreglo+=array('u_bic'=>$_REQUEST['u_bic']);
+			}
+			else{
+				$arreglo+=array('u_bic'=>NULL);
+			}
+			if (isset($_REQUEST['d_sin']) and strlen($_REQUEST['d_sin'])>0){
+				$arreglo+=array('d_sin'=>$_REQUEST['d_sin']);
+			}
+			else{
+				$arreglo+=array('d_sin'=>NULL);
+			}
+			if (isset($_REQUEST['r_rrg']) and strlen($_REQUEST['r_rrg'])>0){
+				$arreglo+=array('r_rrg'=>$_REQUEST['r_rrg']);
+			}
+			else{
+				$arreglo+=array('r_rrg'=>NULL);
+			}
+			if (isset($_REQUEST['c_psp']) and strlen($_REQUEST['c_psp'])>0){
+				$arreglo+=array('c_psp'=>$_REQUEST['c_psp']);
+			}
+			else{
+				$arreglo+=array('c_psp'=>NULL);
+			}
+
+
+/*
+			d_dom
+			e_civ
+			n_con
+			l_loc
+			m_mun
+			c_c_t
+			u_bic
+			d_sin
+			r_rrg
+			c_psp
+*/
 
 			////////////////////////////////////////aca
 			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
@@ -921,6 +999,13 @@
 			}
 			if (isset($_REQUEST['corto'])){
 				$arreglo+=array('corto'=>$_REQUEST['corto']);
+			}
+			if (isset($_REQUEST['limite']) and strlen($_REQUEST['limite'])>0){
+				$fx=explode("-",$_REQUEST['limite']);
+				$arreglo+=array('limite'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
+			}
+			else{
+				$arreglo+=array('limite'=>NULL);
 			}
 
 			if($id==0){

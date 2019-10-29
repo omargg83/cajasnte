@@ -81,7 +81,6 @@ i:hover{
     background-size: cover;
 }
 
-
 @media (max-width: 575.98px) {
 	.sidebar{
 		width: 1px;
@@ -119,7 +118,6 @@ i:hover{
 	}
 
 }
-
 @media (min-width: 1200px) {
 	.sidebar{
 		width: 58px;
@@ -142,7 +140,6 @@ i:hover{
 		margin-left: 1px; /* Same as the width of the sidenav */
 		padding-left: 185px;
 	}
-
 }
 
 .barra{
@@ -152,7 +149,6 @@ i:hover{
 .barra .navbar-nav>li>a{
 	color:white;
 }
-
 .card-header, .card-footer{
   background-color: var(--color-card) !important;
 }

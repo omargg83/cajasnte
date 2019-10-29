@@ -157,8 +157,6 @@ echo "<div class='container'>";
 						echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Conyugue'>";
 					echo "</div>";
 				echo "</div>";
-
-
       echo "</div>";
     echo "</div>";
 		echo "<div class='card-footer'>";

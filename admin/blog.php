@@ -1,6 +1,6 @@
 <?php
   require_once("../control_db.php");
-	echo "<nav class='navbar navbar-expand-lg navbar-light bg-light '>
+	echo "<nav class='navbar navbar-expand-lg navbar-light bg-light'>
 
 	<a class='navbar-brand' ><i class='fas fa-users'></i> Pizarrón</a>
 

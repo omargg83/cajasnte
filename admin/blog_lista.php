@@ -8,9 +8,9 @@
 			<table class="table-sm display compact hover" id="x_lista">
 			<thead>
 			<th>#</th>
-			<th>-</th>
-			<th>Foto</th>
 			<th>Nombre</th>
+			<th>Asunto</th>
+      <th>Limite</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -25,7 +25,8 @@
 					echo "</td>";
 
 					echo "<td>".$key["nombre"]."</td>";
-					echo "<td>".$key["asunto"]."</td>";
+					echo "<td>".$key["corto"]."</td>";
+					echo "<td>".fecha($key["limite"])."</td>";
 					echo "</tr>";
 				}
 			?>

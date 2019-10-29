@@ -94,4 +94,9 @@
 
 	<script src="librerias15/jQuery-MD5-master/jquery.md5.js"></script>
 
+	<!--   editor   -->
+
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
 </html>

@@ -83,8 +83,6 @@
               echo  "<input class='form-control fechaclass' type='text' id='fbeneficiarios' NAME='fbeneficiarios' value='$fbeneficiarios' maxlength='13' placeholder='Fecha'>";
             echo "</div>";
           echo "</div>";
-
-
         echo "</div>";
 
         echo "<div class='card-footer'>";
