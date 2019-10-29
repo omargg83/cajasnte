@@ -52,6 +52,11 @@
 	<!-- Animation library for notifications   -->
     <link href="librerias15/animate.css" rel="stylesheet"/>
 
+	<!-- WYSWYG   -->
+	<link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet">
+  <script src="librerias15/summernote8.12/summernote-lite.js"></script>
+	<script src="librerias15/summernote8.12/lang/summernote-es-ES.js"></script>
+
 	<!--   Alertas   -->
 	<script src="librerias15/swal/dist/sweetalert2.min.js"></script>
 	<link rel="stylesheet" href="librerias15/swal/dist/sweetalert2.min.css">
@@ -96,7 +101,5 @@
 
 	<!--   editor   -->
 
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 </html>

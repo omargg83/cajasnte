@@ -42,10 +42,7 @@
           echo "<div class='row'>";
             echo  "<div class='col-sm-12'>";
               echo "<label>Mensaje</label>";
-
-
               echo "<textarea class='form-control' type='text' id='texto' NAME='texto' placeholder='Mensaje' name='editordata'>$texto</textarea>";
-
             echo "</div>";
           echo "</div>";
 
@@ -60,13 +57,15 @@
     echo "</form>";
   echo "</div>";
 ?>
+
   <script>
 
   $(function() {
     fechas();
     $('#texto').summernote({
+      lang: 'es-ES',
       placeholder: 'Mensaje de texto',
-      tabsize: 2,
+      tabsize: 5,
       height: 400
     });
   });
