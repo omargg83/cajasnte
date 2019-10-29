@@ -15,6 +15,12 @@
 	$e_civ=$row['e_civ'];
 	$conyuge=$row['n_con'];
 
+	$c_c_t=$row['c_c_t'];
+	$d_sin=$row['d_sin'];
+	$u_bic=$row['u_bic'];
+	$r_rrg=$row['r_rrg'];
+	$c_psp=$row['c_psp'];
+
 echo "<div class='container'>";
 	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos'>";
 	  echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
@@ -116,6 +122,42 @@ echo "<div class='container'>";
           echo "</div>";
         echo "</div>";
 
+				//////////////////
+				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+          echo "<div class='form-group'>";
+            echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
+            echo "<input class='form-control' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Conyugue'>";
+          echo "</div>";
+        echo "</div>";
+
+				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='u_bic'>Ubicación</label>";
+						echo "<input class='form-control' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Conyugue'>";
+					echo "</div>";
+				echo "</div>";
+
+				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='d_sin'>Delegación</label>";
+						echo "<input class='form-control' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Conyugue'>";
+					echo "</div>";
+				echo "</div>";
+
+				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='r_rrg'>Región</label>";
+						echo "<input class='form-control' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Conyugue'>";
+					echo "</div>";
+				echo "</div>";
+
+				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='c_psp'>Clave Presupuestal</label>";
+						echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Conyugue'>";
+					echo "</div>";
+				echo "</div>";
+
 
 
 
@@ -127,5 +169,3 @@ echo "<div class='container'>";
   echo "</div>";
 	echo "</form>";
 echo "</div>";
-
-?>
