@@ -2,6 +2,14 @@
 	require_once("../control_db.php");
 	$anio_tmp=date("Y");
 
+	$alerta=$db->blog_alerta();
+	echo "<div class='container' id='trabajo'>";
+	foreach($alerta as $key){
+		echo "<div class='alert alert-success'>";
+		echo $key['corto'];
+		echo "</div>";
+	}
+
 	$resp=$db->datos_ahorro($anio_tmp);
 	$ahorro=$db->ahorro($anio_tmp);
 	$ahorronum=count($db->ahorro($anio_tmp));

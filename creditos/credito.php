@@ -1,6 +1,14 @@
 <?php
 	require_once("../control_db.php");
 	$resp=$db->creditos();
+
+	$alerta=$db->blog_alerta();
+	echo "<div class='container' id='trabajo'>";
+	foreach($alerta as $key){
+		echo "<div class='alert alert-success'>";
+		echo $key['corto'];
+		echo "</div>";
+	}
 ?>
 <div class='container'>
 	<div class='card'>

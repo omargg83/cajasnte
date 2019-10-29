@@ -11,12 +11,18 @@
     echo "<div class='card-header'>";
       echo "<b>$nombre</b><br>";
       echo "$corto";
+
+      echo "<div class='btn-group float-right'>";
+        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/afiliado' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+      echo "</div>";
+
     echo "</div>";
     echo "<div class='card-body'>";
       echo $texto;
-    echo "</div>";
-    echo "<div class='card-footer'>";
-      echo "<button type='button' class='btn btn-outline-secondary btn-sm' data-dismiss='modal' title='Cancelar'><i class='fas fa-sign-out-alt'></i>Cerrar</button>";
-    echo "</div>";
+
+      echo "<br><div class='btn-group'>";
+        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/afiliado' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+      echo "</div>";
+
   echo "</div>";
 ?>
