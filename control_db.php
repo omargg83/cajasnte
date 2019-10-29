@@ -76,6 +76,7 @@
 									$y.="<hr>";
 									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>";
+									$y.="<a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Pizarrón</span></a>";
 								}
 								else{
 									$y.="<hr>";
@@ -831,6 +832,30 @@
 				$arreglo+=array('beneficiarios'=>0);
 			}
 
+			if (isset($_REQUEST['fusuario']) and strlen($_REQUEST['fusuario'])>0){
+				$fx=explode("-",$_REQUEST['fusuario']);
+				$arreglo+=array('fusuario'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
+			}
+			else{
+				$arreglo+=array('fusuario'=>NULL);
+			}
+
+			if (isset($_REQUEST['faportacion']) and strlen($_REQUEST['faportacion'])>0){
+				$fx=explode("-",$_REQUEST['faportacion']);
+				$arreglo+=array('faportacion'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
+			}
+			else{
+				$arreglo+=array('faportacion'=>NULL);
+			}
+
+			if (isset($_REQUEST['fbeneficiarios']) and strlen($_REQUEST['fbeneficiarios'])>0){
+				$fx=explode("-",$_REQUEST['fbeneficiarios']);
+				$arreglo+=array('fbeneficiarios'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
+			}
+			else{
+				$arreglo+=array('fbeneficiarios'=>NULL);
+			}
+
 			$sql="select * from bit_bloques limit 1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
@@ -849,6 +874,69 @@
 				self::set_names();
 				$sql="select * from bit_bloques limit 1";
 				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				return $sth->fetch();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+
+		public function blog_lista(){
+			try{
+				self::set_names();
+				$sql="select * from bit_blog";
+				$sth = $this->dbh->prepare($sql);
+				//$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				return $sth->fetchAll();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function blog_activo(){
+			try{
+				self::set_names();
+				$sql="select * from bit_blog";
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				return $sth->fetchAll();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
+		}
+		public function blog_guardar(){
+			///////////////////////
+			$x="";
+			if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
+			$arreglo =array();
+
+			if (isset($_REQUEST['nombre'])){
+				$arreglo = array('nombre'=>$_REQUEST['nombre']);
+			}
+			if (isset($_REQUEST['texto'])){
+				$arreglo+=array('texto'=>$_REQUEST['texto']);
+			}
+			if (isset($_REQUEST['corto'])){
+				$arreglo+=array('corto'=>$_REQUEST['corto']);
+			}
+
+			if($id==0){
+				$x.=$this->insert('bit_blog', $arreglo);
+			}
+			else{
+				$x.=$this->update('bit_blog',array('id'=>$id), $arreglo);
+			}
+			return $x;
+		}
+		public function blog_editar($id){
+			try{
+				self::set_names();
+				$sql="select * from bit_blog where id=:id";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":id",$id);
 				$sth->execute();
 				return $sth->fetch();
 			}

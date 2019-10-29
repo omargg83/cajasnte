@@ -195,10 +195,18 @@
         echo "</div>";
       echo "</div>";
 
+      $row=$db->blo_lista();
+      $beneficiarios=$row['beneficiarios'];
+      $fbeneficiarios=fecha($row['fbeneficiarios']);
+      $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+      $fecha_entrada = strtotime($fbeneficiarios);
 
-    		echo "<div class='card-footer'>";
-    			echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
-    		echo "</div>";
+        echo "<div class='card-footer'>";
+          if(($beneficiarios==1 and $fecha_actual <= $fecha_entrada) or ($beneficiarios==1 and strlen($beneficiarios)==0)){
+            echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+          }
+        echo "</div>";
+
       echo "</div>";
     	echo "</form>";
     echo "</div>";
