@@ -109,13 +109,13 @@
 	var hash=url.substring(url.indexOf("#")+1);
 
 	if(hash===url || hash===''){
-		hash='afiliado/afiliado';
+		hash='afiliado/index';
 	}
 	function loadContent(hash){
 		$("#cargando").addClass("is-active");
 		var id=$(this).attr('id');
 		if(hash===''){
-			hash= 'afiliado/afiliado';
+			hash= 'afiliado/index';
 		}
 		$('html, body').animate({strollTop:0},'600','swing');
 

@@ -17,14 +17,11 @@
 		public function __construct(){
 			$this->Salud = array();
 			date_default_timezone_set("America/Mexico_City");
-
 			$_SESSION['mysqluser']="sagyce18_sagyc";
 			$_SESSION['mysqlpass']="sagyc123$";
 			$_SESSION['servidor'] ="sagyc2.com.mx";
 			$_SESSION['bdd']="sagyce18_caja";
-
 			$this->dbh = new PDO("mysql:host=".$_SESSION['servidor'].";dbname=".$_SESSION['bdd']."", $_SESSION['mysqluser'], $_SESSION['mysqlpass']);
-
 		}
 		public function set_names(){
 			return $this->dbh->query("SET NAMES 'utf8'");
@@ -36,7 +33,7 @@
 				$x="";
 				$x.="<nav class='navbar navbar-expand-sm navbar-dark fixed-top barra' style='opacity:1;'>";
 					$x.="<img src='img/caja.png' width='20' alt='logo'>";
-					$x.="<a class='navbar-brand' href='#afiliado/afiliado'> Caja de Ahorro y Crédito</a>";
+					$x.="<a class='navbar-brand' href='#afiliado/index'> Caja de Ahorro y Crédito</a>";
 
 					$x.="<button class='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#principal' aria-controls='principal' aria-expanded='false' aria-label='Toggle navigation'>";
 						$x.="<i class='fab fa-rocketchat'></i>";
@@ -53,7 +50,7 @@
 						$x.="<ul class='nav navbar-nav navbar-right'>";
 							$x.="<li class='nav-item'>";
 								$x.="<a class='nav-link pull-left' onclick='salir()'>";
-									$x.="<i class='fas fa-door-open' style='color:red;'></i>Salir";
+									$x.="<i class='fas fa-door-open' style='color:yellow;'></i>Salir";
 								$x.="</a>";
 							$x.="</li>";
 						$x.="</ul>";
@@ -74,13 +71,13 @@
 
 								if($_SESSION['administrador']==1){
 									$y.="<hr>";
-									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>";
 									$y.="<a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Pizarrón</span></a>";
 								}
 								else{
 									$y.="<hr>";
-									$y.="<a href='#afiliado/afiliado' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
 									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
 									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
@@ -317,7 +314,8 @@
 
 		public function salir(){
 			$_SESSION['autoriza'] = 0;
-			$_SESSION['idpersona']="";
+			$_SESSION['idfolio']="";
+			session_destroy();
 		}
 		public function insert($DbTableName, $values = array()){
 			try{

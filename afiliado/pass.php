@@ -1,3 +1,6 @@
+<?php
+	require_once("../control_db.php");
+?>
 <div class='container'>
 <form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_pass'>
   <input class="form-control" type="hidden" id="id" name="id" value='<?php echo $_SESSION['idfolio']; ?>'>
