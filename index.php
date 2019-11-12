@@ -47,12 +47,13 @@
 
 	<!--   url   -->
 	<script src="librerias15/jquery/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
 
 	<!-- Animation library for notifications   -->
-    <link href="librerias15/animate.css" rel="stylesheet"/>
+  <link href="librerias15/animate.css" rel="stylesheet" type="text/css"/>
 
 	<!-- WYSWYG   -->
-	<link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet">
+	<link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
   <script src="librerias15/summernote8.12/summernote-lite.js"></script>
 	<script src="librerias15/summernote8.12/lang/summernote-es-ES.js"></script>
 
@@ -69,7 +70,6 @@
 
 	<!--   iconos   -->
 	<link rel="stylesheet" href="librerias15/fontawesome-free-5.8.1-web/css/all.css">
-	<link rel="stylesheet" href="librerias15/jquery/jquery-ui-1.10.0.custom.css" />
 
 	<script src="librerias15/popper.js"></script>
 	<script src="librerias15/tooltip.js"></script>

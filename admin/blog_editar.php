@@ -32,12 +32,13 @@
         echo "<div class='card-body'>";
 
           echo "<div class='row'>";
+          /*
             if(strlen($imagen)<2 or !file_exists("archivos/".$imagen)){
               echo  "<div class='col-sm-2'>";
                 echo "<img src='archivos/$imagen' width='100px' alt='Miniatura'>";
               echo "</div>";
             }
-
+          */
             echo  "<div class='col-sm-3'>";
               echo "<label>Nombre</label>";
               echo "<input class='form-control' type='Texto Texto con formatotext' id='nombre' NAME='nombre' value='$nombre' maxlength='45' placeholder='Nombre del mensaje'>";
@@ -73,6 +74,7 @@
         echo "<div class='card-footer'>";
           echo "<div class='btn-group'>";
             echo "<button class='btn btn-outline-secondary btn-sm' type='submit' title='Guardar cambios' ><i class='far fa-save'></i>Guardar</button>";
+            /*
             if($id>0){
               if(strlen($imagen)<2 or !file_exists("../archivos/".$imagen)){
   	            echo "<button type='button' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='imagen' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.jpg,.png' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Miniatura</button>";
@@ -100,7 +102,7 @@
   							echo "</div>";
   						}
             }
-
+            */
             echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='admin/blog_lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
           echo "</div>";
         echo "</div>";

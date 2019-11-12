@@ -32,6 +32,7 @@
 	$txt_abono=$aportax['aporta'];
 	$s_saldo=$dat_credito['total']-$aportax['aporta'];
 	$txt_saldo=$s_saldo;
+
 				echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$txt_credito."' placeholder='Crédito' readonly>";
 
 				echo "<div class='row'>";
@@ -104,30 +105,15 @@
 							echo "<input class='form-control' type='text' id='txt_plazo' NAME='txt_plazo' value='".$txt_plazo."' placeholder='Plazo' readonly dir=rtl>";
 						echo "</div>";
 					echo "</div>";
-
-					// echo  "<div class='col-sm-2'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='txt_cheque'>Cheque</label>";
-							// echo "<input class='form-control' type='text' id='txt_cheque' NAME='txt_cheque' value='".$txt_cheque."' placeholder='Cheque' readonly dir=rtl>";
-						// echo "</div>";
-					// echo "</div>";
-
 				echo "</div>";
 
-
-				// echo "<div class='row'>";
-					// echo  "<div class='col-sm-12'>";
-						// echo "<div class='form-group'>";
-							// echo "<label for='txt_observaciones'>Observaciones</label>";
-							// echo "<input class='form-control' type='text' id='txt_observaciones' NAME='txt_observaciones' value='".$txt_observaciones."' placeholder='Observaciones' readonly dir=rtl>";
-						// echo "</div>";
-					// echo "</div>";
-				// echo "</div>";
 			echo "</div>";
 
 			echo "<div class='panel-footer'>";
 				echo "<div  class='btn-group'>";
 				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";
+				echo "<button class='btn btn-warning btn-sm' id='imprime_formato' title='Imprimir' data-lugar='creditos/formato' data-tipo='1' type='button'><i class='fas fa-print'></i>Formato de retiro</button>";
+
 				echo "</div>";
 			echo "</div>";
 

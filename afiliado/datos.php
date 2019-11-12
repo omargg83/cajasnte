@@ -30,11 +30,11 @@
 	$c_psp=$row['c_psp'];
 
 echo "<div class='container'>";
-	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos'>";
+	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos' data-destino='afiliado/datos'>";
 	  echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
   echo "<div class='card'>";
 		echo "<div class='card-header'>";
-			echo "Datos generales";
+			echo "Datos generales actuales";
 		echo "</div>";
     echo "<div class='card-body'>";
       echo "<div class='row'>";
@@ -119,14 +119,14 @@ echo "<div class='container'>";
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='l_loc'>Localidad</label>";
-            echo "<input class='form-control' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Conyugue'>";
+            echo "<input class='form-control' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Localidad'>";
           echo "</div>";
         echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='m_mun'>Municipio</label>";
-            echo "<input class='form-control' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Conyugue'>";
+            echo "<input class='form-control' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Municipio'>";
           echo "</div>";
         echo "</div>";
 
@@ -134,44 +134,139 @@ echo "<div class='container'>";
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
-            echo "<input class='form-control' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Conyugue'>";
+            echo "<input class='form-control' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Clave Centro de Trabajo'>";
           echo "</div>";
         echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='u_bic'>Ubicación</label>";
-						echo "<input class='form-control' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Conyugue'>";
+						echo "<input class='form-control' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Ubicación'>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='d_sin'>Delegación</label>";
-						echo "<input class='form-control' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Conyugue'>";
+						echo "<input class='form-control' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Delegación'>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='r_rrg'>Región</label>";
-						echo "<input class='form-control' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Conyugue'>";
+						echo "<input class='form-control' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Región'>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='c_psp'>Clave Presupuestal</label>";
-						echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Conyugue'>";
+						echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal'>";
 					echo "</div>";
 				echo "</div>";
       echo "</div>";
     echo "</div>";
+
+		$row=$db->blo_lista();
+		$usuario=$row['usuario'];
+		$fusuario=fecha($row['fusuario']);
+		$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+		$fecha_entrada = strtotime($fusuario);
+
 		echo "<div class='card-footer'>";
-			echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+			if(($usuario==1 and $fecha_actual <= $fecha_entrada) or ($usuario==1 and strlen($fusuario)==0)){
+				echo "<div class='btn-group'>";
+					echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+					echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
+				echo "</div>";
+			}
 		echo "</div>";
   echo "</div>";
 	echo "</form>";
+
+	$cambio=$db->cambios();
+	if($cambio['up_datos']==1){
+		echo "<br><div class='card'>";
+			echo "<div class='card-header'>";
+				echo "Datos generales actuales pendientes por actualizar";
+			echo "</div>";
+			echo "<div class='card-body'>";
+				echo "<div class='row'>";
+					echo "<div class='col-6'>";
+						echo "<label for='c1'>Domicilio</label>";
+						echo "<input class='form-control' type='text' id='d_dom1' NAME='d_dom1' value='".$cambio['d_dom']."' readonly>";
+					echo "</div>";
+
+					echo "<div class='col-6'>";
+						echo "<label for='c2'>Estado civil</label>";
+						echo "<input class='form-control' type='text' id='e_civ1' NAME='e_civ1' value='".$cambio['e_civ']."' readonly>";
+					echo "</div>";
+						////////////////////
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+		          echo "<div class='form-group'>";
+		            echo "<label for='n_con'>Nombre del conyugue</label>";
+		            echo "<input class='form-control' type='text' id='n_con1' NAME='n_con1' value='".$cambio['n_con']."' placeholder='Conyugue' readonly>";
+		          echo "</div>";
+		        echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+		          echo "<div class='form-group'>";
+		            echo "<label for='l_loc'>Localidad</label>";
+		            echo "<input class='form-control' type='text' id='l_loc1' NAME='l_loc1' value='".$cambio['l_loc']."' placeholder='Localidad' readonly>";
+		          echo "</div>";
+		        echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+		          echo "<div class='form-group'>";
+		            echo "<label for='m_mun'>Municipio</label>";
+		            echo "<input class='form-control' type='text' id='m_mun1' NAME='m_mun1' value='".$cambio['m_mun']."' placeholder='Municipio' readonly>";
+		          echo "</div>";
+		        echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+		          echo "<div class='form-group'>";
+		            echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
+		            echo "<input class='form-control' type='text' id='c_c_t1' NAME='c_c_t1' value='".$cambio['c_c_t']."' placeholder='Clave Centro de Trabajo' readonly>";
+		          echo "</div>";
+		        echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+							echo "<div class='form-group'>";
+								echo "<label for='u_bic'>Ubicación</label>";
+								echo "<input class='form-control' type='text' id='u_bic1' NAME='u_bic1' value='".$cambio['u_bic']."' placeholder='Ubicación' readonly>";
+							echo "</div>";
+						echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+							echo "<div class='form-group'>";
+								echo "<label for='d_sin'>Delegación</label>";
+								echo "<input class='form-control' type='text' id='d_sin1' NAME='d_sin1' value='".$cambio['d_sin']."' placeholder='Delegación' readonly>";
+							echo "</div>";
+						echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+							echo "<div class='form-group'>";
+								echo "<label for='r_rrg'>Región</label>";
+								echo "<input class='form-control' type='text' id='r_rrg1' NAME='r_rrg1' value='".$cambio['r_rrg']."' placeholder='Región' readonly>";
+							echo "</div>";
+						echo "</div>";
+
+						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
+							echo "<div class='form-group'>";
+								echo "<label for='c_psp'>Clave Presupuestal</label>";
+								echo "<input class='form-control' type='text' id='c_psp1' NAME='c_psp1' value='".$cambio['c_psp']."' placeholder='Clave Presupuestal' readonly>";
+							echo "</div>";
+						echo "</div>";
+
+						///////////////////////////////
+
+
+				echo "</div>";
+			echo "</div>";
+		echo "</div>";
+	}
 echo "</div>";
 
 ?>

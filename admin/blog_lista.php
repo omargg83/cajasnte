@@ -21,6 +21,10 @@
 					echo "<td>";
   					echo "<div class='btn-group'>";
   					echo "<button class='btn btn-outline-secondary btn-sm' id='edit_persona' title='Editar' data-lugar='admin/blog_editar'><i class='fas fa-pencil-alt'></i></button>";
+
+            		echo "<button class='btn btn-outline-secondary btn-sm' id='eliminar_comision' data-lugar='control_db' data-destino='admin/blog_lista' data-id='".$key['id']."' data-funcion='borrar_blog' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
+
+
   					echo "</div>";
 					echo "</td>";
 

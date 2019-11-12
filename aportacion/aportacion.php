@@ -9,7 +9,6 @@
     echo "</div>";
   }
 
-
   $row=$db->afiliado();
   $folio=$row['idfolio'];
   $filiacion=$row['Filiacion'];
@@ -19,7 +18,7 @@
   $a_qui=$row['a_qui'];
 
     echo "<div class='container'>";
-    	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_aportacion'>";
+    	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_aportacion' data-destino='aportacion/aportacion'>";
       echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$folio' placeholder='No. Empleado' readonly>";
 
       echo "<div class='card'>";
@@ -67,8 +66,8 @@
           echo "<div class='row'>";
             echo "<div class='col-xl-2 col-lg-3 col-md-3 col-sm-4'>";
               echo "<div class='form-group'>";
-                echo "<label for='a_qui'>Aportacion Ahorro</label>";
-                echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .number_format($a_qui,2)."' placeholder='Aportacion Ahorro'>";
+                echo "<label>Aportacion Ahorro</label>";
+                echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .$a_qui."' placeholder='Aportacion Ahorro'>";
               echo "</div>";
             echo "</div>";
           echo "</div>";
@@ -82,10 +81,35 @@
 
     		echo "<div class='card-footer'>";
           if(($aportacion==1 and $fecha_actual <= $fecha_entrada) or ($aportacion==1 and strlen($faportacion)==0)){
-    			  echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+            echo "<div class='btn-group'>";
+              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+              echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
+            echo "</div>";
           }
     		echo "</div>";
       echo "</div>";
     	echo "</form>";
+
+      $cambio=$db->cambios();
+      if($cambio['up_aportacion']==1){
+        echo "<br><div class='card'>";
+          echo "<div class='card-header'>";
+            echo "Datos generales actuales pendientes por actualizar";
+          echo "</div>";
+          echo "<div class='card-body'>";
+            echo "<div class='row'>";
+              echo "<div class='col-6'>";
+              echo "<label>Aportacion Ahorro</label>";
+              echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['aportacion'],2)."' placeholder='Aportacion Ahorro' readonly>";
+              echo "</div>";
+                ///////////////////////////////
+
+
+            echo "</div>";
+          echo "</div>";
+        echo "</div>";
+      }
+
+
     echo "</div>";
 ?>

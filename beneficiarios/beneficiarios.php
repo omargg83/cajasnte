@@ -1,7 +1,7 @@
 <?php
   	require_once("../control_db.php");
     $row=$db->afiliado();
-    $folio=$row['idfolio'];
+    echo "<div class='container' id='trabajo'>";
     $filiacion=$row['Filiacion'];
     $ape_pat=$row['ape_pat'];
     $ape_mat=$row['ape_mat'];
@@ -28,7 +28,8 @@
     $porcentaje5=$row['BFE'];
 
     echo "<div class='container'>";
-    	echo "<form id='form_comision' action='' data-lugar='control_db' data-destino='datos/editar' data-funcion='guardar_beneficiarios'>";
+
+      echo "<form id='form_benef' action='' data-lugar='control_db' data-funcion='guardar_beneficiarios' data-destino='beneficiarios/beneficiarios'>";
       echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$_SESSION['idfolio']."' placeholder='Beneficiario' >";
       echo "<div class='card'>";
     		echo "<div class='card-header'>";
@@ -203,11 +204,103 @@
 
         echo "<div class='card-footer'>";
           if(($beneficiarios==1 and $fecha_actual <= $fecha_entrada) or ($beneficiarios==1 and strlen($beneficiarios)==0)){
-            echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+            echo "<div class='btn-group'>";
+              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+              echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
+            echo "</div>";
           }
         echo "</div>";
 
       echo "</div>";
     	echo "</form>";
+
+    	$cambio=$db->cambios();
+    	if($cambio['up_bene']==1){
+    		echo "<br><div class='card'>";
+    			echo "<div class='card-header'>";
+    				echo "Datos generales actuales pendientes por actualizar";
+    			echo "</div>";
+    			echo "<div class='card-body'>";
+    				echo "<div class='row'>";
+              echo "<div class='col-4'>";
+                echo "<label>Beneficiario 1</label>";
+                echo "<input class='form-control' type='text' id='ben1_1' NAME='ben1_1' value='".$cambio['BA']."' placeholder='Beneficiario' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label >Parentesco 1</label>";
+                echo "<input class='form-control' type='text' id='parentesco1_1' NAME='parentesco1_1' value='".$cambio['PA']."' placeholder='Parentesco' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Porcentaje 1</label>";
+                echo "<input class='form-control' type='text' id='porcentaje1_1' NAME='porcentaje1_1' value='".$cambio['BFA']."' placeholder='Porcentaje' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Beneficiario 2</label>";
+                echo "<input class='form-control' type='text' id='ben1_2' NAME='ben1_1' value='".$cambio['BB']."' placeholder='Beneficiario' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label >Parentesco 2</label>";
+                echo "<input class='form-control' type='text' id='parentesco1_2' NAME='parentesco1_1' value='".$cambio['PB']."' placeholder='Parentesco' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Porcentaje 2</label>";
+                echo "<input class='form-control' type='text' id='porcentaje1_2' NAME='porcentaje1_1' value='".$cambio['BFB']."' placeholder='Porcentaje' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Beneficiario 3</label>";
+                echo "<input class='form-control' type='text' id='ben1_2' NAME='ben1_1' value='".$cambio['BC']."' placeholder='Beneficiario' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label >Parentesco 3</label>";
+                echo "<input class='form-control' type='text' id='parentesco1_2' NAME='parentesco1_1' value='".$cambio['PC']."' placeholder='Parentesco' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Porcentaje 3</label>";
+                echo "<input class='form-control' type='text' id='porcentaje1_2' NAME='porcentaje1_1' value='".$cambio['BFC']."' placeholder='Porcentaje' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Beneficiario 4</label>";
+                echo "<input class='form-control' type='text' id='ben1_2' NAME='ben1_1' value='".$cambio['BD']."' placeholder='Beneficiario' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label >Parentesco 4</label>";
+                echo "<input class='form-control' type='text' id='parentesco1_2' NAME='parentesco1_1' value='".$cambio['PD']."' placeholder='Parentesco' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Porcentaje 4</label>";
+                echo "<input class='form-control' type='text' id='porcentaje1_2' NAME='porcentaje1_1' value='".$cambio['BFD']."' placeholder='Porcentaje' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Beneficiario 5</label>";
+                echo "<input class='form-control' type='text' id='ben1_2' NAME='ben1_1' value='".$cambio['BE']."' placeholder='Beneficiario' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label >Parentesco 5</label>";
+                echo "<input class='form-control' type='text' id='parentesco1_2' NAME='parentesco1_1' value='".$cambio['PE']."' placeholder='Parentesco' readonly>";
+              echo "</div>";
+
+              echo "<div class='col-4'>";
+                echo "<label>Porcentaje 5</label>";
+                echo "<input class='form-control' type='text' id='porcentaje1_2' NAME='porcentaje1_1' value='".$cambio['BFE']."' placeholder='Porcentaje' readonly>";
+              echo "</div>";
+
+    				echo "</div>";
+    			echo "</div>";
+    		echo "</div>";
+    	}
+    echo "</div>";
     echo "</div>";
 ?>

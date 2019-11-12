@@ -498,7 +498,6 @@
 		if ( $(this).data('cmodal') ) {
 			cerrar=$(this).data('cmodal');
 		}
-
 		var dataString = $(this).serialize()+"&function="+funcion;
 		$.ajax({
 			data:  dataString,

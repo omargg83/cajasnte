@@ -79,8 +79,9 @@
 									$y.="<hr>";
 									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
-									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='fas fa-users-cog'></i> <span>Aportación</span></a>";				/////////////// listo
-									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users-cog'></i> <span>Beneficiarios</span></a>";				/////////////// listo
+									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación</span></a>";				/////////////// listo
+									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users'></i> <span>Beneficiarios</span></a>";				/////////////// listo
+
 									$y.="<hr>";
 
 									$y.="<a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Creditos</span></a>";
@@ -589,12 +590,11 @@
 			}
 		}
 
-		public function guardar_datos(){
+		public function guardar_datos(){						/////////////////////////////////////PARA CAMBIOS DE DATOS
 			$x="";
 			$arreglo =array();
+			$arreglo+=array('up_datos'=>1);
 
-			$x="";
-			$arreglo =array();
 			if (isset($_REQUEST['d_dom']) and strlen($_REQUEST['d_dom'])>0){
 				$arreglo+=array('d_dom'=>$_REQUEST['d_dom']);
 			}
@@ -754,8 +754,7 @@
 
 
 		}
-		public function guardar_aportacion(){
-			$arreglo =array();
+		public function guardar_aportacion(){			/////////////////////////////////////PARA CAMBIOS DE APORTACIONES
 
 			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
 			$sth = $this->dbh->prepare($sql);
@@ -764,7 +763,8 @@
 			$row=$sth->fetch();
 			$contar=$sth->rowCount();
 
-			$arreglo=array();
+			$arreglo =array();
+			$arreglo+=array('up_aportacion'=>1);
 			if (isset($_REQUEST['a_qui'])){
 				$arreglo+=array('aportacion'=>$_REQUEST['a_qui']);
 			}
@@ -785,9 +785,11 @@
 			}
 			return $_SESSION['idfolio'];
 		}
-		public function guardar_beneficiarios(){
+		public function guardar_beneficiarios(){	/////////////////////////////////////PARA CAMBIOS DE beneficiarios
 			$x="";
 			$arreglo =array();
+
+			$arreglo+=array('up_bene'=>1);
 			/////BEN1
 			if (isset($_REQUEST['ben1'])){
 				$arreglo+=array('BA'=>$_REQUEST['ben1']);
@@ -822,14 +824,14 @@
 			}
 
 			/////BEN 4
-			if (isset($_REQUEST['ben3'])){
-				$arreglo+=array('BD'=>$_REQUEST['ben3']);
+			if (isset($_REQUEST['ben4'])){
+				$arreglo+=array('BD'=>$_REQUEST['ben4']);
 			}
-			if (isset($_REQUEST['parentesco3'])){
-				$arreglo+=array('PD'=>$_REQUEST['parentesco3']);
+			if (isset($_REQUEST['parentesco4'])){
+				$arreglo+=array('PD'=>$_REQUEST['parentesco4']);
 			}
-			if (isset($_REQUEST['porcentaje3'])){
-				$arreglo+=array('BFD'=>$_REQUEST['porcentaje3']);
+			if (isset($_REQUEST['porcentaje4'])){
+				$arreglo+=array('BFD'=>$_REQUEST['porcentaje4']);
 			}
 
 			/////BEN 5
@@ -866,9 +868,16 @@
 				$this->insert('bit_datos', $arreglo);
 			}
 			////////////////////////////
-			return $x;
+			return $_SESSION['idfolio'];
 		}
 
+		public function cambios(){
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			return $sth->fetch();
+		}
 		public function bloques(){
 			self::set_names();
 			$x="";
@@ -1046,7 +1055,10 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
-
+		public function borrar_blog(){
+			if (isset($_POST['id'])){$id=$_POST['id'];}
+			return $this->borrar('bit_blog',"id",$id);
+		}
 		public function subir_file(){
 			$contarx=0;
 			$arr=array();

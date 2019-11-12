@@ -13,7 +13,7 @@
       echo "$corto";
 
       echo "<div class='btn-group float-right'>";
-        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/afiliado' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
       echo "</div>";
 
     echo "</div>";
@@ -21,7 +21,7 @@
       echo $texto;
 
       echo "<br><div class='btn-group'>";
-        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/afiliado' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+        echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
       echo "</div>";
 
   echo "</div>";
