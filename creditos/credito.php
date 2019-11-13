@@ -24,7 +24,7 @@
 					echo "Seleccione un crédito";
 				echo "</div>";
 				echo  "<div class='col-sm-8'>";
-					echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onclick='clv_cred()'>";
+					echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onchange='clv_cred()'>";
 					echo "<option value='' disabled selected style='color: silver;'>Seleccione un credito</option>";
 					foreach($resp as $key){
 					echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".$key['fecha']." : ".number_format($key['monto'],2)."</option>";
