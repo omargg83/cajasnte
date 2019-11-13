@@ -12,25 +12,37 @@
 ?>
 <div class='container'>
 	<div class='card'>
-		<div class='card-header'>
 		<?php
-		echo "<div class='row'>";
-			echo  "<div class='col-sm-2'>";
-				echo "<label>";
-				echo "Seleccione un crédito";
-				echo "</label>";
-			echo "</div>";
-			echo  "<div class='col-sm-10'>";
-				echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onclick='clv_cred()'>";
-				echo "<option value='' disabled selected style='color: silver;'>Seleccione un credito</option>";
+
+		echo "<div class='card-header'>";
+			echo "<img src='img/caja.png' width='20' alt='logo'> - ";
+			echo "Creditos";
+		echo "</div>";
+		echo "<div class='card-body'>";
+			echo "<div class='row'>";
+				echo  "<div class='col-sm-4'>";
+					echo "Seleccione un crédito";
+				echo "</div>";
+				echo  "<div class='col-sm-8'>";
+					echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onclick='clv_cred()'>";
+					echo "<option value='' disabled selected style='color: silver;'>Seleccione un credito</option>";
 					foreach($resp as $key){
-						echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".$key['fecha']." : ".number_format($key['monto'],2)."</option>";
+					echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".$key['fecha']." : ".number_format($key['monto'],2)."</option>";
 					}
-				echo  "</select>";
+					echo  "</select>";
+				echo "</div>";
+			echo "</div>";
+		echo "</div>";
+
+		echo "<div class='card-footer'>";
+			echo "<div class='btn-group'>";
+				echo "<button class='btn btn-warning btn-sm' type='button' onclick='clv_cred()'><i class='fas fa-sync-alt'></i>Consultar</a>";
+				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";
+				echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
 			echo "</div>";
 		echo "</div>";
 		?>
-		</div>
+
 		<div class='card-body' id='datos_cred'>
 		</div>
 	</div>
@@ -39,21 +51,31 @@
 
 	function clv_cred(){
 		var id=$("#clv_cred").val();
-		var xyId = 0;
-		 $.ajax({
-				data:  {
-					"clv_cred":id
+		if(id>0){
+			var xyId = 0;
+			 $.ajax({
+					data:  {
+						"clv_cred":id
+					},
+					url:  "creditos/datos.php",
+					type:  'post',
+				beforeSend: function () {
+					$("#datos_cred").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
 				},
-				url:  "creditos/datos.php",
-				type:  'post',
-			beforeSend: function () {
-				$("#datos_cred").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/carga1.gif' width='100px'></center></div>");
-			},
-			success:  function (response) {
-				$("#datos_cred").html('');
-				$("#datos_cred").html(response);
-			}
-		});
+				success:  function (response) {
+					$("#datos_cred").html('');
+					$("#datos_cred").html(response);
+				}
+			});
+		}
+		else{
+			Swal.fire({
+				type: 'error',
+				title: "Seleccionar un crédito",
+				showConfirmButton: false,
+				timer: 1000
+			})
+		}
 	}
 
 	</script>

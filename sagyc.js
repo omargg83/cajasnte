@@ -469,9 +469,7 @@
 			var select=$("#"+id).data('select');
 			xyId=$("#"+select).val();
 		}
-		else{
 
-		}
 		var lugar = $("#"+id).data('lugar')+".php";
 		var tipo = $("#"+id).data('tipo');
 		VentanaCentrada(lugar+'?id='+xyId+'&tipo='+tipo+'&valor='+valor,'Impresion','','1024','768','true');

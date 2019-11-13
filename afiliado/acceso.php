@@ -9,7 +9,10 @@
   <form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_acceso'>
     <input class="form-control" type="hidden" id="id" name="id" value='<?php echo $_SESSION['idfolio']; ?>'>
     <div class='card'>
-      <div class='card-header'><b>Cambiar acceso</b>
+
+      <div class='card-header'>
+        <img src='img/caja.png' width='20' alt='logo'> -
+        Cambiar acceso
       </div>
       <div class='card-body'>
         <div class="form-group input-group">
@@ -31,6 +34,7 @@
       <div class='card-footer'>
         <div class="btn-group">
           <button type='submit' class="btn btn-warning btn-sm" ><i class="far fa-save"></i> Guardar</button>
+          <a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>
         </div>
       </div>
     </div>

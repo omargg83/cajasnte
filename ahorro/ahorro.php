@@ -15,8 +15,13 @@
 	$ahorronum=count($db->ahorro($anio_tmp));
 
 	echo "<div class='container'>";
-		echo "<div class='card'>
-		  <div class='card-header'><b>Caja de ahorro</b></div>";
+		echo "<div class='card'>";
+			echo "<div class='card-header'>";
+				echo "<img src='img/caja.png' width='20' alt='logo'> - ";
+				echo "Caja de ahorro";
+			echo "</div>";
+
+
 			echo "<div class='card-body'>";
 				echo "<div class='row'>";
 					/////////INTERES AÑO Anterior
@@ -60,7 +65,7 @@
 				echo "<div class='row'>";
 					echo "<div class='col-sm-6'>";
 						echo "<div class='btn-group'>";
-						echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='ahorro/imprimir' data-tipo='1' data-select='periodo' type='button'><i class='fas fa-print'></i>Imprimir</button>";
+							echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
 						echo "</div>";
 					echo "</div>";
 
@@ -76,6 +81,9 @@
 							$contar++;
 						}
 					echo  "</select>";
+					echo "</div>";
+					echo "<div class='col-sm-2'>";
+						echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='ahorro/imprimir' data-tipo='1' data-select='periodo' type='button'><i class='fas fa-print'></i>Imprimir</button>";
 					echo "</div>";
 				echo "</div>";
 			echo "</div>";

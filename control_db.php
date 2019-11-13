@@ -73,17 +73,53 @@
 									$y.="<hr>";
 									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>";
-									$y.="<a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Pizarrón</span></a>";
+									$y.="<a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Anuncios</span></a>";
 								}
 								else{
 									$y.="<hr>";
+									$row=$this->blo_lista();
+
 									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
-									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos</span></a>";				/////////////// listo
-									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación</span></a>";				/////////////// listo
-									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users'></i> <span>Beneficiarios</span></a>";				/////////////// listo
+
+
+									//////////////////datos
+									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos";
+								 	$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+								 	$fecha_entrada = strtotime(fecha($row['fusuario']));
+								 	if($fecha_actual <= $fecha_entrada){
+										$y.="  <span class='badge badge-pill badge-warning'><i class='fas fa-pencil-alt'></i></span>";
+									}
+									$y.="</span></a>";				/////////////// listo
+
+
+
+									/////////////////aportacion
+									$y.="<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación";
+								 	$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+								 	$fecha_entrada = strtotime(fecha($row['faportacion']));
+								 	if($fecha_actual <= $fecha_entrada){
+										$y.="  <span class='badge badge-pill badge-warning'><i class='fas fa-pencil-alt'></i></span>";
+									}
+									$y.="</span></a>";				/////////////// listo
+
+
+									//////////////////beneficiarios
+									$y.="<a href='#beneficiarios/beneficiarios' title='Beneficiarios'><i class='fas fa-users'></i> <span>Beneficiarios";
+								 	$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+								 	$fecha_entrada = strtotime(fecha($row['fbeneficiarios']));
+								 	if($fecha_actual <= $fecha_entrada){
+										$y.="  <span class='badge badge-pill badge-warning'><i class='fas fa-pencil-alt'></i></span>";
+									}
+									$y.="</span></a>";				/////////////// listo
+
+
+						      $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+						      $fecha_entrada = strtotime(fecha($row['fretiro']));
+						      if($fecha_actual <= $fecha_entrada){
+										$y.="<a href='#' id='imprime_formato' title='Imprimir' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>Formato de retiro</span></a>";
+									}
 
 									$y.="<hr>";
-
 									$y.="<a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Creditos</span></a>";
 									$y.="<a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>";			////////////// Listo
 									$y.="<hr>";
@@ -883,25 +919,6 @@
 			$x="";
 			$arreglo =array();
 
-			if (isset($_REQUEST['usuario'])){
-				$arreglo+=array('usuario'=>$_REQUEST['usuario']);
-			}
-			else{
-				$arreglo+=array('usuario'=>0);
-			}
-			if (isset($_REQUEST['aportacion'])){
-				$arreglo+=array('aportacion'=>$_REQUEST['aportacion']);
-			}
-			else{
-				$arreglo+=array('aportacion'=>0);
-			}
-			if (isset($_REQUEST['beneficiarios'])){
-				$arreglo+=array('beneficiarios'=>$_REQUEST['beneficiarios']);
-			}
-			else{
-				$arreglo+=array('beneficiarios'=>0);
-			}
-
 			if (isset($_REQUEST['fusuario']) and strlen($_REQUEST['fusuario'])>0){
 				$fx=explode("-",$_REQUEST['fusuario']);
 				$arreglo+=array('fusuario'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
@@ -924,6 +941,14 @@
 			}
 			else{
 				$arreglo+=array('fbeneficiarios'=>NULL);
+			}
+
+			if (isset($_REQUEST['fretiro']) and strlen($_REQUEST['fretiro'])>0){
+				$fx=explode("-",$_REQUEST['fretiro']);
+				$arreglo+=array('fretiro'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
+			}
+			else{
+				$arreglo+=array('fretiro'=>NULL);
 			}
 
 			$sql="select * from bit_bloques limit 1";
@@ -1143,6 +1168,52 @@
 				$x.=$this->borrar($tabla,$keyt,$key);
 			}
 			return "$x";
+		}
+
+		public function cancela_datos(){
+			$x="";
+			$arreglo =array();
+			$arreglo+=array('up_datos'=>0);
+
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			return $x;
+		}
+		public function cancela_aporta(){
+			$x="";
+			$arreglo =array();
+			$arreglo+=array('up_aportacion'=>0);
+
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			return $x;
+		}
+		public function cancela_bene(){
+			$x="";
+			$arreglo =array();
+			$arreglo+=array('up_bene'=>0);
+
+			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$contar=$sth->rowCount();
+
+			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			return $x;
 		}
 	}
 

@@ -27,6 +27,7 @@
     echo "<input  type='hidden' id='id' NAME='id' value='$id'>";
       echo "<div class='card'>";
         echo "<div class='card-header'>";
+          echo "<img src='img/caja.png' width='20' alt='logo'> - ";
           echo "Mensaje";
         echo "</div>";
         echo "<div class='card-body'>";

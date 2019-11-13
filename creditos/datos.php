@@ -98,7 +98,6 @@
 						echo "</div>";
 					echo "</div>";
 
-
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
 							echo "<label for='txt_plazo'>Plazo</label>";
@@ -109,13 +108,7 @@
 
 			echo "</div>";
 
-			echo "<div class='panel-footer'>";
-				echo "<div  class='btn-group'>";
-				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";
-				echo "<button class='btn btn-warning btn-sm' id='imprime_formato' title='Imprimir' data-lugar='creditos/formato' data-tipo='1' type='button'><i class='fas fa-print'></i>Formato de retiro</button>";
 
-				echo "</div>";
-			echo "</div>";
 
 			echo "<hr>";
 			echo "<table class='table table-striped table-sm'>";
