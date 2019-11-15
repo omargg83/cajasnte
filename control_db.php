@@ -700,7 +700,7 @@
 			$contar=$sth->rowCount();
 
 			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fecha'=>$fecha);
+			$arreglo+=array('fdatos_sol'=>$fecha);
 
 			if($contar==1){
 				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
@@ -806,7 +806,7 @@
 			}
 
 			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fecha'=>$fecha);
+			$arreglo+=array('fbene_sol'=>$fecha);
 
 			if($contar==1){
 				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
@@ -890,7 +890,7 @@
 			$contar=$sth->rowCount();
 
 			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fecha'=>$fecha);
+			$arreglo+=array('fbene_sol'=>$fecha);
 
 			if($contar==1){
 				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
