@@ -82,7 +82,7 @@
     		echo "<div class='card-footer'>";
           if($fecha_actual <= $fecha_entrada){
             echo "<div class='btn-group'>";
-              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
               echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
             echo "</div>";
           }
@@ -93,7 +93,7 @@
       echo "</div>";
     	echo "</form>";
 
-      $cambio=$db->cambios();
+      $cambio=$db->cambios(4);
       if($cambio['up_aportacion']==1){
         echo "<br><div class='card' id='datos_c'>";
           echo "<div class='card-header'>";
@@ -103,7 +103,7 @@
             echo "<div class='row'>";
               echo "<div class='col-4'>";
               echo "<label>Aportacion Ahorro</label>";
-              echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['aportacion'],2)."' placeholder='Aportacion Ahorro' readonly>";
+              echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
               echo "</div>";
               ///////////////////////////////
             echo "</div>";

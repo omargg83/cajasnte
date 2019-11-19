@@ -626,110 +626,19 @@
 			}
 		}
 
-		public function guardar_datos(){						/////////////////////////////////////PARA CAMBIOS DE DATOS
-			$x="";
-			$arreglo =array();
-			$arreglo+=array('up_datos'=>1);
-
-			if (isset($_REQUEST['d_dom']) and strlen($_REQUEST['d_dom'])>0){
-				$arreglo+=array('d_dom'=>$_REQUEST['d_dom']);
-			}
-			else{
-				$arreglo+=array('d_dom'=>NULL);
-			}
-			if (isset($_REQUEST['e_civ']) and strlen($_REQUEST['e_civ'])>0){
-				$arreglo+=array('e_civ'=>$_REQUEST['e_civ']);
-			}
-			else{
-				$arreglo+=array('e_civ'=>NULL);
-			}
-			if (isset($_REQUEST['n_con']) and strlen($_REQUEST['n_con'])>0){
-				$arreglo+=array('n_con'=>$_REQUEST['n_con']);
-			}
-			else{
-				$arreglo+=array('n_con'=>NULL);
-			}
-			if (isset($_REQUEST['l_loc']) and strlen($_REQUEST['l_loc'])>0){
-				$arreglo+=array('l_loc'=>$_REQUEST['l_loc']);
-			}
-			else{
-				$arreglo+=array('l_loc'=>NULL);
-			}
-			if (isset($_REQUEST['m_mun']) and strlen($_REQUEST['m_mun'])>0){
-				$arreglo+=array('m_mun'=>$_REQUEST['m_mun']);
-			}
-			else{
-				$arreglo+=array('m_mun'=>NULL);
-			}
-			if (isset($_REQUEST['c_c_t']) and strlen($_REQUEST['c_c_t'])>0){
-				$arreglo+=array('c_c_t'=>$_REQUEST['c_c_t']);
-			}
-			else{
-				$arreglo+=array('c_c_t'=>NULL);
-			}
-			if (isset($_REQUEST['u_bic']) and strlen($_REQUEST['u_bic'])>0){
-				$arreglo+=array('u_bic'=>$_REQUEST['u_bic']);
-			}
-			else{
-				$arreglo+=array('u_bic'=>NULL);
-			}
-			if (isset($_REQUEST['d_sin']) and strlen($_REQUEST['d_sin'])>0){
-				$arreglo+=array('d_sin'=>$_REQUEST['d_sin']);
-			}
-			else{
-				$arreglo+=array('d_sin'=>NULL);
-			}
-			if (isset($_REQUEST['r_rrg']) and strlen($_REQUEST['r_rrg'])>0){
-				$arreglo+=array('r_rrg'=>$_REQUEST['r_rrg']);
-			}
-			else{
-				$arreglo+=array('r_rrg'=>NULL);
-			}
-			if (isset($_REQUEST['c_psp']) and strlen($_REQUEST['c_psp'])>0){
-				$arreglo+=array('c_psp'=>$_REQUEST['c_psp']);
-			}
-			else{
-				$arreglo+=array('c_psp'=>NULL);
-			}
-			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-
-			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fdatos_sol'=>$fecha);
-
-			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('estado'=>0);
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-				$this->insert('bit_datos', $arreglo);
-			}
-			////////////////////////////
-			return $x;
-		}
-		public function guardar_acceso(){
+		public function guardar_acceso(){			/////////////////////////////////////PARA CAMBIOS DE ACCESO
 			$x="";
 			$arreglo =array();
 			if (isset($_REQUEST['correo'])){
-				$arreglo+=array('correo'=>$_REQUEST['correo']);
+				$arreglo+=array('correo'=>trim($_REQUEST['correo']));
 			}
 			if (isset($_REQUEST['telefono'])){
-				$arreglo+=array('celular'=>$_REQUEST['telefono']);
+				$arreglo+=array('celular'=>trim($_REQUEST['telefono']));
 			}
 			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
-
 			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sql="select * from bit_datos where idfolio=:idfolio and up_correo=1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
@@ -737,13 +646,13 @@
 			$contar=$sth->rowCount();
 
 			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fecha'=>$fecha);
+			$arreglo+=array('fcorreo_sol'=>$fecha);
 
 			if($contar==1){
 				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('estado'=>0);
+				$arreglo+=array('up_correo'=>1);
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 				$arreglo+=array('nombre'=>$_SESSION['nombre']);
 				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
@@ -752,7 +661,7 @@
 			}
 			return $x;
 		}
-		public function guardar_pass(){
+		public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
 			$x="";
 			$arreglo =array();
 			if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
@@ -760,7 +669,7 @@
 				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
 				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+				$sql="select * from bit_datos where idfolio=:idfolio and up_pass=1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
@@ -768,13 +677,13 @@
 				$contar=$sth->rowCount();
 
 				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('fecha'=>$fecha);
+				$arreglo+=array('fpass_sol'=>$fecha);
 
 				if($contar==1){
 					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 				}
 				else{
-					$arreglo+=array('estado'=>0);
+					$arreglo+=array('up_pass'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
 					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
@@ -787,128 +696,287 @@
 			else{
 				return "No coinciden contraseñas";
 			}
-
-
 		}
-		public function guardar_aportacion(){			/////////////////////////////////////PARA CAMBIOS DE APORTACIONES
-
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+		public function guardar_datos(){						/////////////////////////////////////PARA CAMBIOS DE DATOS
+			$x="";
+			$arreglo =array();
+			$sql="select * from afiliados where idfolio=:idfolio";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$row=$sth->fetch();
-			$contar=$sth->rowCount();
+			$cambios="";
+			$d_dom=$_REQUEST['d_dom'];
+			$e_civ=$_REQUEST['e_civ'];
+			$n_con=$_REQUEST['n_con'];
+			$l_loc=$_REQUEST['l_loc'];
+			$m_mun=$_REQUEST['m_mun'];
+			$c_c_t=$_REQUEST['c_c_t'];
+			$u_bic=$_REQUEST['u_bic'];
+			$d_sin=$_REQUEST['d_sin'];
+			$r_rrg=$_REQUEST['r_rrg'];
+			$c_psp=$_REQUEST['c_psp'];
 
-			$arreglo =array();
-			$arreglo+=array('up_aportacion'=>1);
-			if (isset($_REQUEST['a_qui'])){
-				$arreglo+=array('aportacion'=>$_REQUEST['a_qui']);
+			if($row['d_dom']!=$d_dom){
+				$cambios.=" d_dom:".trim($d_dom);
+			}
+			if($row['e_civ']!=$e_civ){
+				$cambios.=" e_civ:".trim($e_civ);
+			}
+			if($row['n_con']!=$n_con){
+				$cambios.=" n_con:".trim($n_con);
+			}
+			if($row['l_loc']!=$l_loc){
+				$cambios.=" l_loc:".trim($l_loc);
+			}
+			if($row['m_mun']!=$m_mun){
+				$cambios.=" m_mun:".trim($m_mun);
+			}
+			if($row['c_c_t']!=$c_c_t){
+				$cambios.=" c_c_t:".trim($c_c_t);
+			}
+			if($row['u_bic']!=$u_bic){
+				$cambios.=" u_bic:".trim($u_bic);
+			}
+			if($row['d_sin']!=$d_sin){
+				$cambios.=" d_sin:".trim($d_sin);
+			}
+			if($row['r_rrg']!=$r_rrg){
+				$cambios.=" r_rrg:".trim($r_rrg);
+			}
+			if($row['c_psp']!=$c_psp){
+				$cambios.=" c_psp:".trim($c_psp);
 			}
 
-			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fbene_sol'=>$fecha);
+			if(strlen($cambios)>1){
+				$arreglo+=array('d_dom'=>trim($d_dom));
+				$arreglo+=array('e_civ'=>trim($e_civ));
+				$arreglo+=array('n_con'=>trim($n_con));
+				$arreglo+=array('l_loc'=>trim($l_loc));
+				$arreglo+=array('m_mun'=>trim($m_mun));
+				$arreglo+=array('c_c_t'=>trim($c_c_t));
+				$arreglo+=array('u_bic'=>trim($u_bic));
+				$arreglo+=array('d_sin'=>trim($d_sin));
+				$arreglo+=array('r_rrg'=>trim($r_rrg));
+				$arreglo+=array('c_psp'=>trim($c_psp));
 
-			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				////////////////////////////////////////aca
+				$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				$row=$sth->fetch();
+				$contar=$sth->rowCount();
+
+				$fecha=date("Y-m-d H:i:s");
+				$arreglo+=array('fdatos_sol'=>$fecha);
+
+				if($contar==1){
+					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				}
+				else{
+					$arreglo+=array('up_datos'=>1);
+					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('nombre'=>$_SESSION['nombre']);
+					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+					$this->insert('bit_datos', $arreglo);
+				}
+				////////////////////////////
+				return $x;
 			}
 			else{
-				$arreglo+=array('estado'=>0);
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
+				return "No hay cambios...";
 			}
-			return $_SESSION['idfolio'];
+		}
+		public function guardar_aportacion(){			/////////////////////////////////////PARA CAMBIOS DE APORTACIONES
+			$sql="select * from afiliados where idfolio=:idfolio";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->execute();
+			$row=$sth->fetch();
+			$cambios="";
+			$a_qui=$_REQUEST['a_qui'];
+
+			if($row['a_qui']!=$a_qui){
+				$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=1";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				$row=$sth->fetch();
+				$contar=$sth->rowCount();
+
+				$arreglo =array();
+				$arreglo+=array('up_aportacion'=>1);
+				if (isset($_REQUEST['a_qui'])){
+					$arreglo+=array('a_qui'=>$_REQUEST['a_qui']);
+				}
+
+				$fecha=date("Y-m-d H:i:s");
+				$arreglo+=array('faport_sol'=>$fecha);
+
+				if($contar==1){
+					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				}
+				else{
+					$arreglo+=array('up_aportacion'=>1);
+					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('nombre'=>$_SESSION['nombre']);
+					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+					$x=$this->insert('bit_datos', $arreglo);
+				}
+				return $_SESSION['idfolio'];
+			}
+			else{
+				return "No hay cambios...";
+			}
 		}
 		public function guardar_beneficiarios(){	/////////////////////////////////////PARA CAMBIOS DE beneficiarios
 			$x="";
-			$arreglo =array();
-
-			$arreglo+=array('up_bene'=>1);
-			/////BEN1
-			if (isset($_REQUEST['ben1'])){
-				$arreglo+=array('BA'=>$_REQUEST['ben1']);
-			}
-			if (isset($_REQUEST['parentesco1'])){
-				$arreglo+=array('PA'=>$_REQUEST['parentesco1']);
-			}
-			if (isset($_REQUEST['porcentaje1'])){
-				$arreglo+=array('BFA'=>$_REQUEST['porcentaje1']);
-			}
-
-			/////BEN 2
-			if (isset($_REQUEST['ben2'])){
-				$arreglo+=array('BB'=>$_REQUEST['ben2']);
-			}
-			if (isset($_REQUEST['parentesco2'])){
-				$arreglo+=array('PB'=>$_REQUEST['parentesco2']);
-			}
-			if (isset($_REQUEST['porcentaje2'])){
-				$arreglo+=array('BFB'=>$_REQUEST['porcentaje2']);
-			}
-
-			/////BEN 3
-			if (isset($_REQUEST['ben3'])){
-				$arreglo+=array('BC'=>$_REQUEST['ben3']);
-			}
-			if (isset($_REQUEST['parentesco3'])){
-				$arreglo+=array('PC'=>$_REQUEST['parentesco3']);
-			}
-			if (isset($_REQUEST['porcentaje3'])){
-				$arreglo+=array('BFC'=>$_REQUEST['porcentaje3']);
-			}
-
-			/////BEN 4
-			if (isset($_REQUEST['ben4'])){
-				$arreglo+=array('BD'=>$_REQUEST['ben4']);
-			}
-			if (isset($_REQUEST['parentesco4'])){
-				$arreglo+=array('PD'=>$_REQUEST['parentesco4']);
-			}
-			if (isset($_REQUEST['porcentaje4'])){
-				$arreglo+=array('BFD'=>$_REQUEST['porcentaje4']);
-			}
-
-			/////BEN 5
-			if (isset($_REQUEST['ben5'])){
-				$arreglo+=array('BE'=>$_REQUEST['ben5']);
-			}
-			if (isset($_REQUEST['parentesco5'])){
-				$arreglo+=array('PE'=>$_REQUEST['parentesco5']);
-			}
-			if (isset($_REQUEST['porcentaje5'])){
-				$arreglo+=array('BFE'=>$_REQUEST['porcentaje5']);
-			}
-
-			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sql="select * from afiliados where idfolio=:idfolio";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$row=$sth->fetch();
-			$contar=$sth->rowCount();
+			$cambios="";
+			$BA=$_REQUEST['ben1'];
+			$PA=$_REQUEST['parentesco1'];
+			$BFA=$_REQUEST['porcentaje1'];
 
-			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fbene_sol'=>$fecha);
+			$BB=$_REQUEST['ben2'];
+			$PB=$_REQUEST['parentesco2'];
+			$BFB=$_REQUEST['porcentaje2'];
 
-			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+			$BC=$_REQUEST['ben3'];
+			$PC=$_REQUEST['parentesco3'];
+			$BFC=$_REQUEST['porcentaje3'];
+
+			$BD=$_REQUEST['ben4'];
+			$PD=$_REQUEST['parentesco4'];
+			$BFD=$_REQUEST['porcentaje4'];
+
+			$BE=$_REQUEST['ben5'];
+			$PE=$_REQUEST['parentesco5'];
+			$BFE=$_REQUEST['porcentaje5'];
+
+			if($row['BA']!=$BA){
+				$cambios.=" BA:".trim($BA);
+			}
+			if($row['PA']!=$PA){
+				$cambios.=" PA:".trim($PA);
+			}
+			if($row['BFA']!=$BFA){
+				$cambios.=" BFA:".trim($BFA);
+			}
+
+			if($row['BB']!=$BB){
+				$cambios.=" BB:".trim($BB);
+			}
+			if($row['PB']!=$PB){
+				$cambios.=" PB:".trim($PB);
+			}
+			if($row['BFB']!=$BFB){
+				$cambios.=" BFB:".trim($BFB);
+			}
+
+			if($row['BC']!=$BC){
+				$cambios.=" BC:".trim($BC);
+			}
+			if($row['PC']!=$PC){
+				$cambios.=" PC:".trim($PC);
+			}
+			if($row['BFC']!=$BFC){
+				$cambios.=" BFC:".trim($BFC);
+			}
+
+			if($row['BD']!=$BD){
+				$cambios.=" BD:".trim($BD);
+			}
+			if($row['PD']!=$PD){
+				$cambios.=" PD:".trim($PD);
+			}
+			if($row['BFD']!=$BFD){
+				$cambios.=" BFD:".trim($BFD);
+			}
+
+			if($row['BE']!=$BE){
+				$cambios.=" BE:".trim($BE);
+			}
+			if($row['PE']!=$PE){
+				$cambios.=" PE:".trim($PE);
+			}
+			if($row['BFE']!=$BFE){
+				$cambios.=" BFE:".trim($BFE);
+			}
+
+			if(strlen($cambios)>0){
+				$arreglo =array();
+				/////BEN1
+				$arreglo+=array('BA'=>trim($BA));
+				$arreglo+=array('PA'=>trim($PA));
+				$arreglo+=array('BFA'=>trim($BFA));
+
+				/////BEN 2
+				$arreglo+=array('BB'=>trim($BB));
+				$arreglo+=array('PB'=>trim($PB));
+				$arreglo+=array('BFB'=>trim($BFB));
+
+				/////BEN 3
+				$arreglo+=array('BC'=>trim($BC));
+				$arreglo+=array('PC'=>trim($PC));
+				$arreglo+=array('BFC'=>trim($BFC));
+
+				/////BEN 4
+				$arreglo+=array('BD'=>trim($BD));
+				$arreglo+=array('PD'=>trim($PD));
+				$arreglo+=array('BFD'=>trim($BFD));
+
+				/////BEN 5
+				$arreglo+=array('BE'=>trim($BE));
+				$arreglo+=array('PE'=>trim($PE));
+				$arreglo+=array('BFE'=>trim($BFE));
+
+				////////////////////////////////////////aca
+				$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+				$sth->execute();
+				$row=$sth->fetch();
+				$contar=$sth->rowCount();
+
+				$fecha=date("Y-m-d H:i:s");
+				$arreglo+=array('fbene_sol'=>$fecha);
+
+				if($contar==1){
+					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				}
+				else{
+					$arreglo+=array('up_bene'=>1);
+					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('nombre'=>$_SESSION['nombre']);
+					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+					$this->insert('bit_datos', $arreglo);
+				}
+				////////////////////////////
+				return $_SESSION['idfolio'];
 			}
 			else{
-				$arreglo+=array('estado'=>0);
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-				$this->insert('bit_datos', $arreglo);
+				return "No hay cambios...";
 			}
-			////////////////////////////
-			return $_SESSION['idfolio'];
 		}
 
-		public function cambios(){
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+		public function cambios($tipo){
+			if($tipo==3){					///////////////////////datos
+				$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
+			}
+			if($tipo==4){					///////////////////////aportacion
+				$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=1";
+			}
+			if($tipo==5){					///////////////////////beneficiarios
+				$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
+			}
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
@@ -1175,7 +1243,7 @@
 			$arreglo =array();
 			$arreglo+=array('up_datos'=>0);
 
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
@@ -1190,7 +1258,7 @@
 			$arreglo =array();
 			$arreglo+=array('up_aportacion'=>0);
 
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=0";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
@@ -1205,13 +1273,12 @@
 			$arreglo =array();
 			$arreglo+=array('up_bene'=>0);
 
-			$sql="select * from bit_datos where idfolio=:idfolio and estado=0";
+			$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$row=$sth->fetch();
 			$contar=$sth->rowCount();
-
 			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			return $x;
 		}

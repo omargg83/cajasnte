@@ -91,15 +91,15 @@ echo "<div class='container'>";
 						echo "<select class='form-control' name='e_civ' id='e_civ'>";
 						echo "<option value='' selected style='color: silver;'>Seleccione...</option>";
 							echo  "<option value='CASADA'"; if ($e_civ=='CASADA'){echo  " selected";}			echo  ">CASADA</option>";
-							echo  "<option value='CASADO '"; if ($e_civ=='CASADO'){echo  " selected";}			echo  ">CASADO</option>";
+							echo  "<option value='CASADO'"; if ($e_civ=='CASADO'){echo  " selected";}			echo  ">CASADO</option>";
 							echo  "<option value='CONCUBINATO'"; if ($e_civ=='CONCUBINATO'){echo  " selected";}			echo  ">CONCUBINATO</option>";
-							echo  "<option value='DIVORCIADA '"; if ($e_civ=='DIVORCIADA'){echo  " selected";}			echo  ">DIVORCIADA</option>";
+							echo  "<option value='DIVORCIADA'"; if ($e_civ=='DIVORCIADA'){echo  " selected";}			echo  ">DIVORCIADA</option>";
 							echo  "<option value='DIVORCIADO'"; if ($e_civ=='DIVORCIADO'){echo  " selected";}			echo  ">DIVORCIADO</option>";
-							echo  "<option value='MADRE SOLTERA '"; if ($e_civ=='MADRE SOLTERA'){echo  " selected";}			echo  ">MADRE SOLTERA</option>";
+							echo  "<option value='MADRE SOLTERA'"; if ($e_civ=='MADRE SOLTERA'){echo  " selected";}			echo  ">MADRE SOLTERA</option>";
 							echo  "<option value='PADRE SOLTERO'"; if ($e_civ=='PADRE SOLTERO'){echo  " selected";}			echo  ">PADRE SOLTERO</option>";
-							echo  "<option value='SEPARADA '"; if ($e_civ=='SEPARADA'){echo  " selected";}			echo  ">SEPARADA</option>";
+							echo  "<option value='SEPARADA'"; if ($e_civ=='SEPARADA'){echo  " selected";}			echo  ">SEPARADA</option>";
 
-							echo  "<option value='SEPARADO '"; if ($e_civ=='SEPARADO'){echo  " selected";}			echo  ">SEPARADO</option>";
+							echo  "<option value='SEPARADO'"; if ($e_civ=='SEPARADO'){echo  " selected";}			echo  ">SEPARADO</option>";
 							echo  "<option value='SOLTERA'"; if ($e_civ=='SOLTERA'){echo  " selected";}			echo  ">SOLTERA</option>";
 							echo  "<option value='SOLTERO'"; if ($e_civ=='SOLTERO'){echo  " selected";}			echo  ">SOLTERO</option>";
 							echo  "<option value='UNIÓN LIBRE'"; if ($e_civ=='UNIÓN LIBRE'){echo  " selected";}			echo  ">UNIÓN LIBRE</option>";
@@ -176,7 +176,7 @@ echo "<div class='container'>";
 		echo "<div class='card-footer'>";
 			if($fecha_actual <= $fecha_entrada){
 				echo "<div class='btn-group'>";
-					echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
+					echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
 					echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
 				echo "</div>";
 			}
@@ -187,7 +187,7 @@ echo "<div class='container'>";
   echo "</div>";
 	echo "</form>";
 
-	$cambio=$db->cambios();
+	$cambio=$db->cambios(3);
 	if($cambio['up_datos']==1){
 		echo "<br><div class='card' id='datos_c'>";
 			echo "<div class='card-header'>";
