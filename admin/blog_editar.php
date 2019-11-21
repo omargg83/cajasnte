@@ -74,7 +74,7 @@
         echo "</div>";
         echo "<div class='card-footer'>";
           echo "<div class='btn-group'>";
-            echo "<button class='btn btn-outline-secondary btn-sm' type='submit' title='Guardar cambios' ><i class='far fa-save'></i>Guardar</button>";
+            echo "<button class='btn btn-warning btn-sm' type='submit' title='Guardar cambios' ><i class='far fa-save'></i>Guardar</button>";
             /*
             if($id>0){
               if(strlen($imagen)<2 or !file_exists("../archivos/".$imagen)){
@@ -104,7 +104,7 @@
   						}
             }
             */
-            echo "<button class='btn btn-outline-secondary btn-sm' id='lista_penarea' data-lugar='admin/blog_lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
+            echo "<button class='btn btn-warning btn-sm' id='lista_penarea' data-lugar='admin/blog_lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
           echo "</div>";
         echo "</div>";
       echo "</div>";
