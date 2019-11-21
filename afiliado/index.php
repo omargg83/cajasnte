@@ -21,7 +21,7 @@
 					echo "<div class='row'>";
 						echo "<div class='col-12'>";
 							echo "<p class='card-text'>".$key['corto']."</p>";
-							echo "<button class='btn btn-outline-secondary btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
+							echo "<button class='btn btn-warning btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
 						echo "</div>";
 /*
 						if(strlen($imagen)>2 or file_exists("archivos/".$imagen)){

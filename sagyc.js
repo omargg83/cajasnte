@@ -45,7 +45,6 @@
 			}
 		});
 	}
-
 	function recuperar(){
 		$.ajax({
 			data:  {
@@ -59,6 +58,7 @@
 			}
 		});
 	}
+
 	$(document).on('submit','#recuperarx',function(e){
 		e.preventDefault();
 		var telefono=$('#telefono').val();
@@ -197,6 +197,7 @@
 			url:   'control_db.php',
 			type:  'post',
 			success:  function (response) {
+				window.location.hash="afiliado/index";
 				acceso();
 			}
 		});
@@ -217,7 +218,6 @@
 				"passAcceso":passAcceso
 		  },
 		  success: function( response ) {
-				console.log(response);
 				var data = JSON.parse(response);
 				if (data.acceso==1){
 					acceso();

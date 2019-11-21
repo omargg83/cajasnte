@@ -1,5 +1,10 @@
 <?php
   require_once("../control_db.php");
+  
+  if($_SESSION['administrador']!=1){
+    exit();
+  }
+
   $row=$db->blo_lista();
   $id=$row['id'];
 

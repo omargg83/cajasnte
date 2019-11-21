@@ -74,13 +74,13 @@
 									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 									$y.="<a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>";
 									$y.="<a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Anuncios</span></a>";
+									$y.="<a href='#admin/bitacora' title='Bitacora'><i class='fas fa-clipboard-list'></i><span>Bitacora</span></a>";
 								}
 								else{
 									$y.="<hr>";
 									$row=$this->blo_lista();
 
 									$y.="<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
-
 
 									//////////////////datos
 									$y.="<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos";
@@ -1281,6 +1281,28 @@
 			$contar=$sth->rowCount();
 			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			return $x;
+		}
+
+		public function reporte_1($desde,$hasta){
+			try{
+					$sql="
+					SELECT fpass_sol as fsol, fpass_up as fecha, 'Contraseña' as tipo, nombre, up_pass as estado from bit_datos where fpass_up between '$desde' and '$hasta' and up_pass>0
+					union
+					SELECT fcorreo_sol as fsol, fcorreo_up as fecha, 'Correo' as tipo, nombre, up_correo as estado from bit_datos where fcorreo_up between '$desde' and '$hasta' and up_correo>0
+					union
+					SELECT faport_sol as fsol, faport_up as fecha, 'Aportación' as tipo, nombre, up_aportacion as estado from bit_datos where faport_up between '$desde' and '$hasta' and up_aportacion>0
+					union
+					SELECT fbene_sol as fsol, fbene_up as fecha, 'Beneficiarios' as tipo, nombre, up_bene as estado from bit_datos where fbene_up between '$desde' and '$hasta' and up_bene>0
+					union
+					SELECT fdatos_sol as fsol, fdatos_up as fecha, 'Datos' as tipo, nombre, up_datos as estado from bit_datos where fdatos_up between '$desde' and '$hasta' and up_datos>0
+					";
+				$sth = $this->dbh->prepare($sql);
+				$sth->execute();
+				return $sth->fetchAll();
+			}
+			catch(PDOException $e){
+				return "Database access FAILED! ".$e->getMessage();
+			}
 		}
 	}
 
