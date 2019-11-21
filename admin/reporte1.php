@@ -11,16 +11,18 @@
 
   $row=$db->reporte_1($desde,$hasta);
 ?>
-<div class='container'>
+<div class='container-fluid'>
 
   <div class="content table-responsive table-full-width" style="background-color: white;">
     <table class='table' id='x_lista' style='font-size:12px'>
-    <thead><tr><th>#</th><th>Fecha solicitud</th><th>Fecha actualización</th><th>Actualizó</th><th>Estado</th></tr></thead>
+    <thead><tr><th>Folio</th><th>Filiación</th><th>Nombre</th><th>Fecha solicitud</th><th>Fecha actualización</th><th>Actualizó</th><th>Estado</th></tr></thead>
     <?php
 
       foreach($row as $key){
         echo "<tr>";
-        echo "<td>".$key['nombre']."</td>";
+        echo "<td>".$key['idfolio']."</td>";
+        echo "<td>".$key['filiacion']."</td>";
+        echo "<td>".$key['nombre']." ".$key['ape_pat']." ".$key['ape_mat']."</td>";
         echo "<td>".fecha($key['fsol'],2)."</td>";
         echo "<td>".fecha($key['fecha'],2)."</td>";
         echo "<td>".$key['tipo']."</td>";
@@ -37,3 +39,10 @@
     </table>
   </div>
 </div>
+
+
+<script>
+	$(document).ready( function () {
+		lista("x_lista");
+	});
+</script>

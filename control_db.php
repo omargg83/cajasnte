@@ -654,6 +654,7 @@
 			else{
 				$arreglo+=array('up_correo'=>1);
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 				$arreglo+=array('nombre'=>$_SESSION['nombre']);
 				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
@@ -685,6 +686,7 @@
 				else{
 					$arreglo+=array('up_pass'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
 					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
@@ -777,6 +779,7 @@
 				else{
 					$arreglo+=array('up_datos'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
 					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
@@ -821,6 +824,7 @@
 				else{
 					$arreglo+=array('up_aportacion'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
 					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
@@ -954,6 +958,7 @@
 				else{
 					$arreglo+=array('up_bene'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
 					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
@@ -1286,15 +1291,15 @@
 		public function reporte_1($desde,$hasta){
 			try{
 					$sql="
-					SELECT fpass_sol as fsol, fpass_up as fecha, 'Contraseña' as tipo, nombre, up_pass as estado from bit_datos where fpass_up between '$desde' and '$hasta' and up_pass>0
+					SELECT idfolio, filiacion, fpass_sol as fsol, fpass_up as fecha, 'Contraseña' as tipo, nombre, ape_pat, ape_mat, up_pass as estado from bit_datos where fpass_up between '$desde' and '$hasta' and up_pass>0
 					union
-					SELECT fcorreo_sol as fsol, fcorreo_up as fecha, 'Correo' as tipo, nombre, up_correo as estado from bit_datos where fcorreo_up between '$desde' and '$hasta' and up_correo>0
+					SELECT idfolio, filiacion, fcorreo_sol as fsol, fcorreo_up as fecha, 'Correo' as tipo, nombre, ape_pat, ape_mat, up_correo as estado from bit_datos where fcorreo_up between '$desde' and '$hasta' and up_correo>0
 					union
-					SELECT faport_sol as fsol, faport_up as fecha, 'Aportación' as tipo, nombre, up_aportacion as estado from bit_datos where faport_up between '$desde' and '$hasta' and up_aportacion>0
+					SELECT idfolio, filiacion, faport_sol as fsol, faport_up as fecha, 'Aportación' as tipo, nombre, ape_pat, ape_mat, up_aportacion as estado from bit_datos where faport_up between '$desde' and '$hasta' and up_aportacion>0
 					union
-					SELECT fbene_sol as fsol, fbene_up as fecha, 'Beneficiarios' as tipo, nombre, up_bene as estado from bit_datos where fbene_up between '$desde' and '$hasta' and up_bene>0
+					SELECT idfolio, filiacion, fbene_sol as fsol, fbene_up as fecha, 'Beneficiarios' as tipo, nombre, ape_pat, ape_mat, up_bene as estado from bit_datos where fbene_up between '$desde' and '$hasta' and up_bene>0
 					union
-					SELECT fdatos_sol as fsol, fdatos_up as fecha, 'Datos' as tipo, nombre, up_datos as estado from bit_datos where fdatos_up between '$desde' and '$hasta' and up_datos>0
+					SELECT idfolio, filiacion, fdatos_sol as fsol, fdatos_up as fecha, 'Datos' as tipo, nombre, ape_pat, ape_mat, up_datos as estado from bit_datos where fdatos_up between '$desde' and '$hasta' and up_datos>0
 					";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
