@@ -44,71 +44,69 @@
 					echo "</div>";
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_qini'>Q.Inicial</label>";
+							echo "<label for='txt_qini'><b>Q.Inicial</b></label>";
 							echo "<input class='form-control' type='text' id='txt_qini' NAME='txt_qini' value='".$txt_qini."' placeholder='Q.Inicial' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_qfin'>Q.Final</label>";
+							echo "<label for='txt_qfin'><b>Q.Final</b></label>";
 							echo "<input class='form-control' type='text' id='txt_qfin' NAME='txt_qfin' value='".$txt_qfin."' placeholder='Q.Final' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_monto'>Monto Credito</label>";
+							echo "<label for='txt_monto'><b>Monto Credito</b></label>";
 							echo "<input class='form-control moneda' type='text' id='txt_monto' NAME='txt_monto' value='".number_format($txt_monto,2)."' placeholder='Monto Credito' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_interes'>Interés</label>";
+							echo "<label for='txt_interes'><b>Interés</b></label>";
 							echo "<input class='form-control moneda' type='text' id='txt_interes' NAME='txt_interes' value='".number_format($txt_interes,2)."' placeholder='Interés' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_total'>Credito total</label>";
+							echo "<label for='txt_total'><b>Credito total</b></label>";
 							echo "<input class='form-control moneda' type='text' id='txt_total' NAME='txt_total' value='".number_format($txt_total,2)."' placeholder='Credito total' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_abono'>Abono</label>";
+							echo "<label for='txt_abono'><b>Abono</b></label>";
 							echo "<input class='form-control moneda' type='text' id='txt_abono' NAME='txt_abono' value='".number_format($txt_abono,2)."' placeholder='Abono' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_saldo'>Saldo</label>";
+							echo "<label for='txt_saldo'><b>Saldo</b></label>";
 							echo "<input class='form-control moneda' type='text' id='txt_saldo' NAME='txt_saldo' value='".number_format($txt_saldo,2)."' placeholder='Saldo' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_estado'>Estado</label>";
+							echo "<label for='txt_estado'><b>Estado</b></label>";
 							echo "<input class='form-control' type='text' id='txt_estado' NAME='txt_estado' value='".$txt_estado."' placeholder='Estado' readonly>";
 						echo "</div>";
 					echo "</div>";
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_plazo'>Plazo</label>";
+							echo "<label for='txt_plazo'><b>Plazo</b></label>";
 							echo "<input class='form-control' type='text' id='txt_plazo' NAME='txt_plazo' value='".$txt_plazo."' placeholder='Plazo' readonly dir=rtl>";
 						echo "</div>";
 					echo "</div>";
 				echo "</div>";
 
 			echo "</div>";
-
-
 
 			echo "<hr>";
 			echo "<table class='table table-striped table-sm'>";

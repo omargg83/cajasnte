@@ -638,21 +638,19 @@
 			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
 			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and up_correo=1";
+			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo=1 or up_correo=0 or up_correo is null) limit 1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$row=$sth->fetch();
 			$contar=$sth->rowCount();
-
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fcorreo_sol'=>$fecha);
-
+			$arreglo+=array('up_correo'=>1);
 			if($contar==1){
 				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('up_correo'=>1);
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 				$arreglo+=array('nombre'=>$_SESSION['nombre']);
@@ -670,7 +668,7 @@
 				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
 				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and up_pass=1";
+				$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
@@ -679,12 +677,11 @@
 
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('fpass_sol'=>$fecha);
-
+				$arreglo+=array('up_pass'=>1);
 				if($contar==1){
 					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 				}
 				else{
-					$arreglo+=array('up_pass'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
@@ -763,7 +760,7 @@
 				$arreglo+=array('c_psp'=>trim($c_psp));
 
 				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
+				$sql="select * from bit_datos where idfolio=:idfolio and (up_datos=1 or up_datos=0 or up_datos is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
@@ -772,12 +769,12 @@
 
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('fdatos_sol'=>$fecha);
+				$arreglo+=array('up_datos'=>1);
 
 				if($contar==1){
 					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 				}
 				else{
-					$arreglo+=array('up_datos'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
@@ -798,11 +795,39 @@
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$row=$sth->fetch();
+
 			$cambios="";
 			$a_qui=$_REQUEST['a_qui'];
-
 			if($row['a_qui']!=$a_qui){
-				$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=1";
+				////////////////////consulto saldo de afiliado
+				$sql="SELECT *,round((SELECT SUM(monto) FROM detallepago WHERE detallepago.idcredito=cred.clv_cred ),2) AS abono,
+				(cred.total-round((SELECT SUM(monto) FROM detallepago WHERE detallepago.idcredito=cred.clv_cred ),2)) as saldo FROM creditos cred
+				left outer join afiliados on afiliados.idfolio=cred.idfolio where cred.idfolio=:folio";
+				$sth = $this->dbh->prepare($sql);
+				$sth->bindValue(":folio",$_SESSION['idfolio']);
+				$sth->execute();
+				$cuenta = $sth->rowCount();
+				$saldos=$sth->fetchAll();
+				$entra=0;
+				if($a_qui<$row['a_qui']){
+					if($cuenta==0){			//////////////no hay creditos entonces puede pasar
+						$entra=1;
+					}
+					else{
+						////////////hay creditos entonces checar si alguno tiene mas de 100 pesos en saldo..
+						foreach ($saldos as $key) {
+							if($key['saldo']>100){
+								$entra=1; ////////////con el primero que se encuentre con mas de 100 pesos basta..
+								break;
+							}
+						}
+					}
+					if($entra==0){
+						return "Imposible disminuir aportación";
+					}
+				}
+
+				$sql="select * from bit_datos where idfolio=:idfolio and (up_aportacion=1 or up_aportacion=0 or up_aportacion is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
@@ -817,12 +842,12 @@
 
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('faport_sol'=>$fecha);
+				$arreglo+=array('up_aportacion'=>1);
 
 				if($contar==1){
 					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 				}
 				else{
-					$arreglo+=array('up_aportacion'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
@@ -942,7 +967,7 @@
 				$arreglo+=array('BFE'=>trim($BFE));
 
 				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
+				$sql="select * from bit_datos where idfolio=:idfolio and (up_bene=1 or up_bene=0 or up_bene is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
@@ -951,12 +976,12 @@
 
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('fbene_sol'=>$fecha);
+				$arreglo+=array('up_bene'=>1);
 
 				if($contar==1){
 					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 				}
 				else{
-					$arreglo+=array('up_bene'=>1);
 					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
 					$arreglo+=array('nombre'=>$_SESSION['nombre']);
@@ -1263,7 +1288,7 @@
 			$arreglo =array();
 			$arreglo+=array('up_aportacion'=>0);
 
-			$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=0";
+			$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();

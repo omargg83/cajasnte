@@ -1,5 +1,8 @@
 <?php
 	require_once("../control_db.php");
+
+
+
 	$alerta=$db->blog_alerta();
 	echo "<div class='container' id='trabajo'>";
 	foreach($alerta as $key){
