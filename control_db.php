@@ -814,11 +814,11 @@
 						$entra=1;
 					}
 					else{
-						////////////hay creditos entonces checar si alguno tiene mas de 100 pesos en saldo..
+						////////////hay creditos entonces checar si alguno tiene mas de 100 pesos en saldo para mandarlo alv...
 						foreach ($saldos as $key) {
-							if($key['saldo']>100){
+							if($key['saldo']>=100){
 								$entra=1; ////////////con el primero que se encuentre con mas de 100 pesos basta..
-								break;
+								return "imposible disminuir aportación, por saldo en creditos";
 							}
 						}
 					}
