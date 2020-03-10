@@ -715,6 +715,9 @@
 			$r_rrg=$_REQUEST['r_rrg'];
 			$c_psp=$_REQUEST['c_psp'];
 
+			$correo=$_REQUEST['correo'];
+			$celular=$_REQUEST['celular'];
+
 			if($row['d_dom']!=$d_dom){
 				$cambios.=" d_dom:".trim($d_dom);
 			}
@@ -746,6 +749,15 @@
 				$cambios.=" c_psp:".trim($c_psp);
 			}
 
+			if($row['correo']!=$correo){
+				$cambios.=" correo:".trim($correo);
+			}
+
+			if($row['celular']!=$celular){
+				$cambios.=" celular:".trim($celular);
+			}
+
+
 			if(strlen($cambios)>1){
 				$arreglo+=array('d_dom'=>trim($d_dom));
 				$arreglo+=array('e_civ'=>trim($e_civ));
@@ -757,6 +769,8 @@
 				$arreglo+=array('d_sin'=>trim($d_sin));
 				$arreglo+=array('r_rrg'=>trim($r_rrg));
 				$arreglo+=array('c_psp'=>trim($c_psp));
+				$arreglo+=array('correo'=>trim($correo));
+				$arreglo+=array('celular'=>trim($celular));
 
 				////////////////////////////////////////aca
 				$sql="select * from bit_datos where idfolio=:idfolio and (up_datos=1 or up_datos=0 or up_datos is null) limit 1";

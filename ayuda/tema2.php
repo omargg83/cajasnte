@@ -3,7 +3,7 @@ echo "<div class='card'>";
 
 
 
-echo "<img src='ayuda/ayuda1.jpg'>";
+echo "<img src='ayuda/ayuda2.jpg'>";
 
 
  ?>

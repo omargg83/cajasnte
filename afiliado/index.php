@@ -11,8 +11,6 @@
 
 	$noticia=$db->blog_noticia();
 
-	echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema1' data-id='0' data-lugar='ayuda/tema1' title='tema1' ><i class='fas fa-key'></i>ESTE BOTON</button>";
-
 	echo "<div class='row'>";
 	foreach($noticia as $key){
 		echo "<div class='col-sm-6'>

@@ -67,7 +67,7 @@
           echo "<div class='row'>";
             echo "<div class='col-4'>";
               echo "<div class='form-group'>";
-                echo "<label>Aportacion Ahorro</label>";
+                echo "<label>Aportación Total Para Ahorro: Por favor modifique o actualice la aportación TOTAL para su ahorro</label>";
                 echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .$a_qui."' placeholder='Aportacion Ahorro'>";
               echo "</div>";
             echo "</div>";
@@ -102,7 +102,7 @@
           echo "<div class='card-body'>";
             echo "<div class='row'>";
               echo "<div class='col-4'>";
-              echo "<label>Aportacion Ahorro</label>";
+              echo "<label>Aportación Total Para Ahorro</label>";
               echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
               echo "</div>";
               ///////////////////////////////

@@ -28,6 +28,9 @@ $u_bic=$row['u_bic'];
 $r_rrg=$row['r_rrg'];
 $c_psp=$row['c_psp'];
 
+$correo=$row['correo'];
+$celular=$row['celular'];
+
 echo "<div class='container'>";
 	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos' data-destino='afiliado/datos'>";
 	  echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
@@ -134,7 +137,9 @@ echo "<div class='container'>";
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
+							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema1' data-id='0' data-lugar='ayuda/tema1' title='Ubicación Clave Centro de Trabajo' ><i class='far fa-question-circle'></i> </button>";
             echo "<input class='form-control' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Clave Centro de Trabajo'>";
+
           echo "</div>";
         echo "</div>";
 
@@ -147,7 +152,7 @@ echo "<div class='container'>";
 
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
-						echo "<label for='d_sin'>Delegación</label>";
+						echo "<label for='d_sin'>Delegación / CT</label>";
 						echo "<input class='form-control' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Delegación'>";
 					echo "</div>";
 				echo "</div>";
@@ -162,9 +167,25 @@ echo "<div class='container'>";
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
 						echo "<label for='c_psp'>Clave Presupuestal</label>";
+							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema2' data-id='0' data-lugar='ayuda/tema2' title='Ubicación Clave Presupuestal' ><i class='far fa-question-circle'></i> </button>";
 						echo "<input class='form-control' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal'>";
 					echo "</div>";
 				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<div class='form-group'>";
+						echo "<label for='correo'>Correo</label>";
+						echo "<input class='form-control' type='text' id='correo' NAME='correo' value='".$row['correo']."' placeholder='Correo o email'>";
+					echo "</div>";
+				echo "</div>";
+
+				echo "<div class='col-3'>";
+					echo "<div class='form-group'>";
+						echo "<label for='celular'>Telefono Celular</label>";
+						echo "<input class='form-control' type='text' id='celular' NAME='celular' value='".$row['celular']."' placeholder='Celular'>";
+					echo "</div>";
+				echo "</div>";
+
       echo "</div>";
     echo "</div>";
 
@@ -181,7 +202,7 @@ echo "<div class='container'>";
 				echo "</div>";
 			}
 			else{
-				echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorr</b>o";
+				echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
 			}
 		echo "</div>";
   echo "</div>";
@@ -262,6 +283,21 @@ echo "<div class='container'>";
 									echo "<input class='form-control' type='text' id='c_psp1' NAME='c_psp1' value='".$cambio['c_psp']."' placeholder='Clave Presupuestal' readonly>";
 								echo "</div>";
 							echo "</div>";
+
+							echo "<div class='col-3'>";
+								echo "<div class='form-group'>";
+									echo "<label for='correo'>Correo</label>";
+									echo "<input class='form-control' type='text' id='correo' NAME='correo' value='".$cambio['correo']."' placeholder='Correo o email' readonly>";
+								echo "</div>";
+							echo "</div>";
+
+							echo "<div class='col-3'>";
+								echo "<div class='form-group'>";
+									echo "<label for='celular'>Telefono Celular</label>";
+									echo "<input class='form-control' type='text' id='celular' NAME='celular' value='".$cambio['celular']."' placeholder='Celular' readonly>";
+								echo "</div>";
+							echo "</div>";
+
 						echo "</div>";
 					echo "</div>";
 						//////////////////////////////
