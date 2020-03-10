@@ -30,6 +30,8 @@
 							echo "</div>";
 						}
 						*/
+
+
 					echo "</div>";
 				echo "</div>
 			</div>
@@ -38,6 +40,7 @@
 	echo "</div>";
 
 	echo "<hr>";
+
 	/*<div class='container'>
 		<div id='carouselExampleControls' class='carousel slide' data-ride='carousel'>
 		  <div class='carousel-inner'>
@@ -66,6 +69,9 @@
 		</div>
 	</div>*/
 ?>
+<div align="center">
+		<img src='img/snte.jpeg'>
+</div>
 <iframe width="360" height="315" src="https://www.youtube.com/embed/XaP-63SYRbo"
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
