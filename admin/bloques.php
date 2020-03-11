@@ -1,6 +1,6 @@
 <?php
   require_once("../control_db.php");
-  
+
   if($_SESSION['administrador']!=1){
     exit();
   }
@@ -53,7 +53,7 @@
           echo "</div>";
 
           echo "<div class='col-4'>";
-            echo "<label class='form-check-label'><b>Fecha Limite</b></label>";
+            echo "<label class='form-check-label'><b>Fecha Cierre</b></label>";
           echo "</div>";
         echo "</div>";
         echo "<br>";

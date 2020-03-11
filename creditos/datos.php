@@ -93,17 +93,19 @@
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_estado'><b>Estado</b></label>";
-							echo "<input class='form-control' type='text' id='txt_estado' NAME='txt_estado' value='".$txt_estado."' placeholder='Estado' readonly>";
-						echo "</div>";
-					echo "</div>";
-
-					echo  "<div class='col-sm-2'>";
-						echo "<div class='form-group'>";
 							echo "<label for='txt_plazo'><b>Plazo</b></label>";
 							echo "<input class='form-control' type='text' id='txt_plazo' NAME='txt_plazo' value='".$txt_plazo."' placeholder='Plazo' readonly dir=rtl>";
 						echo "</div>";
 					echo "</div>";
+					
+					echo  "<div class='col-sm-2'>";
+						echo "<div class='form-group'>";
+							echo "<label for='txt_estado' hidden><b>Estado</b></label>";
+							echo "<input  type='hidden' class='form-control' type='text' id='txt_estado' NAME='txt_estado' value='".$txt_estado."' placeholder='Estado' readonly >";
+						echo "</div>";
+					echo "</div>";
+
+
 				echo "</div>";
 
 			echo "</div>";
