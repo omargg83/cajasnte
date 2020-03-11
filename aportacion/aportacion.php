@@ -67,7 +67,7 @@
           echo "<div class='row'>";
             echo "<div class='col-4'>";
               echo "<div class='form-group'>";
-                echo "<label>Aportación Total Para Ahorro: Por favor modifique o actualice la aportación TOTAL para su ahorro</label>";
+                echo "<label>Aportación Total Para Ahorro: Por favor modifique o actualice la aportación TOTAL para su ahorro (Solo cuando este disponible dicho cambio)</label>";
                 echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .$a_qui."' placeholder='Aportacion Ahorro'>";
               echo "</div>";
             echo "</div>";
