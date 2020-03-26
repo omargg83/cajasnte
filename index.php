@@ -69,7 +69,7 @@
 	<script src="librerias15/jqueryconfirm/js/jquery-confirm.js"></script>
 
 	<!--   iconos   -->
-	<link rel="stylesheet" href="librerias15/fontawesome-free-5.8.1-web/css/all.css">
+	<link rel="stylesheet" href="librerias15/fontawesome-free-5.12.1-web/css/all.css">
 
 	<script src="librerias15/popper.js"></script>
 	<script src="librerias15/tooltip.js"></script>
