@@ -217,7 +217,8 @@
     	echo "</form>";
 
     	$cambio=$db->cambios(5);
-    	if($cambio['up_bene']==1){
+      if(is_array($cambio)){
+        if($cambio['up_bene']==1){
     		echo "<br><div class='card' id='datos_c'>";
     			echo "<div class='card-header'>";
     				echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar";
@@ -312,6 +313,8 @@
 
     		echo "</div>";
     	}
+      }
+
     echo "</div>";
     echo "</div>";
 ?>
