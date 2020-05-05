@@ -67,8 +67,9 @@
           echo "<div class='row'>";
             echo "<div class='col-4'>";
               echo "<div class='form-group'>";
-                echo "<label>Aportación Total Para Ahorro: Por favor modifique o actualice la aportación TOTAL para su ahorro (Solo cuando este disponible dicho cambio)</label>";
+                echo "<label>Aportación Total Para Ahorro:</label>";
                 echo "<input class='form-control' type='text' id='a_qui' NAME='a_qui' value='" .$a_qui."' placeholder='Aportacion Ahorro'>";
+                echo "<small id='a_qui' class='form-text text-muted'>Por favor modifique o actualice la aportación TOTAL para su ahorro (Solo cuando este disponible dicho cambio)</small>";
               echo "</div>";
             echo "</div>";
           echo "</div>";
@@ -94,32 +95,32 @@
     	echo "</form>";
 
       $cambio=$db->cambios(4);
-      if($cambio['up_aportacion']==1){
-        echo "<br><div class='card' id='datos_c'>";
-          echo "<div class='card-header'>";
-            echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar";
-          echo "</div>";
-          echo "<div class='card-body'>";
-            echo "<div class='row'>";
-              echo "<div class='col-4'>";
-              echo "<label>Aportación Total Para Ahorro</label>";
-              echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
-              echo "</div>";
-              ///////////////////////////////
+      if(is_array($cambio)){
+        if($cambio['up_aportacion']==1){
+          echo "<br><div class='card' id='datos_c'>";
+            echo "<div class='card-header'>";
+              echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar";
             echo "</div>";
-          echo "</div>";
-          echo "<div class='card-footer'>";
-            echo "<div class='row'>";
-              echo "<div class='col-6'>";
-                echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_aporta()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
+            echo "<div class='card-body'>";
+              echo "<div class='row'>";
+                echo "<div class='col-4'>";
+                echo "<label>Aportación Total Para Ahorro</label>";
+                echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
+                echo "</div>";
+                ///////////////////////////////
               echo "</div>";
             echo "</div>";
-          echo "</div>";
+            echo "<div class='card-footer'>";
+              echo "<div class='row'>";
+                echo "<div class='col-6'>";
+                  echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_aporta()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
+                echo "</div>";
+              echo "</div>";
+            echo "</div>";
 
-        echo "</div>";
+          echo "</div>";
+        }
       }
-
-
     echo "</div>";
 ?>
 
