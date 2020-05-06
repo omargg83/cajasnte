@@ -14,25 +14,22 @@
 	echo "<div class='row'>";
 	foreach($noticia as $key){
 		echo "<div class='col-sm-6'>
-			<div class='card'>
-				<div class='card-body'>";
+			<div class='card'>";
+			echo "<div class='card-header'><b>".$key['nombre']."</b></div>";
+				echo "<div class='card-body'>";
 					$imagen=$key['imagen'];
-					echo "<h5 class='card-title'><b>".$key['nombre']."</b></h5>";
 					echo "<div class='row'>";
-						echo "<div class='col-12'>";
-							echo "<p class='card-text'>".$key['corto']."</p>";
-							echo "<button class='btn btn-warning btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
-						echo "</div>";
-/*
 						if(strlen($imagen)>2 or file_exists("archivos/".$imagen)){
-							echo "<div class='col-2'>";
+							echo "<div class='col-3'>";
 								echo "<img src='archivos/$imagen' width='100px' heigth='200px' alt='Miniatura'>";
 							echo "</div>";
 						}
-						*/
-
-
+						echo "<div class='col-9'>";
+							echo "<p class='card-text'>".$key['corto']."</p>";
+							echo "<button class='btn btn-warning btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
+						echo "</div>";
 					echo "</div>";
+
 				echo "</div>
 			</div>
 		</div>";

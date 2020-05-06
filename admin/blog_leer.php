@@ -6,7 +6,13 @@
   $nombre=$row['nombre'];
   $texto=$row['texto'];
   $corto=$row['corto'];
-
+  $imagen=$row['imagen'];
+  if(strlen($imagen)>2 or file_exists("archivos/".$imagen)){
+    echo "<div class='col-3'>";
+      echo "<img src='archivos/$imagen' width='100px' heigth='200px' alt='Miniatura'>";
+    echo "</div>";
+  }
+  
   echo "<div class='card'>";
     echo "<div class='card-header'>";
       echo "<b>$nombre</b><br>";

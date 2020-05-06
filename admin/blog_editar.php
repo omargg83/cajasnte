@@ -75,17 +75,17 @@
         echo "<div class='card-footer'>";
           echo "<div class='btn-group'>";
             echo "<button class='btn btn-warning btn-sm' type='submit' title='Guardar cambios' ><i class='far fa-save'></i>Guardar</button>";
-            /*
+
             if($id>0){
               if(strlen($imagen)<2 or !file_exists("../archivos/".$imagen)){
-  	            echo "<button type='button' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='imagen' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.jpg,.png' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Miniatura</button>";
+  	            echo "<button type='button' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='imagen' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.jpg,.png' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Miniatura</button>";
   						}
   						else{
   							echo "<div class='btn-group' role='group'>";
-  								echo "<button id='btnGroupDrop1' type='button' class='btn btn-outline-secondary btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-paperclip'></i>Logo</button>";
+  								echo "<button id='btnGroupDrop1' type='button' class='btn btn-warning btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-paperclip'></i>Imagen</button>";
 
   								echo "<div class='dropdown-menu' aria-labelledby='btnGroupDrop1'>";
-  									echo "<a class='dropdown-item' href='archivos/".$imagen."' target='_blank'><i class='fas fa-paperclip'></i>Ver Miniatura</a>";
+  									echo "<a class='dropdown-item' href='archivos/".$imagen."' target='_blank'><i class='fas fa-paperclip'></i>Imagen</a>";
   									echo "<a class='dropdown-item' title='Eliminar archivo'
   									id='delfile_logo'
   									data-ruta='archivos/$imagen'
@@ -103,7 +103,7 @@
   							echo "</div>";
   						}
             }
-            */
+
             echo "<button class='btn btn-warning btn-sm' id='lista_penarea' data-lugar='admin/blog_lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";
           echo "</div>";
         echo "</div>";
@@ -120,7 +120,15 @@
       lang: 'es-ES',
       placeholder: 'Mensaje de texto',
       tabsize: 5,
-      height: 350
+      height: 150,
+      toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
     });
   });
 </script>
