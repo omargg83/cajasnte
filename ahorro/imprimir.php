@@ -30,7 +30,7 @@
 
 		$pdf->addText(310,760,14,"SINDICATO NACIONAL DE TRABAJADORES DE LA EDUCACION",0,'center');
 		$pdf->addText(310,735,12,"REPORTE DE APORTACIONES POR SOCIO",0,'center');
-		$pdf->addText(310,720,12,"CAJA DE AHORRO Y CREDITOS",0,'center');
+		$pdf->addText(310,720,12,"CAJA DE AHORRO Y CRÉDITOS",0,'center');
 
 		$pdf->setColor(0.9,0.9,0.9);
 		$pdf->filledRectangle(40, 658, 535, 13);

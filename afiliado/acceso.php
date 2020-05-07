@@ -24,11 +24,11 @@
         </div>
 
         <div class="form-group input-group">
-          <label class="col-md-4 control-label" for="pass2">Cambiar telefono</label>
+          <label class="col-md-4 control-label" for="pass2">Cambiar teléfono</label>
           <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fas fa-mobile-alt"></i> </span>
           </div>
-          <input class="form-control" placeholder="Cambiar telefono" type="text"  id="telefono" name="telefono" value='<?php echo $celular; ?>'>
+          <input class="form-control" placeholder="Cambiar teléfono" type="text"  id="telefono" name="telefono" value='<?php echo $celular; ?>'>
         </div>
       </div>
       <div class='card-footer'>

@@ -58,8 +58,8 @@
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_monto'><b>Monto Credito</b></label>";
-							echo "<input class='form-control moneda' type='text' id='txt_monto' NAME='txt_monto' value='".number_format($txt_monto,2)."' placeholder='Monto Credito' readonly>";
+							echo "<label for='txt_monto'><b>Monto Crédito</b></label>";
+							echo "<input class='form-control moneda' type='text' id='txt_monto' NAME='txt_monto' value='".number_format($txt_monto,2)."' placeholder='Monto Crédito' readonly>";
 						echo "</div>";
 					echo "</div>";
 
@@ -72,8 +72,8 @@
 
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
-							echo "<label for='txt_total'><b>Credito total</b></label>";
-							echo "<input class='form-control moneda' type='text' id='txt_total' NAME='txt_total' value='".number_format($txt_total,2)."' placeholder='Credito total' readonly>";
+							echo "<label for='txt_total'><b>Crédito total</b></label>";
+							echo "<input class='form-control moneda' type='text' id='txt_total' NAME='txt_total' value='".number_format($txt_total,2)."' placeholder='Crédito total' readonly>";
 						echo "</div>";
 					echo "</div>";
 
@@ -97,7 +97,7 @@
 							echo "<input class='form-control' type='text' id='txt_plazo' NAME='txt_plazo' value='".$txt_plazo."' placeholder='Plazo' readonly dir=rtl>";
 						echo "</div>";
 					echo "</div>";
-					
+
 					echo  "<div class='col-sm-2'>";
 						echo "<div class='form-group'>";
 							echo "<label for='txt_estado' hidden><b>Estado</b></label>";
