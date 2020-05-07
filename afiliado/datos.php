@@ -213,7 +213,7 @@ echo "<div class='container'>";
 		if($cambio['up_datos']==1){
 			echo "<br><div class='card' id='datos_c'>";
 				echo "<div class='card-header'>";
-					echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar";
+					echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar - en breve serán actualizados en las oficinas de caja de ahorro";
 				echo "</div>";
 				echo "<div class='card-body'>";
 					echo "<div class='row'>";
