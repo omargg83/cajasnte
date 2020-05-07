@@ -637,12 +637,12 @@
 			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
 			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo=1 or up_correo=0 or up_correo is null) limit 1";
+			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo is null or up_correo=1 or up_correo=0) limit 1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
-			$row=$sth->fetch();
 			$contar=$sth->rowCount();
+			$row=$sth->fetch();
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fcorreo_sol'=>$fecha);
 			$arreglo+=array('up_correo'=>1);
@@ -853,7 +853,7 @@
 				if (isset($_REQUEST['a_qui'])){
 					$arreglo+=array('a_qui'=>$_REQUEST['a_qui']);
 				}
-				
+
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('faport_sol'=>$fecha);
 				$arreglo+=array('up_aportacion'=>1);
