@@ -77,12 +77,10 @@
 		<img src='img/snte.jpeg'>
 </div>
 
-
-
-<video src="img/edit1.mp4" poster="img/editdatos.jpg" width="360" height="315" controls></video>
+<!--<video src="img/edit1.mp4" poster="img/editdatos.jpg" width="360" height="315" controls></video>
 <video src="img/caportacion.mp4" poster="img/editaporta.jpg" width="360" height="315" controls></video>
 <video src="img/cbenef.mp4" poster="img/editbene.jpg" width="360" height="315" controls></video>
 
-<!-- <iframe width="960" height="615" src="https://www.youtube.com/embed/XaP-63SYRbo"
+ <iframe width="960" height="615" src="https://www.youtube.com/embed/XaP-63SYRbo"
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>-->
