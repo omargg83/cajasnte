@@ -773,6 +773,7 @@
 				$arreglo+=array('celular'=>trim($celular));
 
 				////////////////////////////////////////aca
+				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 				$sql="select * from bit_datos where idfolio=:idfolio and (up_datos=1 or up_datos=0 or up_datos is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -852,7 +853,7 @@
 				if (isset($_REQUEST['a_qui'])){
 					$arreglo+=array('a_qui'=>$_REQUEST['a_qui']);
 				}
-
+				
 				$fecha=date("Y-m-d H:i:s");
 				$arreglo+=array('faport_sol'=>$fecha);
 				$arreglo+=array('up_aportacion'=>1);
@@ -980,6 +981,7 @@
 				$arreglo+=array('BFE'=>trim($BFE));
 
 				////////////////////////////////////////aca
+				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 				$sql="select * from bit_datos where idfolio=:idfolio and (up_bene=1 or up_bene=0 or up_bene is null) limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
