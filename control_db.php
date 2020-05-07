@@ -637,26 +637,37 @@
 			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
 
 			////////////////////////////////////////aca
+			/*
 			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo is null or up_correo=1 or up_correo=0) limit 1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
 			$contar=$sth->rowCount();
 			$row=$sth->fetch();
-			$fecha=date("Y-m-d H:i:s");
-			$arreglo+=array('fcorreo_sol'=>$fecha);
-			$arreglo+=array('up_correo'=>1);
-			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
+				$fecha=date("Y-m-d H:i:s");
+				$arreglo =array();
+				$arreglo+=array('fcorreo_sol'=>$fecha);
+				$arreglo+=array('up_correo'=>1);
+				$arreglo+=array('correo'=>trim($_REQUEST['correo']));
+				$arreglo+=array('celular'=>trim($_REQUEST['telefono']));
+				if($contar==1){
+					$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				}
+				else{
+				*/
+					$fecha=date("Y-m-d H:i:s");
+					$arreglo =array();
+					$arreglo+=array('fcorreo_sol'=>$fecha);
+					$arreglo+=array('up_correo'=>1);
+					$arreglo+=array('correo'=>trim($_REQUEST['correo']));
+					$arreglo+=array('celular'=>trim($_REQUEST['telefono']));
+					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
+					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
+					$arreglo+=array('nombre'=>$_SESSION['nombre']);
+					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
+					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+					$x=$this->insert('bit_datos', $arreglo);
+				//}
 			return $x;
 		}
 		public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
