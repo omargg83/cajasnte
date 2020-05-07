@@ -17,6 +17,18 @@ i:hover{
 	width: 21px;
 }
 
+body {
+	background-color: #cccccc;
+	background-repeat: no-repeat;
+	background-attachment: fixed ;
+	background-position: top ;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+	overflow: hidden;
+}
+
 
 /*Comienza la SIDEBAR*/
 .sidebar{
