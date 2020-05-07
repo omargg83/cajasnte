@@ -75,7 +75,7 @@
 	<script src="librerias15/tooltip.js"></script>
 
 	<!--   Propios   -->
-	<script src="sagyc.js"></script>
+	<script src="sagycv2.js"></script>
 	<link rel="stylesheet" type="text/css" href="librerias15/modulos.css"/>
 
 	<!--   Tablas  -->
@@ -95,10 +95,7 @@
 	<!--   Boostrap   -->
 	<link rel="stylesheet" href="librerias15/css/bootstrap.min.css">
 	<script src="librerias15/js/bootstrap.js"></script>
-
 	<script src="librerias15/jQuery-MD5-master/jquery.md5.js"></script>
-
-	<!--   editor   -->
 
 
 </html>
