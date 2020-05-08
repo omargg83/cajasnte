@@ -116,6 +116,7 @@
 
   $(function() {
     fechas();
+      
     $('#texto').summernote({
       lang: 'es-ES',
       placeholder: 'Mensaje de texto',

@@ -11,12 +11,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<meta http-equiv="Expires" content="0">
 	<meta http-equiv="Last-Modified" content="0">
 	<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
 	<meta http-equiv="Pragma" content="no-cache">
-
 	<link rel="stylesheet" href="librerias15/load/dist/css-loader.css">
 </head>
 <?php
@@ -62,10 +60,8 @@
 	<!-- Animation library for notifications   -->
   <link href="librerias15/animate.css" rel="stylesheet" type="text/css"/>
 
-	<!-- WYSWYG   -->
-	<link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
-  <script src="librerias15/summernote8.12/summernote-lite.js"></script>
-	<script src="librerias15/summernote8.12/lang/summernote-es-ES.js"></script>
+
+
 
 	<!--   Alertas   -->
 	<script src="librerias15/swal/dist/sweetalert2.min.js"></script>
@@ -114,9 +110,8 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/> 
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
-
 
 	<!--   Boostrap   -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

@@ -3,7 +3,7 @@
   if($_SESSION['administrador']!=1){
     exit();
   }
-  
+
 	echo "<nav class='navbar navbar-expand-lg navbar-light bg-light'>
 
 	<a class='navbar-brand' ><i class='fas fa-users'></i> Pizarrón</a>
@@ -30,3 +30,9 @@
 		include 'blog_lista.php';
 	echo "</div>";
 ?>
+
+
+<!-- WYSWYG   -->
+  <link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
+  <script src="librerias15/summernote8.12/summernote-lite.js"></script>
+  <script src="librerias15/summernote8.12/lang/summernote-es-ES.js"></script>
