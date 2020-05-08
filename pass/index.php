@@ -1,7 +1,6 @@
 <?php
   require_once("../control_db.php");
-
-  ?>
+?>
 
  <nav class='navbar navbar-expand-sm navbar-light bg-light'>
  		  <a class='navbar-brand' ><i class="fas fa-key"></i>Contraseñas</a>
