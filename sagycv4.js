@@ -7,9 +7,6 @@
 	$(function(){
 		$("#cargando").removeClass("is-active");
 		acceso();
-		if(intval==""){
-			intval=window.setInterval("sesion_ver()",60000);
-		}
 	});
 	function acceso(){
 		$.ajax({

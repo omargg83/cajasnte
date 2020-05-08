@@ -74,13 +74,14 @@
 	<script src="librerias15/jqueryconfirm/js/jquery-confirm.js"></script>
 
 	<!--   iconos   -->
-	<link rel="stylesheet" href="librerias15/fontawesome-free-5.12.1-web/css/all.css">
+	<!-- <link rel="stylesheet" href="librerias15/fontawesome-free-5.12.1-web/css/all.css">-->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 	<!--<script src="librerias15/popper.js"></script>-->
 	<script src="librerias15/tooltip.js"></script>
 
 	<!--   Propios   -->
-	<script src="sagycv3.js"></script>
+	<script src="sagycv4.js"></script>
 	<link rel="stylesheet" type="text/css" href="librerias15/modulos.css"/>
 
 	<!--   Tablas  -->
