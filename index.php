@@ -51,8 +51,12 @@
 
 	<!--   url   -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-	<!-- <script src="librerias15/jquery/jquery-ui.js"></script>-->
-	<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
+	<!--
+		<script src="librerias15/jquery/jquery-ui.js"></script>
+		<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
+	-->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
 
 	<!-- Animation library for notifications   -->
   <link href="librerias15/animate.css" rel="stylesheet" type="text/css"/>
