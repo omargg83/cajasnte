@@ -236,6 +236,18 @@
 				}
 			}
 		}
+		public function ses(){
+			if(isset($_SESSION['idfolio']) and isset($_SESSION['idfolio']) and (strlen($_SESSION['llave'])>0)){
+				$arr=array();
+				$arr=array('sess'=>"abierta");
+				return json_encode($arr);
+			}
+			else{
+				$arr=array();
+				$arr=array('sess'=>"cerrada");
+				return json_encode($arr);
+			}
+		}
 
 		public function recuperar_form(){
 			$x="<form id='recuperarx' action=''>

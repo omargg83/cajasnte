@@ -7,6 +7,9 @@
 	$(function(){
 		$("#cargando").removeClass("is-active");
 		acceso();
+		if(intval==""){
+			intval=window.setInterval("sesion_ver()",60000);
+		}
 	});
 	function acceso(){
 		$.ajax({
@@ -202,7 +205,41 @@
 			}
 		});
 	}
+	function sesion_ver(){
+		$.ajax({
+			data:  {
+				"ctrl":"control",
+				"function":"ses"
+			},
+			url: "control_db.php",
+			type: "post",
+			success:  function (response) {
+				console.log(response);
+				if (isJSON(response)){
+					var datos = JSON.parse(response);
+					if (datos.sess=="cerrada"){
+						$("#header").html("");
+						$("#bodyx").html("");
+						$("#modal_dispo").removeClass("modal-lg");
+						$("#modal_form").html(datos.carga);
+						$('#myModal').modal({backdrop: 'static', keyboard: false})
+						$('#myModal').modal('show');
+					}
+				}
+			}
+		});
+	}
+	function isJSON (something) {
+		if (typeof something != 'string')
+				something = JSON.stringify(something);
 
+		try {
+				JSON.parse(something);
+				return true;
+		} catch (e) {
+				return false;
+		}
+	}
 	$(document).on('submit','#acceso',function(e){
 		e.preventDefault();
 		var userAcceso=document.getElementById("userAcceso").value;
