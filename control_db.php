@@ -14,13 +14,18 @@
 		public $limite=300;
 
 		public function __construct(){
-			$this->Salud = array();
-			date_default_timezone_set("America/Mexico_City");
-			$_SESSION['mysqluser']="sagyce18_sagyc";
-			$_SESSION['mysqlpass']="sagyc123$";
-			$_SESSION['servidor'] ="sagyc2.com.mx";
-			$_SESSION['bdd']="sagyce18_caja";
-			$this->dbh = new PDO("mysql:host=".$_SESSION['servidor'].";dbname=".$_SESSION['bdd']."", $_SESSION['mysqluser'], $_SESSION['mysqlpass']);
+			try{
+				$this->Salud = array();
+				date_default_timezone_set("America/Mexico_City");
+				$_SESSION['mysqluser']="sagyce18_sagyc";
+				$_SESSION['mysqlpass']="sagyc123$";
+				$_SESSION['servidor'] ="sagyc2.com.mx";
+				$_SESSION['bdd']="sagyce18_caja";
+				$this->dbh = new PDO("mysql:host=".$_SESSION['servidor'].";dbname=".$_SESSION['bdd']."", $_SESSION['mysqluser'], $_SESSION['mysqlpass']);
+			}
+			catch(PDOException $e){
+				return "Database access FAILED!";
+			}
 		}
 		public function set_names(){
 			return $this->dbh->query("SET NAMES 'utf8'");

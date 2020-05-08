@@ -43,10 +43,15 @@
 
 </body>
 	<!--   Core JS Files   -->
-	<script src="librerias15/jquery-3.4.1.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+	<!--
+		<script src="librerias15/jquery-3.4.1.min.js" type="text/javascript"></script>
+	-->
 
 	<!--   url   -->
-	<script src="librerias15/jquery/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+	<!-- <script src="librerias15/jquery/jquery-ui.js"></script>-->
 	<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
 
 	<!-- Animation library for notifications   -->
@@ -71,7 +76,7 @@
 	<!--   iconos   -->
 	<link rel="stylesheet" href="librerias15/fontawesome-free-5.12.1-web/css/all.css">
 
-	<script src="librerias15/popper.js"></script>
+	<!--<script src="librerias15/popper.js"></script>-->
 	<script src="librerias15/tooltip.js"></script>
 
 	<!--   Propios   -->
@@ -93,8 +98,12 @@
 	<link rel="stylesheet" type="text/css" href="librerias15/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.css"/>
 
 	<!--   Boostrap   -->
-	<link rel="stylesheet" href="librerias15/css/bootstrap.min.css">
-	<script src="librerias15/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!--<link rel="stylesheet" href="librerias15/css/bootstrap.min.css">-->
+	<!--<script src="librerias15/js/bootstrap.js"></script>-->
 	<script src="librerias15/jQuery-MD5-master/jquery.md5.js"></script>
 
 
