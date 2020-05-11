@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+	require_once("db_.php");
 
   if($_SESSION['administrador']!=1){
     exit();
@@ -37,8 +37,8 @@
   }
 
   echo "<div class='container'>";
-    echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='bloques'>";
-      echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$id' placeholder='No. Empleado' readonly>";
+    echo "<form id='form_comision' action='' data-lugar='admin/db_' data-funcion='bloques_guardar'>";
+      echo "<input class='form-control form-control-sm' type='hidden' id='id' NAME='id' value='$id' placeholder='No. Empleado' readonly>";
       echo "<div class='card'>";
         echo "<div class='card-header'>";
           echo "<img src='img/caja.png' width='20' alt='logo'> - ";
@@ -65,7 +65,7 @@
             echo "</div>";
 
             echo "<div class='col-4'>";
-              echo  "<input class='form-control fechaclass' type='text' id='fusuario' NAME='fusuario' value='$fusuario' maxlength='13' placeholder='Fecha' required>";
+              echo  "<input class='form-control form-control-sm fechaclass' type='text' id='fusuario' NAME='fusuario' value='$fusuario' maxlength='13' placeholder='Fecha' required>";
             echo "</div>";
           echo "</div>";
 
@@ -76,7 +76,7 @@
               echo "</div>";
             echo "</div>";
             echo "<div class='col-4'>";
-              echo  "<input class='form-control fechaclass' type='text' id='faportacion' NAME='faportacion' value='$faportacion' maxlength='13' placeholder='Fecha' required>";
+              echo  "<input class='form-control form-control-sm fechaclass' type='text' id='faportacion' NAME='faportacion' value='$faportacion' maxlength='13' placeholder='Fecha' required>";
             echo "</div>";
 
           echo "</div>";
@@ -88,7 +88,7 @@
               echo "</div>";
             echo "</div>";
             echo "<div class='col-4'>";
-              echo  "<input class='form-control fechaclass' type='text' id='fbeneficiarios' NAME='fbeneficiarios' value='$fbeneficiarios' maxlength='13' placeholder='Fecha' required>";
+              echo  "<input class='form-control form-control-sm fechaclass' type='text' id='fbeneficiarios' NAME='fbeneficiarios' value='$fbeneficiarios' maxlength='13' placeholder='Fecha' required>";
             echo "</div>";
           echo "</div>";
 
@@ -100,7 +100,7 @@
               echo "</div>";
             echo "</div>";
             echo "<div class='col-4'>";
-              echo  "<input class='form-control fechaclass' type='text' id='fretiro' NAME='fretiro' value='$fretiro' maxlength='13' placeholder='Fecha' required>";
+              echo  "<input class='form-control form-control-sm fechaclass' type='text' id='fretiro' NAME='fretiro' value='$fretiro' maxlength='13' placeholder='Fecha' required>";
             echo "</div>";
           echo "</div>";
 
@@ -109,7 +109,6 @@
         echo "<div class='card-footer'>";
           echo "<div class='btn-group'>";
             echo "<button class='btn btn-warning btn-sm' type='submit'><i class='far fa-save'></i>Guardar</button>";
-            echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
           echo "</div>";
         echo "</div>";
       echo "</div>";

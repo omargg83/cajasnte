@@ -1,11 +1,9 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 	setlocale(LC_ALL,"es_ES");
 
 	/*************************
-
 	Nota: esto antes era de creditos, por lo menos el original, cualquier cambio le corresponde a esponja
-
 	*/
 
 		$sql="select * from afiliados where idfolio='".$_SESSION['idfolio']."'";

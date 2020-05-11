@@ -1,5 +1,5 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 	$pd = $db->busca_afiliados();
 	echo "<div class='container-fluid'>";
 	echo "<br><h5>Reestablecer contraseña</h5>";

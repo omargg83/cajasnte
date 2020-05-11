@@ -231,13 +231,14 @@
 				return "No registrado";
 			}
 		}
-
 		public function salir(){
 			$_SESSION['autoriza'] = 0;
 			$_SESSION['idfolio']="";
 			session_destroy();
 		}
+
 		public function insert($DbTableName, $values = array()){
+			$arreglo=array();
 			try{
 				self::set_names();
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -252,14 +253,25 @@
 				foreach ($values as $f => $v){
 					$sth->bindValue(':' . $f, $v);
 				}
-				$sth->execute();
-				return $this->lastId = $this->dbh->lastInsertId();
+				if ($sth->execute()){
+					$arreglo+=array('id'=>$this->lastId = $this->dbh->lastInsertId());
+					$arreglo+=array('error'=>0);
+					$arreglo+=array('terror'=>'');
+					$arreglo+=array('param1'=>'');
+					$arreglo+=array('param2'=>'');
+					$arreglo+=array('param3'=>'');
+					return json_encode($arreglo);
+				}
 			}
 			catch(PDOException $e){
-				return "Database access FAILED!".$e->getMessage();
+				$arreglo+=array('id'=>0);
+				$arreglo+=array('error'=>1);
+				$arreglo+=array('terror'=>$e->getMessage());
+				return json_encode($arreglo);
 			}
 		}
 		public function update($DbTableName, $id = array(), $values = array()){
+			$arreglo=array();
 			try{
 				self::set_names();
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -286,16 +298,23 @@
 					$sth->bindValue(':' . $f."_c", $v);
 				}
 				if($sth->execute()){
-					return "$idx";
-				}
-				else{
-					return "error";
+					$arreglo+=array('id'=>$idx);
+					$arreglo+=array('error'=>0);
+					$arreglo+=array('terror'=>'');
+					$arreglo+=array('param1'=>'');
+					$arreglo+=array('param2'=>'');
+					$arreglo+=array('param3'=>'');
+					return json_encode($arreglo);
 				}
 			}
 			catch(PDOException $e){
-				return "------->$sql2 <------------- Database access FAILED!".$e->getMessage();
+				$arreglo+=array('id'=>0);
+				$arreglo+=array('error'=>1);
+				$arreglo+=array('terror'=>$e->getMessage());
+				return json_encode($arreglo);
 			}
 		}
+
 		public function borrar($DbTableName, $key,$id){
 			try{
 				self::set_names();
@@ -337,577 +356,13 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
-		public function creditos(){
-			try{
-				self::set_names();
-				$sql="select * from creditos where filiacion=:filiacion";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":filiacion",$_SESSION['filiacion']);
-				$sth->execute();
-				return $sth->fetchAll();
+		public function cambios($tipo,$idfolio){
+			if($tipo==1){					///////////////////////Contraseña
+				$sql="select * from bit_datos where idfolio=:idfolio and up_pass=1";
 			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
+			if($tipo==2){					///////////////////////Correo
+				$sql="select * from bit_datos where idfolio=:idfolio and up_correo=1";
 			}
-		}
-		public function datos_credito($clv_cred){
-			try{
-				self::set_names();
-				$sql="SELECT clv_cred,crx.idfolio,fecha,crx.monto,observa,crx.estado,plazo,if(crx.estado=1,'ACTIVO','INACTIVO') as cred_esta,interes,crx.total,crx.quin_ini,crx.anio_ini,crx.quin_fin,crx.anio_fin,nocheque,aportacion,(select saldo_actual from detallepago where idcredito=crx.clv_cred order by anio desc,quincena desc,iddetalle limit 1) as saldo_actual FROM creditos crx where crx.clv_cred=:clv_cred";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":clv_cred",$clv_cred);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function credito_detalle($clv_cred){
-			try{
-				self::set_names();
-				$sql="select anio,if (estado=1,'A',if(estado=6,'Inicial',if(estado=7,'Reim',ROUND(quincena,0)))) as quin_nombre,saldo_anterior,monto,saldo_actual, observaciones from detallepago where idcredito=:clv_cred order by anio,quincena,iddetalle";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":clv_cred",$clv_cred);
-				$sth->execute();
-				return $sth->fetchAll();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function aporta($clv_cred){
-			try{
-				self::set_names();
-				$sql="select SUM(monto) as aporta from detallepago where idcredito=:clv_cred order by anio,quincena,iddetalle";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":clv_cred",$clv_cred);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-
-		public function datos_ahorro($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,
-				if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio and anio=:anio_tmp
-				order by anio,quincena,idregistro asc";
-				$sth = $this->dbh->prepare($sql);
-
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetchAll();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function ahorro($anio_tmp){
-			try{
-				self::set_names();
-
-				$sql="select sum(monto) as monto,sum(montointeres) as interesx from registro where idfolio=:idfolio and anio=:anio_tmp";
-				$sth = $this->dbh->prepare($sql);
-
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function anio_ant_interes($anio_tmp){
-			try{
-				self::set_names();
-				$ANIX=$anio_tmp-1;
-
-				$sql="select SUM(montointeres) as interestotal from registro where idfolio=:idfolio and anio=:anio_tmp order by anio,quincena";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$ANIX);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function xahorro_anterior($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select * from registro where idfolio=:idfolio and anio<:anio_tmp order by anio desc,quincena desc";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function ahorro_tmp($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select sum(monto) as monto from registro where idfolio=:idfolio and anio=:anio_tmp and monto>=0";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function retiro_tmp($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select sum(monto) as montoxy from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto<0";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function ahorro_anual($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select sum(monto) as ahorroanual from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto>0";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->bindValue(":anio_tmp",$anio_tmp);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function saldofinal($anio_tmp){
-			try{
-				self::set_names();
-				$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio order by anio desc,quincena desc,idregistro desc";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-
-		public function guardar_acceso(){			/////////////////////////////////////PARA CAMBIOS DE ACCESO
-			$x="";
-			$arreglo =array();
-			if (isset($_REQUEST['correo'])){
-				$arreglo+=array('correo'=>trim($_REQUEST['correo']));
-			}
-			if (isset($_REQUEST['telefono'])){
-				$arreglo+=array('celular'=>trim($_REQUEST['telefono']));
-			}
-			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-
-			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo is null or up_correo=1 or up_correo=0) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$contar=$sth->rowCount();
-			$row=$sth->fetch();
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo =array();
-				$arreglo+=array('fcorreo_sol'=>$fecha);
-				$arreglo+=array('up_correo'=>1);
-				$arreglo+=array('correo'=>trim($_REQUEST['correo']));
-				$arreglo+=array('celular'=>trim($_REQUEST['telefono']));
-				if($contar==1){
-					$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-					$arreglo+=array('nombre'=>$_SESSION['nombre']);
-					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-					$x=$this->insert('bit_datos', $arreglo);
-				}
-			return $x;
-		}
-		public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
-			$x="";
-			$arreglo =array();
-			if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
-				$arreglo+=array('password'=>trim($_REQUEST['pass1']));
-				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-
-				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->execute();
-				$row=$sth->fetch();
-				$contar=$sth->rowCount();
-
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('fpass_sol'=>$fecha);
-				$arreglo+=array('up_pass'=>1);
-				if($contar==1){
-					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-					$arreglo+=array('nombre'=>$_SESSION['nombre']);
-					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-					$this->insert('bit_datos', $arreglo);
-				}
-				////////////////////////////
-				return $x;
-			}
-			else{
-				return "No coinciden contraseñas";
-			}
-		}
-		public function guardar_datos(){						/////////////////////////////////////PARA CAMBIOS DE DATOS
-			$x="";
-			$arreglo =array();
-			$sql="select * from afiliados where idfolio=:idfolio";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$cambios="";
-			$d_dom=$_REQUEST['d_dom'];
-			$e_civ=$_REQUEST['e_civ'];
-			$n_con=$_REQUEST['n_con'];
-			$l_loc=$_REQUEST['l_loc'];
-			$m_mun=$_REQUEST['m_mun'];
-			$c_c_t=$_REQUEST['c_c_t'];
-			$u_bic=$_REQUEST['u_bic'];
-			$d_sin=$_REQUEST['d_sin'];
-			$r_rrg=$_REQUEST['r_rrg'];
-			$c_psp=$_REQUEST['c_psp'];
-
-			$correo=$_REQUEST['correo'];
-			$celular=$_REQUEST['celular'];
-
-			if($row['d_dom']!=$d_dom){
-				$cambios.=" d_dom:".trim($d_dom);
-			}
-			if($row['e_civ']!=$e_civ){
-				$cambios.=" e_civ:".trim($e_civ);
-			}
-			if($row['n_con']!=$n_con){
-				$cambios.=" n_con:".trim($n_con);
-			}
-			if($row['l_loc']!=$l_loc){
-				$cambios.=" l_loc:".trim($l_loc);
-			}
-			if($row['m_mun']!=$m_mun){
-				$cambios.=" m_mun:".trim($m_mun);
-			}
-			if($row['c_c_t']!=$c_c_t){
-				$cambios.=" c_c_t:".trim($c_c_t);
-			}
-			if($row['u_bic']!=$u_bic){
-				$cambios.=" u_bic:".trim($u_bic);
-			}
-			if($row['d_sin']!=$d_sin){
-				$cambios.=" d_sin:".trim($d_sin);
-			}
-			if($row['r_rrg']!=$r_rrg){
-				$cambios.=" r_rrg:".trim($r_rrg);
-			}
-			if($row['c_psp']!=$c_psp){
-				$cambios.=" c_psp:".trim($c_psp);
-			}
-
-			$cambio_cel=0;
-			if($row['correo']!=$correo){
-				$cambios.=" correo:".trim($correo);
-				$cambio_cel=1;
-			}
-
-			if($row['celular']!=$celular){
-				$cambios.=" celular:".trim($celular);
-				$cambio_cel=1;
-			}
-
-
-			if(strlen($cambios)>1){
-				$arreglo+=array('d_dom'=>trim($d_dom));
-				$arreglo+=array('e_civ'=>trim($e_civ));
-				$arreglo+=array('n_con'=>trim($n_con));
-				$arreglo+=array('l_loc'=>trim($l_loc));
-				$arreglo+=array('m_mun'=>trim($m_mun));
-				$arreglo+=array('c_c_t'=>trim($c_c_t));
-				$arreglo+=array('u_bic'=>trim($u_bic));
-				$arreglo+=array('d_sin'=>trim($d_sin));
-				$arreglo+=array('r_rrg'=>trim($r_rrg));
-				$arreglo+=array('c_psp'=>trim($c_psp));
-				$arreglo+=array('correo'=>trim($correo));
-				$arreglo+=array('celular'=>trim($celular));
-
-				////////////////////////////////////////aca
-				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-				$sql="select * from bit_datos where idfolio=:idfolio and (up_datos=1 or up_datos=0 or up_datos is null) limit 1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->execute();
-				$row=$sth->fetch();
-				$contar=$sth->rowCount();
-
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('fdatos_sol'=>$fecha);
-				$arreglo+=array('up_datos'=>1);
-
-				if($cambio_cel==1){
-					$arreglo+=array('up_correo'=>1);
-					$arreglo+=array('fcorreo_sol'=>$fecha);
-				}
-
-				if($contar==1){
-					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-					$arreglo+=array('nombre'=>$_SESSION['nombre']);
-					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-					$this->insert('bit_datos', $arreglo);
-				}
-				////////////////////////////
-				return $x;
-			}
-			else{
-				return "No hay cambios...";
-			}
-		}
-		public function guardar_aportacion(){			/////////////////////////////////////PARA CAMBIOS DE APORTACIONES
-			$sql="select * from afiliados where idfolio=:idfolio";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-
-			$cambios="";
-			$a_qui=$_REQUEST['a_qui'];
-			if($row['a_qui']!=$a_qui){
-				////////////////////consulto saldo de afiliado
-				$sql="SELECT *,round((SELECT SUM(monto) FROM detallepago WHERE detallepago.idcredito=cred.clv_cred ),2) AS abono,
-				(cred.total-round((SELECT SUM(monto) FROM detallepago WHERE detallepago.idcredito=cred.clv_cred ),2)) as saldo FROM creditos cred
-				left outer join afiliados on afiliados.idfolio=cred.idfolio where cred.idfolio=:folio";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":folio",$_SESSION['idfolio']);
-				$sth->execute();
-				$cuenta = $sth->rowCount();
-				$saldos=$sth->fetchAll();
-				$entra=0;
-				if($a_qui<$row['a_qui']){
-					if($cuenta==0){			//////////////no hay creditos entonces puede pasar
-						$entra=1;
-					}
-					else{
-						////////////hay creditos entonces checar si alguno tiene mas de 100 pesos en saldo para mandarlo alv...
-						foreach ($saldos as $key) {
-							if($key['saldo']>=100){
-								$entra=1; ////////////con el primero que se encuentre con mas de 100 pesos basta..
-								return "imposible disminuir aportación, por saldo en creditos";
-							}
-						}
-					}
-					if($entra==0){
-						return "Imposible disminuir aportación";
-					}
-				}
-
-				$sql="select * from bit_datos where idfolio=:idfolio and (up_aportacion=1 or up_aportacion=0 or up_aportacion is null) limit 1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->execute();
-				$row=$sth->fetch();
-				$contar=$sth->rowCount();
-
-				$arreglo =array();
-				$arreglo+=array('up_aportacion'=>1);
-				if (isset($_REQUEST['a_qui'])){
-					$arreglo+=array('a_qui'=>$_REQUEST['a_qui']);
-				}
-
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('faport_sol'=>$fecha);
-				$arreglo+=array('up_aportacion'=>1);
-
-				if($contar==1){
-					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-					$arreglo+=array('nombre'=>$_SESSION['nombre']);
-					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-					$x=$this->insert('bit_datos', $arreglo);
-				}
-				return $_SESSION['idfolio'];
-			}
-			else{
-				return "No hay cambios...";
-			}
-		}
-		public function guardar_beneficiarios(){	/////////////////////////////////////PARA CAMBIOS DE beneficiarios
-			$x="";
-			$sql="select * from afiliados where idfolio=:idfolio";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$cambios="";
-			$BA=$_REQUEST['ben1'];
-			$PA=$_REQUEST['parentesco1'];
-			$BFA=$_REQUEST['porcentaje1'];
-
-			$BB=$_REQUEST['ben2'];
-			$PB=$_REQUEST['parentesco2'];
-			$BFB=$_REQUEST['porcentaje2'];
-
-			$BC=$_REQUEST['ben3'];
-			$PC=$_REQUEST['parentesco3'];
-			$BFC=$_REQUEST['porcentaje3'];
-
-			$BD=$_REQUEST['ben4'];
-			$PD=$_REQUEST['parentesco4'];
-			$BFD=$_REQUEST['porcentaje4'];
-
-			$BE=$_REQUEST['ben5'];
-			$PE=$_REQUEST['parentesco5'];
-			$BFE=$_REQUEST['porcentaje5'];
-
-			if($row['BA']!=$BA){
-				$cambios.=" BA:".trim($BA);
-			}
-			if($row['PA']!=$PA){
-				$cambios.=" PA:".trim($PA);
-			}
-			if($row['BFA']!=$BFA){
-				$cambios.=" BFA:".trim($BFA);
-			}
-
-			if($row['BB']!=$BB){
-				$cambios.=" BB:".trim($BB);
-			}
-			if($row['PB']!=$PB){
-				$cambios.=" PB:".trim($PB);
-			}
-			if($row['BFB']!=$BFB){
-				$cambios.=" BFB:".trim($BFB);
-			}
-
-			if($row['BC']!=$BC){
-				$cambios.=" BC:".trim($BC);
-			}
-			if($row['PC']!=$PC){
-				$cambios.=" PC:".trim($PC);
-			}
-			if($row['BFC']!=$BFC){
-				$cambios.=" BFC:".trim($BFC);
-			}
-
-			if($row['BD']!=$BD){
-				$cambios.=" BD:".trim($BD);
-			}
-			if($row['PD']!=$PD){
-				$cambios.=" PD:".trim($PD);
-			}
-			if($row['BFD']!=$BFD){
-				$cambios.=" BFD:".trim($BFD);
-			}
-
-			if($row['BE']!=$BE){
-				$cambios.=" BE:".trim($BE);
-			}
-			if($row['PE']!=$PE){
-				$cambios.=" PE:".trim($PE);
-			}
-			if($row['BFE']!=$BFE){
-				$cambios.=" BFE:".trim($BFE);
-			}
-
-			if(strlen($cambios)>0){
-				$arreglo =array();
-				/////BEN1
-				$arreglo+=array('BA'=>trim($BA));
-				$arreglo+=array('PA'=>trim($PA));
-				$arreglo+=array('BFA'=>trim($BFA));
-
-				/////BEN 2
-				$arreglo+=array('BB'=>trim($BB));
-				$arreglo+=array('PB'=>trim($PB));
-				$arreglo+=array('BFB'=>trim($BFB));
-
-				/////BEN 3
-				$arreglo+=array('BC'=>trim($BC));
-				$arreglo+=array('PC'=>trim($PC));
-				$arreglo+=array('BFC'=>trim($BFC));
-
-				/////BEN 4
-				$arreglo+=array('BD'=>trim($BD));
-				$arreglo+=array('PD'=>trim($PD));
-				$arreglo+=array('BFD'=>trim($BFD));
-
-				/////BEN 5
-				$arreglo+=array('BE'=>trim($BE));
-				$arreglo+=array('PE'=>trim($PE));
-				$arreglo+=array('BFE'=>trim($BFE));
-
-				////////////////////////////////////////aca
-				$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-				$sql="select * from bit_datos where idfolio=:idfolio and (up_bene=1 or up_bene=0 or up_bene is null) limit 1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-				$sth->execute();
-				$row=$sth->fetch();
-				$contar=$sth->rowCount();
-
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('fbene_sol'=>$fecha);
-				$arreglo+=array('up_bene'=>1);
-
-				if($contar==1){
-					$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-					$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-					$arreglo+=array('nombre'=>$_SESSION['nombre']);
-					$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-					$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-					$this->insert('bit_datos', $arreglo);
-				}
-				////////////////////////////
-				return $_SESSION['idfolio'];
-			}
-			else{
-				return "No hay cambios...";
-			}
-		}
-
-		public function cambios($tipo){
 			if($tipo==3){					///////////////////////datos
 				$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
 			}
@@ -918,61 +373,11 @@
 				$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
 			}
 			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->bindValue(":idfolio",$idfolio);
 			$sth->execute();
 			return $sth->fetch();
 		}
-		public function bloques(){
-			self::set_names();
-			$x="";
-			$arreglo =array();
 
-			if (isset($_REQUEST['fusuario']) and strlen($_REQUEST['fusuario'])>0){
-				$fx=explode("-",$_REQUEST['fusuario']);
-				$arreglo+=array('fusuario'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
-			}
-			else{
-				$arreglo+=array('fusuario'=>NULL);
-			}
-
-			if (isset($_REQUEST['faportacion']) and strlen($_REQUEST['faportacion'])>0){
-				$fx=explode("-",$_REQUEST['faportacion']);
-				$arreglo+=array('faportacion'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
-			}
-			else{
-				$arreglo+=array('faportacion'=>NULL);
-			}
-
-			if (isset($_REQUEST['fbeneficiarios']) and strlen($_REQUEST['fbeneficiarios'])>0){
-				$fx=explode("-",$_REQUEST['fbeneficiarios']);
-				$arreglo+=array('fbeneficiarios'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
-			}
-			else{
-				$arreglo+=array('fbeneficiarios'=>NULL);
-			}
-
-			if (isset($_REQUEST['fretiro']) and strlen($_REQUEST['fretiro'])>0){
-				$fx=explode("-",$_REQUEST['fretiro']);
-				$arreglo+=array('fretiro'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
-			}
-			else{
-				$arreglo+=array('fretiro'=>NULL);
-			}
-
-			$sql="select * from bit_bloques limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-			$x="";
-			if($contar==1){
-				$x=$this->update('bit_bloques',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$x=$this->insert('bit_bloques', $arreglo);
-			}
-			return $x;
-		}
 		public function blo_lista(){
 			try{
 				self::set_names();
@@ -985,13 +390,11 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
-
-		public function blog_lista(){
+		public function blog_alerta(){
 			try{
 				self::set_names();
-				$sql="select * from bit_blog";
+				$sql="select * from bit_blog where alerta=1";
 				$sth = $this->dbh->prepare($sql);
-				//$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 				$sth->execute();
 				return $sth->fetchAll();
 			}
@@ -1011,87 +414,7 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
-		public function blog_alerta(){
-			try{
-				self::set_names();
-				$sql="select * from bit_blog where alerta=1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->execute();
-				return $sth->fetchAll();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function blog_guardar(){
-			///////////////////////
-			$x="";
-			if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
-			$arreglo =array();
 
-			if (isset($_REQUEST['nombre'])){
-				$arreglo = array('nombre'=>$_REQUEST['nombre']);
-			}
-			if (isset($_REQUEST['texto'])){
-				$arreglo+=array('texto'=>$_REQUEST['texto']);
-			}
-			if (isset($_REQUEST['corto'])){
-				$arreglo+=array('corto'=>$_REQUEST['corto']);
-			}
-			if (isset($_REQUEST['limite']) and strlen($_REQUEST['limite'])>0){
-				$fx=explode("-",$_REQUEST['limite']);
-				$arreglo+=array('limite'=>$fx['2']."-".$fx['1']."-".$fx['0']." 23:59:59");
-			}
-			else{
-				$arreglo+=array('limite'=>NULL);
-			}
-
-			if (isset($_REQUEST['noticia']) and strlen($_REQUEST['noticia'])>0){
-				$arreglo+=array('noticia'=>1);
-			}
-			else{
-				$arreglo+=array('noticia'=>NULL);
-			}
-
-			if (isset($_REQUEST['alerta']) and strlen($_REQUEST['alerta'])>0){
-				$arreglo+=array('alerta'=>1);
-			}
-			else{
-				$arreglo+=array('alerta'=>NULL);
-			}
-
-			if (isset($_REQUEST['baner']) and strlen($_REQUEST['baner'])>0){
-				$arreglo+=array('baner'=>1);
-			}
-			else{
-				$arreglo+=array('baner'=>NULL);
-			}
-
-			if($id==0){
-				$x.=$this->insert('bit_blog', $arreglo);
-			}
-			else{
-				$x.=$this->update('bit_blog',array('id'=>$id), $arreglo);
-			}
-			return $x;
-		}
-		public function blog_editar($id){
-			try{
-				self::set_names();
-				$sql="select * from bit_blog where id=:id";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":id",$id);
-				$sth->execute();
-				return $sth->fetch();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function borrar_blog(){
-			if (isset($_POST['id'])){$id=$_POST['id'];}
-			return $this->borrar('bit_blog',"id",$id);
-		}
 		public function subir_file(){
 			$contarx=0;
 			$arr=array();
@@ -1178,138 +501,15 @@
 			return "$x";
 		}
 
-		public function cancela_datos(){
-			$x="";
-			$arreglo =array();
-			$arreglo+=array('up_datos'=>0);
 
-			$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-
-			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			return $x;
-		}
-		public function cancela_aporta(){
-			$x="";
-			$arreglo =array();
-			$arreglo+=array('up_aportacion'=>0);
-
-			$sql="select * from bit_datos where idfolio=:idfolio and up_aportacion=1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-
-			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			return $x;
-		}
-		public function cancela_bene(){
-			$x="";
-			$arreglo =array();
-			$arreglo+=array('up_bene'=>0);
-
-			$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-			$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			return $x;
-		}
-
-		public function reporte_1($desde,$hasta){
-			try{
-					$sql="
-					SELECT idfolio, filiacion, fpass_sol as fsol, fpass_up as fecha, 'Contraseña' as tipo, nombre, ape_pat, ape_mat, up_pass as estado from bit_datos where fpass_up between '$desde' and '$hasta' and up_pass>0
-					union
-					SELECT idfolio, filiacion, fcorreo_sol as fsol, fcorreo_up as fecha, 'Correo' as tipo, nombre, ape_pat, ape_mat, up_correo as estado from bit_datos where fcorreo_up between '$desde' and '$hasta' and up_correo>0
-					union
-					SELECT idfolio, filiacion, faport_sol as fsol, faport_up as fecha, 'Aportación' as tipo, nombre, ape_pat, ape_mat, up_aportacion as estado from bit_datos where faport_up between '$desde' and '$hasta' and up_aportacion>0
-					union
-					SELECT idfolio, filiacion, fbene_sol as fsol, fbene_up as fecha, 'Beneficiarios' as tipo, nombre, ape_pat, ape_mat, up_bene as estado from bit_datos where fbene_up between '$desde' and '$hasta' and up_bene>0
-					union
-					SELECT idfolio, filiacion, fdatos_sol as fsol, fdatos_up as fecha, 'Datos' as tipo, nombre, ape_pat, ape_mat, up_datos as estado from bit_datos where fdatos_up between '$desde' and '$hasta' and up_datos>0
-					";
-				$sth = $this->dbh->prepare($sql);
-				$sth->execute();
-				return $sth->fetchAll();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-
-		public function busca_afiliados(){
-			try{
-				self::set_names();
-				if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
-					$texto=trim(htmlspecialchars($_REQUEST['buscar']));
-					$sql="SELECT * from afiliados
-					where Filiacion like '%$texto%' or ape_pat like '%$texto%' or ape_mat like '%$texto' or nombre like '%$texto' order by afiliados.idfolio desc limit 100";
-				}
-				else{
-					$sql="SELECT * from afiliados order by afiliados.idfolio desc limit 100";
-				}
-				$sth = $this->dbh->prepare($sql);
-				$sth->execute();
-				return $sth->fetchAll();
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
-		public function reset_pass(){
-			try{
-				$idfolio=$_REQUEST['folio'];
-				$sql="select * from afiliados where idfolio=:idfolio";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$idfolio);
-				$sth->execute();
-				$resp=$sth->fetch(PDO::FETCH_OBJ);
-
-				$arreglo =array();
-				$arreglo+=array('password'=>trim($resp->Filiacion));
-				$x=$this->update('afiliados',array('idfolio'=>$idfolio), $arreglo);
-
-				////////////////////////////////////////aca
-				$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":idfolio",$idfolio);
-				$sth->execute();
-				$row=$sth->fetch();
-				$contar=$sth->rowCount();
-				$x=0;
-				$fecha=date("Y-m-d H:i:s");
-				$arreglo+=array('fpass_sol'=>$fecha);
-				$arreglo+=array('up_pass'=>1);
-				if($contar==1){
-					$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-				}
-				else{
-					$arreglo+=array('idfolio'=>$idfolio);
-					$arreglo+=array('filiacion'=>$resp->Filiacion);
-					$arreglo+=array('nombre'=>$resp->nombre);
-					$arreglo+=array('ape_pat'=>$resp->ape_pat);
-					$arreglo+=array('ape_mat'=>$resp->ape_mat);
-					$x=$this->insert('bit_datos', $arreglo);
-				}
-				return $x;
-			}
-			catch(PDOException $e){
-				return "Database access FAILED! ".$e->getMessage();
-			}
-		}
+	
 	}
 
-	$db = new Sagyc();
-	if(strlen($function)>0){
-		echo $db->$function();
+	if(strlen($ctrl)>0){
+		$db = new Sagyc();
+		if(strlen($function)>0){
+			echo $db->$function();
+		}
 	}
 
 	function moneda($valor){

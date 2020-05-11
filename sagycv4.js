@@ -18,6 +18,7 @@
 			type:  'post',
 			timeout:30000,
 			success:  function (response) {
+				console.log(response);
 				var datos = JSON.parse(response);
 				if (datos.sess=="cerrada"){
 					$("#header").html("");
@@ -109,13 +110,13 @@
 	var hash=url.substring(url.indexOf("#")+1);
 
 	if(hash===url || hash===''){
-		hash='afiliado/index';
+		hash='dash/index';
 	}
 	function loadContent(hash){
 		$("#cargando").addClass("is-active");
 		var id=$(this).attr('id');
 		if(hash===''){
-			hash= 'afiliado/index';
+			hash= 'dash/index';
 		}
 		$('html, body').animate({strollTop:0},'600','swing');
 
@@ -197,7 +198,7 @@
 			url:   'control_db.php',
 			type:  'post',
 			success:  function (response) {
-				window.location.hash="afiliado/index";
+				window.location.hash="dash/index";
 				acceso();
 			}
 		});
@@ -534,32 +535,44 @@
 			type: "post",
 			timeout:30000,
 			success:  function (response) {
-				if (!isNaN(response)){
-					document.getElementById("id").value=response;
-					if (destino != undefined) {
-						lugar=destino+".php";
-						$.ajax({
-							data:  {"id":response},
-							url:   lugar,
-							type:  'post',
-							beforeSend: function () {
+				if (isJSON(response)){
+					var datos = JSON.parse(response);
+					if (datos.error==0){
+						document.getElementById("id").value=datos.id;
+						if (destino != undefined) {
+							lugar=destino+".php";
+							$.ajax({
+								data:  {
+									"id":datos.id,
+									"param1":datos.param1,
+									"param2":datos.param2,
+									"param3":datos.param3,
+								},
+								url:   lugar,
+								type:  'post',
+								beforeSend: function () {
 
-							},
-							success:  function (response) {
-								$("#"+div).html(response);
-							}
-						});
+								},
+								success:  function (response) {
+									$("#"+div).html(response);
+								}
+							});
+						}
+						if(cerrar==0){
+							$('#myModal').modal('hide');
+						}
+						$("#cargando").removeClass("is-active");
+						Swal.fire({
+							type: 'success',
+							title: "Se guardó correctamente #" + datos.id,
+							showConfirmButton: false,
+							timer: 1000
+						})
 					}
-					if(cerrar==0){
-						$('#myModal').modal('hide');
+					else{
+						$("#cargando").removeClass("is-active");
+						$.alert(datos.terror);
 					}
-					$("#cargando").removeClass("is-active");
-					Swal.fire({
-					  type: 'success',
-					  title: "Se guardó correctamente",
-					  showConfirmButton: false,
-					  timer: 1000
-					})
 				}
 				else{
 					$("#cargando").removeClass("is-active");

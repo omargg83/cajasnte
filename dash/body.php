@@ -1,6 +1,5 @@
 <?php
-  	require_once("../control_db.php");
-
+	require_once("db_.php");
 ?>
 <div class='wrapper'>
   <div class='content navbar-default'>
@@ -16,7 +15,7 @@
 
         if($_SESSION['administrador']==1){
           echo "<hr>
-          <a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>
+          <a href='#dash/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>
           <a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>
           <a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Anuncios</span></a>
           <a href='#admin/bitacora' title='Bitacora'><i class='fas fa-clipboard-list'></i><span>Bitacora</span></a>
@@ -24,9 +23,9 @@
         }
         else{
           echo "<hr>";
-          $row=$this->blo_lista();
+          $row=$db->blo_lista();
 
-          echo "<a href='#afiliado/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
+          echo "<a href='#dash/index' class='activeside'><i class='fas fa-home'></i> <span>Inicio</span></a>";
 
           //////////////////datos
           echo "<a href='#afiliado/datos' title='Datos'><i class='fas fa-users-cog'></i> <span>Datos";
@@ -36,6 +35,9 @@
               echo "<span class='badge badge-pill badge-warning'><i class='fas fa-pencil-alt'></i></span>";
           }
           echo "</span></a>";
+
+					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>
+					<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
 
           /////////////////aportacion
           echo "<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación";
@@ -67,13 +69,22 @@
           <a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>
           <hr>";
 
-          echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>
-          <a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
+
         }
       ?>
       </div>
     </div>
 
+		<?php
+			$alerta=$db->blog_alerta();
+			echo "<div class='container' id='alerta_div'>";
+			foreach($alerta as $key){
+				echo "<div class='alert alert-success'>";
+				echo $key['corto'];
+				echo "</div>";
+			}
+			echo "</div>";
+		?>
     <div class='fijaproceso main' id='contenido'>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 	$clv_cred = $_REQUEST['clv_cred'];
 	$id=$_SESSION['idfolio'];
 

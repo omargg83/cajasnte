@@ -1,5 +1,5 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 	$anio_tmp=date("Y");
 
 	$alerta=$db->blog_alerta();

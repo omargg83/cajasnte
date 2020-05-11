@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+	require_once("db_.php");
 
   $id=$_REQUEST['id'];
   $nombre="";
@@ -23,7 +23,7 @@
   }
 
   echo "<div class='container'>";
-    echo "<form autocomplete=off id='form_personal' action='' data-lugar='control_db' data-funcion='blog_guardar' data-destino='admin/blog_editar'>";
+    echo "<form autocomplete=off id='form_personal' action='' data-lugar='admin/db_' data-funcion='blog_guardar' data-destino='admin/blog_editar'>";
     echo "<input  type='hidden' id='id' NAME='id' value='$id'>";
       echo "<div class='card'>";
         echo "<div class='card-header'>";
@@ -116,7 +116,7 @@
 
   $(function() {
     fechas();
-      
+
     $('#texto').summernote({
       lang: 'es-ES',
       placeholder: 'Mensaje de texto',

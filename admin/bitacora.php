@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+	require_once("db_.php");
   if($_SESSION['administrador']!=1){
     exit();
   }

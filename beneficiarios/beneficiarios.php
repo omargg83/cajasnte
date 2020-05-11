@@ -1,5 +1,5 @@
 <?php
-  	require_once("../control_db.php");
+	 require_once("db_.php");
     $row=$db->afiliado();
     echo "<div class='container' id='trabajo'>";
     $filiacion=$row['Filiacion'];
@@ -29,7 +29,7 @@
 
     echo "<div class='container'>";
 
-      echo "<form id='form_benef' action='' data-lugar='control_db' data-funcion='guardar_beneficiarios' data-destino='beneficiarios/beneficiarios'>";
+      echo "<form id='form_benef' action='' data-lugar='beneficiarios/db_' data-funcion='guardar_beneficiarios' data-destino='beneficiarios/beneficiarios'>";
       echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$_SESSION['idfolio']."'  >";
       echo "<div class='card'>";
     		echo "<div class='card-header'>";

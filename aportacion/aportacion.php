@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+	require_once("db_.php");
 
   $alerta=$db->blog_alerta();
   echo "<div class='container' id='trabajo'>";
@@ -18,7 +18,7 @@
   $a_qui=$row['a_qui'];
 
     echo "<div class='container'>";
-    	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_aportacion' data-destino='aportacion/aportacion'>";
+    	echo "<form id='form_comision' action='' data-lugar='aportacion/db_' data-funcion='guardar_aportacion' data-destino='aportacion/aportacion'>";
       echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$folio' placeholder='No. Empleado' readonly>";
 
       echo "<div class='card'>";

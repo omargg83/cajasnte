@@ -1,8 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+
+
 :root {
   --main-bg-color: #343a40;
 	--color-panel: #F58634;
   --color-sidebar: #FFF;
   --color-card:#ffd6bb;
+}
+body {
+	background-color: #cccccc;
+	background-repeat: no-repeat;
+	background-attachment: fixed ;
+	background-position: top ;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+	overflow: hidden;
 }
 
 i{
@@ -16,19 +30,6 @@ i:hover{
 	color:black;
 	width: 21px;
 }
-
-body {
-	background-color: #cccccc;
-	background-repeat: no-repeat;
-	background-attachment: fixed ;
-	background-position: top ;
-	-webkit-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	height: 100%;
-	overflow: hidden;
-}
-
 
 /*Comienza la SIDEBAR*/
 .sidebar{
@@ -47,6 +48,10 @@ body {
 	-moz-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
 	opacity: 1;
+
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 100;
 }
 .sidebar a, .dropdown-btn {
 	padding: 6px 8px 6px 16px;
@@ -67,7 +72,8 @@ body {
 }
 /* On mouse-over */
 .sidebar a:hover, .dropdown-btn:hover {
-	color: #f1f1f1;
+	color: black;
+  background-color: #ffd6bb;
 	border-left: 6px solid #909090;
 }
 

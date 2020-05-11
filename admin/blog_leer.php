@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+	require_once("db_.php");
   $id=$_REQUEST['id'];
 
   $row = $db->blog_editar($id);
@@ -12,7 +12,7 @@
       echo "<img src='archivos/$imagen' width='100px' heigth='200px' alt='Miniatura'>";
     echo "</div>";
   }
-  
+
   echo "<div class='card'>";
     echo "<div class='card-header'>";
       echo "<b>$nombre</b><br>";

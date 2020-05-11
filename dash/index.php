@@ -1,5 +1,5 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 
 	$alerta=$db->blog_alerta();
 	echo "<div class='container' id='trabajo'>";
@@ -23,14 +23,6 @@
 							echo "<p class='card-text'>".$key['corto']."</p>";
 							echo "<button class='btn btn-warning btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
 						echo "</div>";
-/*
-						if(strlen($imagen)>2 or file_exists("archivos/".$imagen)){
-							echo "<div class='col-2'>";
-								echo "<img src='archivos/$imagen' width='100px' heigth='200px' alt='Miniatura'>";
-							echo "</div>";
-						}
-						*/
-
 
 					echo "</div>";
 				echo "</div>
@@ -71,11 +63,20 @@
 ?>
 
 <div align="center">
-		<img src='img/tempo.jpg' >
+	<div class='row'>
+		<div class='col-12'>
+			<img src='img/tempo.jpg' width='100%'>
+		</div>
+	</div>
 </div>
 <div align="center">
-		<img src='img/snte.jpeg'>
+	<div class='row'>
+		<div class='col-12'>
+			<img src='img/snte.jpeg' max-width='300px'>
+		</div>
+	</div>
 </div>
+
 
 <!--<video src="img/edit1.mp4" poster="img/editdatos.jpg" width="360" height="315" controls></video>
 <video src="img/caportacion.mp4" poster="img/editaporta.jpg" width="360" height="315" controls></video>

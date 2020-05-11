@@ -1,11 +1,12 @@
-<?php
-echo "<div class='card'>";
-
-
-
-echo "<img src='ayuda/ayuda1.jpg'>";
-
-
- ?>
-<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal" title='Cancelar'><i class="fas fa-sign-out-alt"></i>Cerrar</button>
+<div class="modal-header">
+  <h5 class="modal-title">Ayuda</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <img src='ayuda/ayuda1.jpg' width='100%'>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 </div>

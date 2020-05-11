@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+  require_once("db_.php");
 ?>
 
  <nav class='navbar navbar-expand-sm navbar-light bg-light'>

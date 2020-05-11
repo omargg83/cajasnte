@@ -1,5 +1,5 @@
 <?php
-	require_once("../control_db.php");
+	require_once("db_.php");
 	$resp=$db->creditos();
 
 	$alerta=$db->blog_alerta();
@@ -38,7 +38,6 @@
 			echo "<div class='btn-group'>";
 				echo "<button class='btn btn-warning btn-sm' type='button' onclick='clv_cred()'><i class='fas fa-sync-alt'></i>Consultar</a>";
 				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";
-				echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
 			echo "</div>";
 		echo "</div>";
 		?>

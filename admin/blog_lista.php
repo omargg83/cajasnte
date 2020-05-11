@@ -1,5 +1,5 @@
 <?php
-  require_once("../control_db.php");
+  require_once("db_.php");
 	$pd = $db->blog_lista();
 	echo "<div class='container-fluid'>";
 	echo "<br><h5>Lista de mensajes</h5><hr>";
@@ -22,7 +22,7 @@
   					echo "<div class='btn-group'>";
   					echo "<button class='btn btn-warning btn-sm' id='edit_persona' title='Editar' data-lugar='admin/blog_editar'><i class='fas fa-pencil-alt'></i></button>";
 
-            		echo "<button class='btn btn-warning btn-sm' id='eliminar_comision' data-lugar='control_db' data-destino='admin/blog_lista' data-id='".$key['id']."' data-funcion='borrar_blog' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
+            		echo "<button class='btn btn-warning btn-sm' id='eliminar_comision' data-lugar='admin/db_' data-destino='admin/blog_lista' data-id='".$key['id']."' data-funcion='borrar_blog' data-div='trabajo'><i class='far fa-trash-alt'></i></i></button>";
 
 
   					echo "</div>";
