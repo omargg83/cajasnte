@@ -2,6 +2,7 @@
 	 require_once("db_.php");
     $row=$db->afiliado();
     echo "<div class='container' id='trabajo'>";
+    $idfolio=$row['idfolio'];
     $filiacion=$row['Filiacion'];
     $ape_pat=$row['ape_pat'];
     $ape_mat=$row['ape_mat'];
@@ -27,10 +28,10 @@
     $parentesco5=$row['PE'];
     $porcentaje5=$row['BFE'];
 
-    echo "<div class='container'>";
+    echo "<div class='container' id='div_trabajo'>";
 
-      echo "<form id='form_benef' action='' data-lugar='beneficiarios/db_' data-funcion='guardar_beneficiarios' data-destino='beneficiarios/beneficiarios'>";
-      echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$_SESSION['idfolio']."'  >";
+      echo "<form id='form_benef' action='' data-lugar='beneficiarios/db_' data-funcion='guardar_beneficiarios' data-destino='beneficiarios/beneficiarios' data-div='div_trabajo'>";
+      echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$idfolio'  >";
       echo "<div class='card'>";
     		echo "<div class='card-header'>";
           echo "<img src='img/caja.png' width='20' alt='logo'> - ";
@@ -74,7 +75,7 @@
               echo "</div>";
             echo "</div>";
           echo "</div>";
-
+					echo "<hr>";
           //////////bloque beneficiario 1
           echo "<div class='row'>";
             echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-3'>";
@@ -206,7 +207,6 @@
           if($fecha_actual <= $fecha_entrada){
             echo "<div class='btn-group'>";
               echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
-              echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
             echo "</div>";
           }
           else{
@@ -216,7 +216,7 @@
       echo "</div>";
     	echo "</form>";
 
-    	$cambio=$db->cambios(5);
+    	$cambio=$db->cambios(5,$idfolio);
       if(is_array($cambio)){
         if($cambio['up_bene']==1){
     		echo "<br><div class='card' id='datos_c'>";

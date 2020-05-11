@@ -10,16 +10,16 @@
   }
 
   $row=$db->afiliado();
-  $folio=$row['idfolio'];
+  $idfolio=$row['idfolio'];
   $filiacion=$row['Filiacion'];
   $ape_pat=$row['ape_pat'];
   $ape_mat=$row['ape_mat'];
   $nombre=$row['nombre'];
   $a_qui=$row['a_qui'];
 
-    echo "<div class='container'>";
-    	echo "<form id='form_comision' action='' data-lugar='aportacion/db_' data-funcion='guardar_aportacion' data-destino='aportacion/aportacion'>";
-      echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$folio' placeholder='No. Empleado' readonly>";
+    echo "<div class='container' id='div_trabajo'>";
+    	echo "<form id='form_comision' action='' data-lugar='aportacion/db_' data-funcion='guardar_aportacion' data-destino='aportacion/aportacion' data-div='div_trabajo'>";
+      echo "<input class='form-control' type='hidden' id='id' NAME='id' value='$idfolio' placeholder='No. Empleado' readonly>";
 
       echo "<div class='card'>";
     		echo "<div class='card-header'>";
@@ -64,6 +64,7 @@
               echo "</div>";
             echo "</div>";
           echo "</div>";
+					echo "<hr>";
           echo "<div class='row'>";
             echo "<div class='col-4'>";
               echo "<div class='form-group'>";
@@ -84,7 +85,6 @@
           if($fecha_actual <= $fecha_entrada){
             echo "<div class='btn-group'>";
               echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
-              echo "<a class='btn btn-warning btn-sm' href='#afiliado/index' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</a>";
             echo "</div>";
           }
           else{
@@ -94,7 +94,7 @@
       echo "</div>";
     	echo "</form>";
 
-      $cambio=$db->cambios(4);
+      $cambio=$db->cambios(4,$idfolio);
       if(is_array($cambio)){
         if($cambio['up_aportacion']==1){
           echo "<br><div class='card' id='datos_c'>";
@@ -136,21 +136,27 @@
             data:  {
               "function":"cancela_aporta"
             },
-            url:  "control_db.php",
+            url:  "aportacion/db_.php",
             type:  'post',
             success:  function (response) {
-              if (!isNaN(response)){
-                $("#datos_c").remove();
-                Swal.fire({
-                  type: 'success',
-                  title: "Se canceló correctamente",
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-              }
-              else{
-
-              }
+							var datos = JSON.parse(response);
+							if (datos.error==0){
+								$("#datos_c").remove();
+								Swal.fire({
+									type: 'success',
+									title: "Se canceló correctamente",
+									showConfirmButton: false,
+									timer: 1000
+								});
+							}
+							else{
+								Swal.fire({
+									type: 'error',
+									title: "Error favor de verificar",
+									showConfirmButton: false,
+									timer: 2000
+								});
+							}
             }
           });
         },

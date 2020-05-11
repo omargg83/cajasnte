@@ -66,7 +66,7 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('up_aportacion'=>1);
 
 			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
@@ -76,7 +76,7 @@ class Escritorio extends Sagyc{
 				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
 				$x=$this->insert('bit_datos', $arreglo);
 			}
-			return $_SESSION['idfolio'];
+			return $x;
 		}
 		else{
 			return "No hay cambios...";

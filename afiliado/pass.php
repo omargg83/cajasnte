@@ -7,8 +7,8 @@
 	$ape_mat=$row['ape_mat'];
 	$nombre=$row['nombre'];
 ?>
-<div class='container'>
-<form id='form_comision' action='' data-lugar='afiliado/db_' data-funcion='guardar_pass' data-destino='afiliado/pass'>
+<div class='container' id='div_trabajo'>
+<form id='form_comision' action='' data-lugar='afiliado/db_' data-funcion='guardar_pass' data-destino='afiliado/pass' data-div='div_trabajo'>
   <input class="form-control" type="hidden" id="id" name="id" value='<?php echo $_SESSION['idfolio']; ?>'>
   <div class='card'>
     <div class='card-header'>
@@ -53,6 +53,7 @@
 					echo "</div>";
 				echo "</div>";
 			echo "</div>";
+			echo "<hr>";
 			 ?>
       <div class="form-group input-group">
         <label class="col-md-4 control-label" for="pass1">Contraseña</label>
@@ -73,7 +74,7 @@
 
     <div class='card-footer'>
       <div class="btn-group">
-        <button type='submit' class="btn btn-warning btn-sm" ><i class="far fa-save"></i> Guardar</button>
+        <button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>
       </div>
     </div>
     </div>
@@ -127,17 +128,23 @@ if ($cambio){
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
-							if (!isNaN(response)){
+							var datos = JSON.parse(response);
+							if (datos.error==0){
 								$("#datos_c").remove();
 								Swal.fire({
-								  type: 'success',
-								  title: "Se canceló correctamente",
-								  showConfirmButton: false,
-								  timer: 1000
+									type: 'success',
+									title: "Se canceló correctamente",
+									showConfirmButton: false,
+									timer: 1000
 								});
 							}
 							else{
-
+								Swal.fire({
+									type: 'error',
+									title: "Error favor de verificar",
+									showConfirmButton: false,
+									timer: 2000
+								});
 							}
 		 				}
 	 				});

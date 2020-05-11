@@ -1,7 +1,6 @@
 <?php
 	require_once("db_.php");
 
-
 	$row=$db->afiliado();
 	$idfolio=$row['idfolio'];
 	$filiacion=$row['Filiacion'];
@@ -25,9 +24,9 @@
 	$correo=$row['correo'];
 	$celular=$row['celular'];
 
-echo "<div class='container'>";
-	echo "<form id='form_comision' action='' data-lugar='afiliado/db_' data-funcion='guardar_datos' data-destino='afiliado/datos'>";
-	  echo "<input class='form-control form-control-sm' type='hidden' id='id' NAME='id' value='$idfolio' placeholder='No. Empleado' readonly>";
+echo "<div class='container' id='div_trabajo'>";
+	echo "<form id='form_comision' action='' data-lugar='afiliado/db_' data-funcion='guardar_datos' data-destino='afiliado/datos' data-div='div_trabajo'>";
+	  echo "<input class='form-control form-control-sm' type='hidden' id='id' NAME='id' value='$idfolio' readonly>";
   echo "<div class='card'>";
 		echo "<div class='card-header'>";
 			echo "<img src='img/caja.png' width='20' alt='logo'> - ";
@@ -324,17 +323,23 @@ echo "</div>";
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
-							if (!isNaN(response)){
+							var datos = JSON.parse(response);
+							if (datos.error==0){
 								$("#datos_c").remove();
 								Swal.fire({
-								  type: 'success',
-								  title: "Se canceló correctamente",
-								  showConfirmButton: false,
-								  timer: 1000
+									type: 'success',
+									title: "Se canceló correctamente",
+									showConfirmButton: false,
+									timer: 1000
 								});
 							}
 							else{
-
+								Swal.fire({
+									type: 'error',
+									title: "Error favor de verificar",
+									showConfirmButton: false,
+									timer: 2000
+								});
 							}
 		 				}
 	 				});

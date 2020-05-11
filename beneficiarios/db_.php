@@ -116,7 +116,8 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('BFE'=>trim($BFE));
 
 			////////////////////////////////////////aca
-			$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			//$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
+			
 			$sql="select * from bit_datos where idfolio=:idfolio and (up_bene=1 or up_bene=0 or up_bene is null) limit 1";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -129,7 +130,7 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('up_bene'=>1);
 
 			if($contar==1){
-				$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
@@ -137,10 +138,10 @@ class Escritorio extends Sagyc{
 				$arreglo+=array('nombre'=>$_SESSION['nombre']);
 				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
 				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
-				$this->insert('bit_datos', $arreglo);
+				$x=$this->insert('bit_datos', $arreglo);
 			}
 			////////////////////////////
-			return $_SESSION['idfolio'];
+			return $x;
 		}
 		else{
 			return "No hay cambios...";
