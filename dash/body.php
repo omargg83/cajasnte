@@ -19,7 +19,8 @@
           <a href='#admin/bloques' title='Bloques'><i class='far fa-check-square'></i><span>Actualizar</span></a>
           <a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Anuncios</span></a>
           <a href='#admin/bitacora' title='Bitacora'><i class='fas fa-clipboard-list'></i><span>Bitacora</span></a>
-          <a href='#pass/index' title='Cambio de contraseña'><i class='fas fa-key'></i><span>Contraseñas</span></a>";
+          <a href='#pass/index' title='Cambio de contraseña'><i class='fas fa-key'></i><span>Contraseñas</span></a>
+          <a href='#citas/index2' title='Creditos'><i class='far fa-calendar-check'></i><span>Citas</span></a>";
         }
         else{
           echo "<hr>";
@@ -67,6 +68,7 @@
           echo "<hr>
           <a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Créditos</span></a>
           <a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>
+          <a href='#citas/index' title='Citas'><i class='far fa-calendar-check'></i><span>Citas</span></a>
           <hr>";
 
 
