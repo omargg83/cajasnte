@@ -168,11 +168,11 @@ class Escritorio extends Sagyc{
 				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$arreglo+=array('idfolio'=>$row['idfolio']);
+				$arreglo+=array('filiacion'=>$row['filiacion']);
+				$arreglo+=array('nombre'=>$row['nombre']);
+				$arreglo+=array('ape_pat'=>$row['ape_pat']);
+				$arreglo+=array('ape_mat'=>$row['ape_mat']);
 				$x=$this->insert('bit_datos', $arreglo);
 			}
 			return $x;
@@ -187,6 +187,14 @@ class Escritorio extends Sagyc{
 	public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
 		$x="";
 		$arreglo =array();
+		$idfolio=$_REQUEST['id'];
+		$sql="select * from afiliados where idfolio=:idfolio";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":idfolio",$idfolio);
+		$sth->execute();
+		$row=$sth->fetch();
+
+		
 		if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
 			$arreglo+=array('password'=>trim($_REQUEST['pass1']));
 
@@ -205,11 +213,11 @@ class Escritorio extends Sagyc{
 				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$arreglo+=array('idfolio'=>$row['idfolio']);
+				$arreglo+=array('filiacion'=>$row['filiacion']);
+				$arreglo+=array('nombre'=>$row['nombre']);
+				$arreglo+=array('ape_pat'=>$row['ape_pat']);
+				$arreglo+=array('ape_mat'=>$row['ape_mat']);
 				$x=$this->insert('bit_datos', $arreglo);
 			}
 			////////////////////////////

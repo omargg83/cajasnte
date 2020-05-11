@@ -215,13 +215,12 @@ function verificar(tipo){
         $.ajax({
           data:  {
             "function":"citas",
-            "ctrl":"control",
             "desde":desde,
             "hora":hora,
             "minuto":minuto,
             "tipo":tipo
           },
-          url:   'control_db.php',
+          url:   'citas/db_.php',
           type:  'post',
           success:  function (response) {
             clearInterval(timerUpdate);
