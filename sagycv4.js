@@ -1,13 +1,13 @@
 	var intval="";
-	var intvalx="";
-	var chatx="";
-	var cuenta="";
-	var notif="";
 
 	$(function(){
 		$("#cargando").removeClass("is-active");
 		acceso();
+		if(intval==""){
+			intval=window.setInterval("sesion_ver()",180000);
+		}
 	});
+
 	function acceso(){
 		$.ajax({
 			data:  {
@@ -23,7 +23,7 @@
 					$("#header").html("");
 					$("#bodyx").html("");
 					$("#modal_dispo").removeClass("modal-lg");
-					$("#modal_form").html(datos.carga);
+					$("#modal_form").load("dash/login.php");
 					$('#myModal').modal({backdrop: 'static', keyboard: false})
 					$('#myModal').modal('show');
 				}
@@ -31,8 +31,8 @@
 					$("#cargando").addClass("is-active");
 					$("#modal_dispo").addClass("modal-lg");
 
-					$("#header").html(datos.header);
-					$("#bodyx").html(datos.cuerpo);
+					$("#header").load("dash/header.php");
+					$("#bodyx").load("dash/body.php");
 
 					loadContent(location.hash.slice(1));
 					$("#cargando").removeClass("is-active");
@@ -211,17 +211,14 @@
 			url: "control_db.php",
 			type: "post",
 			success:  function (response) {
-				console.log(response);
-				if (isJSON(response)){
-					var datos = JSON.parse(response);
-					if (datos.sess=="cerrada"){
-						$("#header").html("");
-						$("#bodyx").html("");
-						$("#modal_dispo").removeClass("modal-lg");
-						$("#modal_form").html(datos.carga);
-						$('#myModal').modal({backdrop: 'static', keyboard: false})
-						$('#myModal').modal('show');
-					}
+				var datos = JSON.parse(response);
+				if (datos.sess=="cerrada"){
+					$("#header").html("");
+					$("#bodyx").html("");
+					$("#modal_dispo").removeClass("modal-lg");
+					$("#modal_form").load("dash/login.php");
+					$('#myModal').modal({backdrop: 'static', keyboard: false})
+					$('#myModal').modal('show');
 				}
 			}
 		});
