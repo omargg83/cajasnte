@@ -89,6 +89,9 @@
 ?>
 
 <script>
+$(function(){
+	citas_listas();
+});
 function citas_listas(){
   $.ajax({
     url: "citas/citas.php",
@@ -136,7 +139,6 @@ function credito_p(){
   });
 }
 function confirmar_cita(){
-
   var cita=$("#cita").val();
   var tipo=$("#tipo").val();
   var observaciones=$("#observaciones").val();
@@ -149,14 +151,13 @@ function confirmar_cita(){
     buttons: {
       Confirmar: function () {
         $.ajax({
-          data:  {
+          data: {
             "function":"confirmar",
-            "ctrl":"control",
             "observaciones":observaciones,
             "cita":cita,
             "tipo":tipo
           },
-          url: "control_db.php",
+          url: "citas/db_.php",
           type: "POST",
           timeout:1000,
           beforeSend: function () {
@@ -182,6 +183,8 @@ function confirmar_cita(){
                   $("#cargando").removeClass("is-active");
                 }
               });
+							$("#reloj").hide();
+							clearInterval(timerUpdate);
             }
             else{
               Swal.fire({
@@ -224,7 +227,6 @@ function verificar(tipo){
           type:  'post',
           success:  function (response) {
             clearInterval(timerUpdate);
-            console.log(response);
             var datos = JSON.parse(response);
             if (datos.activo==1){
               $('#checar').html(datos.texto);
@@ -268,10 +270,9 @@ function cancela_cita(cita){
         $.ajax({
           data:  {
             "function":"cancelar_cita",
-            "ctrl":"control",
             "cita":cita
           },
-          url:   'control_db.php',
+          url:   'citas/db_.php',
           type:  'post',
           success:  function (response) {
             if (response==1){
@@ -311,8 +312,4 @@ function cancela_cita(cita){
     }
   });
 }
-
-
-
-
 </script>

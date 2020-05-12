@@ -18,7 +18,6 @@
 			type:  'post',
 			timeout:30000,
 			success:  function (response) {
-				console.log(response);
 				var datos = JSON.parse(response);
 				if (datos.sess=="cerrada"){
 					$("#header").html("");
@@ -634,7 +633,6 @@
 			var funcion = $(this).data('funcion');
 		}
 		else{
-			console.log("error");
 			return;
 		}
 
@@ -854,7 +852,6 @@
 	    remainTime
 	  }
 	};
-
 	const countdown = (deadline,elem,finalMessage, tipo) => {
 			  const el = document.getElementById(elem);
 

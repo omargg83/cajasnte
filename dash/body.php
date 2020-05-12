@@ -37,8 +37,7 @@
           }
           echo "</span></a>";
 
-					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>
-					<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
+
 
           /////////////////aportacion
           echo "<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación";
@@ -64,11 +63,14 @@
           if($fecha_actual <= $fecha_entrada){
             echo "<a href='#' id='imprime_formato' title='Imprimir' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>Formato de retiro</span></a>";
           }
+					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>
+					<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
 
           echo "<hr>
+					<a href='#citas/index' title='Citas'><i class='far fa-calendar-check'></i><span>Citas</span></a>
           <a href='#creditos/credito' title='Creditos'><i class='fas fa-money-check-alt'></i><span>Créditos</span></a>
           <a href='#ahorro/ahorro' title='Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>
-          <a href='#citas/index' title='Citas'><i class='far fa-calendar-check'></i><span>Citas</span></a>
+
           <hr>";
 
 

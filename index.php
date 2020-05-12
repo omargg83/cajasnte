@@ -85,21 +85,18 @@
 	<script src="sagycv4.js"></script>
 	<link rel="stylesheet" type="text/css" href="librerias15/modulos.css"/>
 
-	<!--   Tablas
-	<script type="text/javascript" src="librerias15/DataTables/datatables.js"></script>  <-listo
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.flash.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/jszip.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/pdfmake.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/vfs_fonts.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" src="librerias15/DataTables/DataTables-1.10.18/js/buttons.print.min.js"></script>
+	<!--- calendario -->
+	<link href='librerias15/fullcalendar-4.0.1/packages/core/main.css' rel='stylesheet' />
+	<link href='librerias15/fullcalendar-4.0.1/packages/daygrid/main.css' rel='stylesheet' />
+	<link href='librerias15/fullcalendar-4.0.1/packages/timegrid/main.css' rel='stylesheet' />
 
-	<link rel="stylesheet" type="text/css" href="librerias15/DataTables/datatables.min.css"/>  <-listo
-	<link rel="stylesheet" type="text/css" href="librerias15/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.css"/>
--->
+	<script src='librerias15/fullcalendar-4.0.1/packages/core/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/interaction/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/daygrid/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/timegrid/main.js'></script>
+	<script src='librerias15/fullcalendar-4.0.1/packages/core/locales/es.js'></script>
 
+	<!--tablas -->
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>

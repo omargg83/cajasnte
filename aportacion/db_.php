@@ -19,6 +19,9 @@ class Escritorio extends Sagyc{
 
 		$cambios="";
 		$a_qui=$_REQUEST['a_qui'];
+		if($a_qui<100){
+			return "la aportación no puede ser menor de 100";
+		}
 		if($row['a_qui']!=$a_qui){
 			////////////////////consulto saldo de afiliado
 			$sql="SELECT *,round((SELECT SUM(monto) FROM detallepago WHERE detallepago.idcredito=cred.clv_cred ),2) AS abono,
