@@ -116,7 +116,7 @@ class Escritorio extends Sagyc{
 			}
 			else{
 				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['filiacion']);
+				$arreglo+=array('filiacion'=>$row['Filiacion']);
 				$arreglo+=array('nombre'=>$row['nombre']);
 				$arreglo+=array('ape_pat'=>$row['ape_pat']);
 				$arreglo+=array('ape_mat'=>$row['ape_mat']);
@@ -169,7 +169,7 @@ class Escritorio extends Sagyc{
 			}
 			else{
 				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['filiacion']);
+				$arreglo+=array('filiacion'=>$row['Filiacion']);
 				$arreglo+=array('nombre'=>$row['nombre']);
 				$arreglo+=array('ape_pat'=>$row['ape_pat']);
 				$arreglo+=array('ape_mat'=>$row['ape_mat']);

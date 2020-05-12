@@ -55,7 +55,7 @@ class Escritorio extends Sagyc{
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
-			$row=$sth->fetch();
+			$rowx=$sth->fetch();
 			$contar=$sth->rowCount();
 
 			$arreglo =array();
@@ -69,14 +69,14 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('up_aportacion'=>1);
 
 			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				$x=$this->update('bit_datos',array('id'=>$rowx['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
-				$arreglo+=array('filiacion'=>$_SESSION['filiacion']);
-				$arreglo+=array('nombre'=>$_SESSION['nombre']);
-				$arreglo+=array('ape_pat'=>$_SESSION['ape_pat']);
-				$arreglo+=array('ape_mat'=>$_SESSION['ape_mat']);
+				$arreglo+=array('idfolio'=>$row['idfolio']);
+				$arreglo+=array('filiacion'=>$row['Filiacion']);
+				$arreglo+=array('nombre'=>$row['nombre']);
+				$arreglo+=array('ape_pat'=>$row['ape_pat']);
+				$arreglo+=array('ape_mat'=>$row['ape_mat']);
 				$x=$this->insert('bit_datos', $arreglo);
 			}
 			return $x;
