@@ -99,7 +99,7 @@ class Escritorio extends Sagyc{
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
-			$row=$sth->fetch();
+			$rowx=$sth->fetch();
 			$contar=$sth->rowCount();
 
 			$fecha=date("Y-m-d H:i:s");
@@ -112,7 +112,7 @@ class Escritorio extends Sagyc{
 			}
 
 			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
+				$x=$this->update('bit_datos',array('id'=>$rowx['id']), $arreglo);
 			}
 			else{
 				$arreglo+=array('idfolio'=>$row['idfolio']);
@@ -194,7 +194,7 @@ class Escritorio extends Sagyc{
 		$sth->execute();
 		$row=$sth->fetch();
 
-		
+
 		if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
 			$arreglo+=array('password'=>trim($_REQUEST['pass1']));
 
