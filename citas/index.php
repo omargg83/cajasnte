@@ -92,6 +92,10 @@
 $(function(){
 	citas_listas();
 });
+function ver_cita(id){
+	$('#myModal').modal('show');
+	$("#modal_form").load("citas/info.php?id="+id);
+}
 function citas_listas(){
   $.ajax({
     url: "citas/citas.php",

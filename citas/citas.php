@@ -20,7 +20,7 @@
 
 					echo "<td>";
   					echo "<div class='btn-group'>";
-  					echo "<button class='btn btn-warning btn-sm' id='edit_persona' title='Editar' data-lugar='admin/blog_editar'><i class='fas fa-pencil-alt'></i>Ver</button>";
+  					echo "<button class='btn btn-warning btn-sm' id='cita_ver' title='Editar' onclick='ver_cita(".$key->id.")'><i class='fas fa-pencil-alt'></i>Ver</button>";
         		echo "<button class='btn btn-warning btn-sm' id='cita_cancela' onclick='cancela_cita(".$key->id.")'><i class='far fa-trash-alt'></i>Cancelar cita</button>";
   					echo "</div>";
 					echo "</td>";

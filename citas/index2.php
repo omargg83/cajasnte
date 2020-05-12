@@ -33,6 +33,8 @@
 ?>
 <script>
 
+
+
 function calendar_load(tipo){
   var fecha = new Date();
   var calendarEl = document.getElementById('calendar');
