@@ -74,18 +74,26 @@
       echo "</div>";
       echo "<div class='card-footer'>";
         echo "<div class='btn-group'>";
-        echo "<button class='btn btn-warning btn-sm' type='button' onclick='citas_listas()'><i class='fas fa-money-check-alt'></i>Citas</button>";
-        echo "<button class='btn btn-warning btn-sm' type='button' onclick='credito_p()'><i class='fas fa-money-check-alt'></i>Cita de Credito</button>";
-        echo "<button class='btn btn-warning btn-sm' type='button' onclick='retiro_p()'><i class='fas fa-university'></i>Cita de Retiro</button>";
+        echo "<button class='btn btn-warning btn-sm' type='button' onclick='citas_listas()'><i class='fas fa-money-check-alt'></i>Bitacora de citas</button>";
+        echo "<button class='btn btn-warning btn-sm' type='button' onclick='credito_p()'><i class='fas fa-money-check-alt'></i>Generar cita de Crédito</button>";
+        echo "<button class='btn btn-warning btn-sm' type='button' onclick='retiro_p()'><i class='fas fa-university'></i>Generar cita de Retiro</button>";
         echo "</div>";
       echo "</div>";
     echo "</div>";
   echo "</div>";
   echo "<hr>";
 
-  echo "<div class='container' id='checar'>";
+	echo "<div class='container' id='checar'>";
 
-  echo "</div>";
+	echo "</div>";
+
+	echo "<div class='container'>";
+	echo "<div class='card'>";
+		echo "<div class='card-header'>";
+			echo "Recuerda que solo tienes derecho a una cancelación y a una cita, procura no faltar y llegar a tiempo por favor";
+		echo "</div>";
+	echo "</div>";
+	echo "</div>";
 ?>
 
 <script>
