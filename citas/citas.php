@@ -8,6 +8,7 @@
 			<table class="table-sm display compact hover" id="x_lista">
 			<thead>
 			<th>#</th>
+			<th>Estado</th>
 			<th>Horario</th>
 			<th>Tipo</th>
       <th>Observaciones</th>
@@ -20,11 +21,27 @@
 
 					echo "<td>";
   					echo "<div class='btn-group'>";
+
   					echo "<button class='btn btn-warning btn-sm' id='cita_ver' title='Editar' onclick='ver_cita(".$key->id.")'><i class='fas fa-pencil-alt'></i>Ver</button>";
-        		echo "<button class='btn btn-warning btn-sm' id='cita_cancela' onclick='cancela_cita(".$key->id.")'><i class='far fa-trash-alt'></i>Cancelar cita</button>";
+						if($key->realizada==0){
+							echo "<button class='btn btn-warning btn-sm' id='cita_cancela' onclick='cancela_cita(".$key->id.")'><i class='far fa-trash-alt'></i>Cancelar cita</button>";
+						}
   					echo "</div>";
 					echo "</td>";
-
+					echo "<td>";
+						if($key->realizada==0){
+							echo "Programada";
+						}
+						if($key->realizada==1){
+							echo "Realizada";
+						}
+						if($key->realizada==2){
+							echo "Cancelada";
+						}
+						if($key->realizada==3){
+							echo "No realizada";
+						}
+					echo "</td>";
 					echo "<td>".fecha($key->fecha,3)."</td>";
 					echo "<td>";
           if ($key->tipo==1){

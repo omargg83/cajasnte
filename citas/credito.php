@@ -54,10 +54,27 @@ echo "</div>";
  ?>
 
  <script>
+
  $(function() {
+	 var holidayDates = new Array();
+
+	 $.ajax({
+     url: "citas/dias_bloqueo.php",
+     type: "POST",
+     timeout:1000,
+     beforeSend: function () {
+
+     },
+     success:function(response){
+			var data = JSON.parse(response);
+			for (var i = 0, len = data.length; i < len; i++) {
+				holidayDates.push(data[i].dia);
+	    }
+     }
+   });
+
    $.datepicker.regional['es'] = {
       closeText: 'Cerrar',
-      yearRange: '2020:2021',
       prevText: 'Mes anterior',
       nextText: 'Mes siguiente',
       currentText: 'Hoy',
@@ -71,10 +88,15 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
+			maxDate: "+3M",
       numberOfMonths: 1,
       showMonthAfterYear: false,
-      beforeShowDay: $.datepicker.noWeekends,
-      yearSuffix: ''
+      yearSuffix: '',
+			beforeShowDay: function(date){
+					var day = date.getDay();
+	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	        return [ day != 0 && day != 6 && holidayDates.indexOf(string) == -1 ]
+	    }
     };
 
    $.datepicker.setDefaults($.datepicker.regional['es']);

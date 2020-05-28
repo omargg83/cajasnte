@@ -287,7 +287,8 @@ function cancela_cita(cita){
           url:   'citas/db_.php',
           type:  'post',
           success:  function (response) {
-            if (response==1){
+						var datos = JSON.parse(response);
+            if (datos.error==0){
               Swal.fire({
   								type: 'success',
   								title: "Fecha cancelada correctamente",

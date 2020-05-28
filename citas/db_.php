@@ -11,11 +11,27 @@ class Escritorio extends Sagyc{
 		parent::__construct();
 	}
 	public function citas(){
+		$maxcitas_retiros=3;   /////////////variable para maximo numero de citas
+		$maxcitas_creditos=4;   /////////////variable para maximo numero de citas
+		$max=0;
+
+		$sql="select * from citas where ";
+
+
 		try{
 			$desde=$_REQUEST['desde'];
 			$hora=$_REQUEST['hora'];
 			$minuto=$_REQUEST['minuto'];
 			$tipo=$_REQUEST['tipo'];
+			///////////retiro=1
+			///////////credito=2
+
+			if($tipo==1){
+				$max=$maxcitas_retiros;
+			}
+			if($tipo==2){
+				$max=$maxcitas_creditos;
+			}
 
 			$actual=date('Y-m-d H:i:s');
 			$fechax = date("Y-m-d", strtotime($desde))." $hora:$minuto:00";
@@ -27,7 +43,7 @@ class Escritorio extends Sagyc{
 			$sth->execute();
 			$reg=$sth->rowCount();
 
-			if($reg<4){
+			if($reg<$max){
 				$sql="select * from citas where tipo='$tipo' and fecha='$fechax' and (apartado=1 and limite<'$actual')";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
@@ -133,6 +149,18 @@ class Escritorio extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+	public function citas_bloqueo(){
+		try{
+			self::set_names();
+			$sql="select * from diasno";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll();
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
 	public function cita_ver($id){
 		try{
 			self::set_names();
@@ -151,7 +179,7 @@ class Escritorio extends Sagyc{
 		try{
 			self::set_names();
 			$fecha=date('Y-m-d')." 00:00:00";
-			$sql="select * from citas where idfolio=:idfolio and apartado=2 and fecha>='$fecha' order by fecha desc";
+			$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) and fecha>='$fecha' order by fecha desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
@@ -163,7 +191,12 @@ class Escritorio extends Sagyc{
 	}
 	public function cancelar_cita(){
 		$cita=$_REQUEST['cita'];
-		return $this->borrar("citas","id",$cita);
+
+		$arreglo=array();
+		$arreglo+=array('apartado'=>3);
+		$arreglo+=array('realizada'=>2);
+		$x=$this->update('citas',array('id'=>$cita), $arreglo);
+		return $x;
 	}
 }
 
