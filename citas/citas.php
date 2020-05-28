@@ -2,7 +2,7 @@
 	require_once("db_.php");
   $resp=$db->citas_afiliados();
   echo "<div class='container-fluid'>";
-	echo "<br><h5>Citas</h5><hr>";
+	echo "<br><h5>Bitácora de Citas</h5><hr>";
 ?>
 		<div class="content table-responsive table-full-width" >
 			<table class="table-sm display compact hover" id="x_lista">

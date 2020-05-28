@@ -26,8 +26,6 @@ echo "<div class='card'>";
           echo  "<option value='14'>14</option>";
           echo  "<option value='15'>15</option>";
           echo  "<option value='16'>16</option>";
-          echo  "<option value='17'>17</option>";
-          echo  "<option value='18'>18</option>";
         echo  "</select>";
       echo "</div>";
       echo "<div class='col-3'>";
