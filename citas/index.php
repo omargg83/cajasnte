@@ -325,4 +325,71 @@ function cancela_cita(cita){
     }
   });
 }
+function cancela_previo(cita){
+	var cita=$("#cita").val();
+	var tipo=$("#tipo").val();
+
+	$.confirm({
+		icon: 'far fa-calendar-check',
+		title: 'Cancelar',
+		type: 'orange',
+		boxWidth: '800px',
+		content: '¿Desea cancelar la cita?',
+		buttons: {
+			Confirmar: function () {
+				$.ajax({
+					data: {
+						"function":"pre_cancela",
+						"cita":cita,
+						"tipo":tipo
+					},
+					url: "citas/db_.php",
+					type: "POST",
+					timeout:1000,
+					beforeSend: function () {
+
+					},
+					success:function(response){
+						if(response==1){
+							clearInterval(timerUpdate);
+							$("#reloj").hide();
+							Swal.fire({
+								type: 'success',
+								title: "Canceló",
+								showConfirmButton: false,
+								timer: 3000
+							});
+
+							$.ajax({
+								url: "citas/citas.php",
+								type: "POST",
+								timeout:1000,
+								beforeSend: function () {
+									$("#cargando").addClass("is-active");
+								},
+								success:function(response){
+									$('#checar').html(response);
+									$("#cargando").removeClass("is-active");
+								}
+							});
+
+						}
+						else{
+							Swal.fire({
+								type: 'error',
+								title: "Error, favor de intentar nuevamente",
+								showConfirmButton: false,
+								timer: 3000
+							});
+						}
+					}
+				});
+			},
+			Cancelar: function () {
+
+			}
+		}
+	});
+}
+
 </script>

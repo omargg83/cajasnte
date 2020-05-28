@@ -15,9 +15,6 @@ class Escritorio extends Sagyc{
 		$maxcitas_creditos=4;   /////////////variable para maximo numero de citas
 		$max=0;
 
-		$sql="select * from citas where ";
-
-
 		try{
 			$desde=$_REQUEST['desde'];
 			$hora=$_REQUEST['hora'];
@@ -95,7 +92,7 @@ class Escritorio extends Sagyc{
 							$t.= "<div class='col-12'>";
 								$x.="<div class='btn-group'>";
 									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='confirmar_cita()'><i class='far fa-calendar-check'></i>Confirmar cita</button>";
-									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_previo()'><i class='far fa-calendar-times'></i>Cancelar cita</button>";
+									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_previo()'><i class='far fa-trash-alt'></i>Cancelar</button>";
 								$t.="</div>";
 							$t.="</div>";
 						$t.="</div>";
@@ -196,6 +193,11 @@ class Escritorio extends Sagyc{
 		$arreglo+=array('apartado'=>3);
 		$arreglo+=array('realizada'=>2);
 		$x=$this->update('citas',array('id'=>$cita), $arreglo);
+		return $x;
+	}
+	public function pre_cancela(){
+		$cita=$_REQUEST['cita'];
+		$x=$this->borrar('citas',"id",$cita);
 		return $x;
 	}
 }

@@ -1,5 +1,26 @@
 <?php
 	require_once("db_.php");
+
+	////////////////////////////////////con esto se bloquea por 3 meses las citas
+		$fecha=date("Y-m-d H:i:s");
+		$nuevafecha = strtotime ( '+3 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
+		$fecha1 = date ( "Y-m-d H:i:s" , $nuevafecha );
+
+		$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha between '$fecha' and '$fecha1') and tipo=1 and apartado=2";
+		$sth = $db->dbh->query($sql);
+		$no_citas=$sth->rowCount();
+		$resp=$sth->fetchAll(PDO::FETCH_OBJ);
+
+		$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha between '$fecha' and '$fecha1') and tipo=1 and apartado=3";
+		$sth = $db->dbh->query($sql);
+		$canceladas=$sth->rowCount();
+		$resp=$sth->fetchAll(PDO::FETCH_OBJ);
+		if($no_citas>0 or $canceladas>1){
+			echo "poner leyenda";
+			return 0;
+		}
+	//////////////////////////////////////////hasta aqui el bloqueo
+
   $fecha=date("d-m-Y");
   $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
   $fecha1 = date ( "d-m-Y" , $nuevafecha );
