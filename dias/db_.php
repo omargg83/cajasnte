@@ -18,6 +18,30 @@ class Diasno extends Sagyc{
 		}
 	}
 
+	function guardar_dias(){
+		$x="";
+		if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
+		$arreglo =array();
+		if (isset($_REQUEST['descripcion'])){
+			$arreglo+=array('descripcion'=>$_REQUEST['descripcion']);
+		}
+		if (isset($_REQUEST['fecha'])){
+			$fx=explode("-",$_REQUEST['fecha']);
+			$arreglo+=array('fecha'=>$fx['2']."-".$fx['1']."-".$fx['0']);
+		}
+
+		if (isset($_REQUEST['recurrente'])){
+			$arreglo+=array('recurrente'=>$_REQUEST['recurrente']);
+		}
+		if($id==0){
+			$x.=$this->insert('diasno', $arreglo);
+		}
+		else{
+			$x.=$this->update('diasno',array('iddias'=>$id), $arreglo);
+		}
+		return $x;
+	}
+
 	public function dias_edit($iddias){
 		try{
 			parent::set_names();
@@ -33,7 +57,7 @@ class Diasno extends Sagyc{
 		}
 	}
 
-	
+
 
 }
 
