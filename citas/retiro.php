@@ -16,7 +16,16 @@
 		$canceladas=$sth->rowCount();
 		$resp=$sth->fetchAll(PDO::FETCH_OBJ);
 		if($no_citas>0 or $canceladas>1){
-			echo "poner leyenda";
+			echo "<script>
+			Swal.fire({
+		type: 'error',
+  	title: 'Lo sentimos',
+		showConfirmButton: false,
+		timer: 5000,
+  	text: 'Ha usado el maximo de citas y/o cancelaciones permitidas',
+  	footer: 'Favor de comunicarse directamente a Caja de ahorro'
+		})
+			</script>";
 			return 0;
 		}
 	//////////////////////////////////////////hasta aqui el bloqueo
