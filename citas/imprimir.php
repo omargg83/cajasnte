@@ -28,7 +28,7 @@
 		$pdf->addJpegFromFile("../img/cajax.jpg",510,690,50);
 
 		$pdf->addText(310,760,14,"SINDICATO NACIONAL DE TRABAJADORES DE LA EDUCACION",0,'center');
-		$pdf->addText(310,735,12,"REPORTE DE DESCUENTOS POR CREDITO",0,'center');
+		$pdf->addText(310,735,12,"TICKET PARA CITA",0,'center');
 		$pdf->addText(310,720,12,"CAJA DE AHORRO Y CREDITOS",0,'center');
 		$pdf->addText(50,660,16,"Ticket no:".$resp->id,590,'left');
 		$pdf->addText(50,640,14,"Nombre: ".trim($resp->nombre)." ".trim($resp->ape_pat)." ".trim($resp->ape_mat),590,'left');
