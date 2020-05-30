@@ -37,8 +37,8 @@
 
 		$pdf->addText(40,560,12,"*********** IMPORTANTE, NO OLVIDES TRAER LOS SIGUIENTES DOCUMENTOS **************",590,'left');
 
-		$pdf->addText(40,500,12,"Original INE o credencial del SNTE",590,'left');
-		$pdf->addText(40,480,12,"En caso de retiro de ahorro traer el formato de retiro y estado de cta. de retiro",590,'left');
+		$pdf->addText(40,500,12,"* Original INE o credencial del SNTE",590,'left');
+		$pdf->addText(40,480,12,"* En caso de retiro de ahorro traer el formato REQUISITADO de retiro y estado de cta. de retiro",590,'left');
 
 
 

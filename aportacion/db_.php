@@ -44,6 +44,9 @@ class Escritorio extends Sagyc{
 							$entra=1; ////////////con el primero que se encuentre con mas de 100 pesos basta..
 							return "imposible disminuir aportación, por saldo en creditos";
 						}
+						else {
+							$entra=1;
+						}
 					}
 				}
 				if($entra==0){

@@ -90,7 +90,9 @@
 	echo "<div class='container'>";
 	echo "<div class='card'>";
 		echo "<div class='card-header'>";
-			echo "Recuerda que solo tienes derecho a una cancelación y a una cita, procura no faltar y llegar a tiempo por favor";
+			echo "Recuerda que solo tienes derecho a una cancelación y a una cita, procura no faltar y llegar a tiempo por favor.";
+			echo "<br>";
+			echo"Todas las citas aquí generadas serán atendidas exclusivamente en las oficinas centrales de Descripción Pachuca.";
 		echo "</div>";
 	echo "</div>";
 	echo "</div>";

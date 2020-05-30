@@ -1,9 +1,9 @@
 <?php
 	require_once("db_.php");
 
-	////////////////////////////////////con esto se bloquea por 3 meses las citas
+	////////////////////////////////////con esto se bloquea por 5 meses las citas
 		$fecha=date("Y-m-d H:i:s");
-		$nuevafecha = strtotime ( '+3 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
+		$nuevafecha = strtotime ( '+5 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
 		$fecha1 = date ( "Y-m-d H:i:s" , $nuevafecha );
 
 		$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha between '$fecha' and '$fecha1') and tipo=2 and apartado=2";
