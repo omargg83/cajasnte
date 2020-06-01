@@ -31,7 +31,6 @@
 	echo "</div>";
 ?>
 
-
 <!-- WYSWYG   -->
   <link href="librerias15/summernote8.12/summernote-lite.css" rel="stylesheet" type="text/css">
   <script src="librerias15/summernote8.12/summernote-lite.js"></script>

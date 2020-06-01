@@ -348,7 +348,8 @@
 				url: proceso,
 				type: "post",
 				success:  function (response) {
-					if (!isNaN(response)){
+					var datos = JSON.parse(response);
+					if (datos.error==0){
 						lugar=destino+".php?id="+iddest;
 						$("#trabajo").load(lugar);
 						$('#myModal').modal('hide');
@@ -360,7 +361,12 @@
 						});
 					}
 					else{
-						$.alert(response);
+						Swal.fire({
+							type: 'info',
+							title: datos.terror,
+							showConfirmButton: false,
+							timer: 1000
+						});
 					}
 				}
 			});
@@ -735,22 +741,28 @@
 			buttons: {
 				Aceptar: function () {
 					$.ajax({
+						data:  parametros,
 						url: "control_db.php",
 						type: "POST",
-						data: parametros
-					}).done(function(echo){
-
-						if (!isNaN(echo)){
-							$("#"+divdest).load(dest+iddest);
-							Swal.fire({
-							  type: 'success',
-							  title: "Se eliminó correctamente",
-							  showConfirmButton: false,
-							  timer: 1000
-							})
-						}
-						else{
-							$.alert(echo);
+						success:  function (response) {
+							var datos = JSON.parse(response);
+							if (datos.error==0){
+								$("#"+divdest).load(dest+iddest);
+								Swal.fire({
+								  type: 'success',
+								  title: "Se eliminó correctamente",
+								  showConfirmButton: false,
+								  timer: 1000
+								})
+							}
+							else{
+								Swal.fire({
+									type: 'info',
+									title: datos.terror,
+									showConfirmButton: false,
+									timer: 1000
+								});
+							}
 						}
 					});
 				},

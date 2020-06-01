@@ -20,6 +20,7 @@
     $alerta=$row['alerta'];
     $baner=$row['baner'];
     $imagen=$row['imagen'];
+    $adjunto=$row['adjunto'];
   }
 
   echo "<div class='container'>";
@@ -102,6 +103,32 @@
   								echo "</div>";
   							echo "</div>";
   						}
+
+							if(strlen($adjunto)<2 or !file_exists("../archivos/".$adjunto)){
+								echo "<button type='button' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='adjunto' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.jpg,.png' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Adjunto</button>";
+							}
+							else{
+								echo "<div class='btn-group' role='group'>";
+									echo "<button id='btnGroupDrop1' type='button' class='btn btn-warning btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fas fa-paperclip'></i>Adjunto</button>";
+
+									echo "<div class='dropdown-menu' aria-labelledby='btnGroupDrop1'>";
+										echo "<a class='dropdown-item' href='archivos/".$adjunto."' target='_blank'><i class='fas fa-paperclip'></i>Adjunto</a>";
+										echo "<a class='dropdown-item' title='Eliminar archivo'
+										id='delfile_logo'
+										data-ruta='archivos/$adjunto'
+										data-keyt='id'
+										data-key='".$id."'
+										data-tabla='bit_blog'
+										data-campo='adjunto'
+										data-tipo='1'
+										data-iddest='$id'
+										data-divdest='trabajo'
+										data-borrafile='1'
+										data-dest='admin/blog_editar.php?id='
+										><i class='far fa-trash-alt'></i>Eliminar</a>";
+									echo "</div>";
+								echo "</div>";
+							}
             }
 
             echo "<button class='btn btn-warning btn-sm' id='lista_penarea' data-lugar='admin/blog_lista' title='regresar'><i class='fas fa-undo-alt'></i>Regresar</button>";

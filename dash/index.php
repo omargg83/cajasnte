@@ -22,6 +22,9 @@
 						echo "<div class='col-12'>";
 							echo "<p class='card-text'>".$key['corto']."</p>";
 							echo "<button class='btn btn-warning btn-sm' id='edit_".$key['id']."' title='Editar' data-lugar='admin/blog_leer'  data-id='".$key['id']."'><i class='fas fa-pencil-alt'></i>Leer</button>";
+							if(strlen($key['adjunto'])>0){
+								echo "<a class='btn btn-warning btn-sm' id='adjunto_".$key['id']."' title='Editar' href='archivos/".$key['adjunto']."' target='_blank' download='".$key['adjunto']."'><i class='fas fa-paperclip'></i>Adjunto</a>";
+							}
 						echo "</div>";
 
 					echo "</div>";
