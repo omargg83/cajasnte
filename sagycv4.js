@@ -238,7 +238,6 @@
 		e.preventDefault();
 		var userAcceso=document.getElementById("userAcceso").value;
 		var passAcceso=document.getElementById("passAcceso").value;
-
 		$.ajax({
 		  url: "control_db.php",
 			type: "POST",
