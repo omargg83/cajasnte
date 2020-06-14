@@ -193,6 +193,7 @@ class Escritorio extends Sagyc{
 		$sth->bindValue(":idfolio",$idfolio);
 		$sth->execute();
 		$row=$sth->fetch();
+		$filiacion=$row['Filiacion'];
 
 
 		if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
@@ -201,20 +202,28 @@ class Escritorio extends Sagyc{
 			////////////////////////////////////////aca
 			$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
 			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+			$sth->bindValue(":idfolio",$idfolio);
 			$sth->execute();
-			$row=$sth->fetch();
 			$contar=$sth->rowCount();
+			if ($contar>0 ){
+				$row=$sth->fetch();
+				$filiacion=$row['filiacion'];
+			}
+
+
 
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fpass_sol'=>$fecha);
 			$arreglo+=array('up_pass'=>1);
+
+
+
 			if($contar==1){
 				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
 			}
 			else{
-				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['filiacion']);
+				$arreglo+=array('idfolio'=>$idfolio);
+				$arreglo+=array('filiacion'=>$filiacion);
 				$arreglo+=array('nombre'=>$row['nombre']);
 				$arreglo+=array('ape_pat'=>$row['ape_pat']);
 				$arreglo+=array('ape_mat'=>$row['ape_mat']);
