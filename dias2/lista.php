@@ -1,8 +1,8 @@
 <?php
 	require_once("db_.php");
-	$db = new Diasno();
+	$db = new Diasnocre();
 	$pd = $db->dias();
-	echo "<br><h5>Lista de dias de descanso para Retiros</h5><hr>";
+	echo "<br><h5>Lista de dias de descanso para Creditos</h5><hr>";
 ?>
 		<div class="content table-responsive table-full-width">
 			<table class="table-sm display compact hover" id="x_lista">
@@ -24,7 +24,7 @@
 					echo "<td>";
 
 					echo "<div class='btn-group'>";
-					echo "<button class='btn btn-outline-secondary btn-sm' id='edit_dias' title='Editar' data-lugar='dias/editar'><i class='fas fa-pencil-alt'></i></button>";
+					echo "<button class='btn btn-outline-secondary btn-sm' id='edit_dias' title='Editar' data-lugar='dias2/editar'><i class='fas fa-pencil-alt'></i></button>";
 					echo "</div>";
 
 					echo "</td>";

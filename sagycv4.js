@@ -239,7 +239,6 @@
 		e.preventDefault();
 		var userAcceso=document.getElementById("userAcceso").value;
 		var passAcceso=document.getElementById("passAcceso").value;
-
 		$.ajax({
 		  url: "control_db.php",
 			type: "POST",
@@ -548,6 +547,7 @@
 						type: "post",
 						timeout:30000,
 						success:  function (response) {
+						//	console.log(response);
 							if (isJSON(response)){
 								var datos = JSON.parse(response);
 								if (datos.error==0){

@@ -158,6 +158,18 @@ class Escritorio extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
+	public function citas_bloqueocred(){ //para los dias de creditos
+		try{
+			self::set_names();
+			$sql="select * from diasnocred";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			return $sth->fetchAll();
+		}
+		catch(PDOException $e){
+			return "Database access FAILED! ".$e->getMessage();
+		}
+	}
 	public function cita_ver($id){
 		try{
 			self::set_names();

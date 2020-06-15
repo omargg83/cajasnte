@@ -55,7 +55,7 @@
   						"folio":folio,
   						"function":"reset_pass"
   					},
-						url: "control_db.php",
+						url: "pass/db_.php",
 						type:  'post',
 						timeout:10000,
 						success:  function (response) {

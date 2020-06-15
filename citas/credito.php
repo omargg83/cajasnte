@@ -42,7 +42,7 @@ echo "<div class='card'>";
   echo "<div class='card-body'>";
     echo "<div class='row'>";
       echo "<div class='col-6'>";
-          echo "<label>Dia</label>";
+          echo "<label>Por favor Seleccione el Dia</label>";
           echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
       echo "</div>";
       echo "<div class='col-3'>";
@@ -87,7 +87,7 @@ echo "</div>";
 	 var holidayDates = new Array();
 
 	 $.ajax({
-     url: "citas/dias_bloqueo.php",
+     url: "citas/dias_bloqueo2.php",
      type: "POST",
      timeout:1000,
      beforeSend: function () {
@@ -116,7 +116,7 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+3M", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+5M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',

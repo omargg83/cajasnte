@@ -105,7 +105,7 @@
   						}
 
 							if(strlen($adjunto)<2 or !file_exists("../archivos/".$adjunto)){
-								echo "<button type='button' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='adjunto' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.jpg,.png' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Adjunto</button>";
+								echo "<button type='button' class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal' id='fileup_foto' data-ruta='archivos/' data-tabla='bit_blog' data-campo='adjunto' data-tipo='1' data-id='$id' data-keyt='id' data-destino='admin/blog_editar' data-iddest='$id' data-ext='.*' title='Subir foto'><i class='fas fa-cloud-upload-alt'></i>Adjunto</button>";
 							}
 							else{
 								echo "<div class='btn-group' role='group'>";
