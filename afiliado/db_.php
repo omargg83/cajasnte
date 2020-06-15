@@ -131,6 +131,7 @@ class Escritorio extends Sagyc{
 			return json_encode($arr);
 		}
 	}
+
 	public function guardar_acceso(){			/////////////////////////////////////PARA CAMBIOS DE ACCESO
 		$x="";
 		$arreglo =array();
@@ -151,30 +152,22 @@ class Escritorio extends Sagyc{
 			$cambios.=" e_civ:".trim($celular);
 		}
 		if(strlen($cambios)>1){
-		////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_correo is null or up_correo=1 or up_correo=0) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$contar=$sth->rowCount();
-			$row=$sth->fetch();
+
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo =array();
+			$arreglo+=array('tipo'=>"CORREO");
 			$arreglo+=array('fcorreo_sol'=>$fecha);
 			$arreglo+=array('up_correo'=>1);
 			$arreglo+=array('correo'=>trim($_REQUEST['correo']));
 			$arreglo+=array('celular'=>trim($_REQUEST['celular']));
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['Filiacion']);
-				$arreglo+=array('nombre'=>$row['nombre']);
-				$arreglo+=array('ape_pat'=>$row['ape_pat']);
-				$arreglo+=array('ape_mat'=>$row['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
+
+			$arreglo+=array('idfolio'=>$row['idfolio']);
+			$arreglo+=array('filiacion'=>$row['Filiacion']);
+			$arreglo+=array('nombre'=>$row['nombre']);
+			$arreglo+=array('ape_pat'=>$row['ape_pat']);
+			$arreglo+=array('ape_mat'=>$row['ape_mat']);
+			$x=$this->insert('bit_datos', $arreglo);
+
 			return $x;
 		}
 		else{
@@ -184,6 +177,7 @@ class Escritorio extends Sagyc{
 			return json_encode($arr);
 		}
 	}
+
 	public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
 		$x="";
 		$arreglo =array();
@@ -193,43 +187,21 @@ class Escritorio extends Sagyc{
 		$sth->bindValue(":idfolio",$idfolio);
 		$sth->execute();
 		$row=$sth->fetch();
-		$filiacion=$row['Filiacion'];
-
 
 		if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
 			$arreglo+=array('password'=>trim($_REQUEST['pass1']));
 
-			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$idfolio);
-			$sth->execute();
-			$contar=$sth->rowCount();
-			if ($contar>0 ){
-				$row=$sth->fetch();
-				$filiacion=$row['filiacion'];
-			}
-
-
-
 			$fecha=date("Y-m-d H:i:s");
+			$arreglo+=array('tipo'=>"PASSWORD");
 			$arreglo+=array('fpass_sol'=>$fecha);
 			$arreglo+=array('up_pass'=>1);
 
-
-
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$idfolio);
-				$arreglo+=array('filiacion'=>$filiacion);
-				$arreglo+=array('nombre'=>$row['nombre']);
-				$arreglo+=array('ape_pat'=>$row['ape_pat']);
-				$arreglo+=array('ape_mat'=>$row['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
-			////////////////////////////
+			$arreglo+=array('idfolio'=>$idfolio);
+			$arreglo+=array('filiacion'=>$row['Filiacion']);
+			$arreglo+=array('nombre'=>$row['nombre']);
+			$arreglo+=array('ape_pat'=>$row['ape_pat']);
+			$arreglo+=array('ape_mat'=>$row['ape_mat']);
+			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
 		else{
@@ -263,10 +235,18 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 		$contar=$sth->rowCount();
 
-		$arreglo =array();
-		$arreglo+=array('up_correo'=>0);
-		$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-		return $x;
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
 	}
 	public function cancela_pass(){
 		$x="";
@@ -277,10 +257,18 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 		$contar=$sth->rowCount();
 
-		$arreglo =array();
-		$arreglo+=array('up_pass'=>0);
-		$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-		return $x;
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
 	}
 }
 

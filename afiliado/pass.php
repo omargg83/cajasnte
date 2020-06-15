@@ -9,7 +9,7 @@
 ?>
 <div class='container' id='div_trabajo'>
 <form id='form_comision' action='' data-lugar='afiliado/db_' data-funcion='guardar_pass' data-destino='afiliado/pass' data-div='div_trabajo'>
-  <input class="form-control" type="hidden" id="id" name="id" value='<?php echo $_SESSION['idfolio']; ?>'>
+  <input class="form-control" type="hidden" id="id" name="id" value='<?php echo $idfolio; ?>'>
   <div class='card'>
     <div class='card-header'>
 			<img src='img/caja.png' width='20' alt='logo'> -
@@ -71,20 +71,19 @@
         <input class="form-control" placeholder="Repetir Contraseña" type="password"  id="pass2" name="pass2" required>
       </div>
     </div>
-
-    <div class='card-footer'>
-      <div class="btn-group">
-        <button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>
-      </div>
-    </div>
-    </div>
-</form>
 <?php
+    echo "<div class='card-footer'>";
+      echo "<div class='btn-group'>";
+			$cambio=$db->cambios("pass",$_SESSION['idfolio']);
+			if (!$cambio){
+        echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
+			}
+      echo "</div>";
+    echo "</div>";
+    echo "</div>";
+echo "</form>";
 
-
-$cambio=$db->cambios(1,$_SESSION['idfolio']);
-if ($cambio){
-	if($cambio['up_pass']==1){
+	if ($cambio){
 		echo "<br><div class='card' id='datos_c'>";
 			echo "<div class='card-header'>";
 				echo "<i class='fas fa-exclamation'></i> Datos de contraseña - en breve serán actualizados en las oficinas de caja de ahorro";
@@ -105,14 +104,10 @@ if ($cambio){
 						echo "</div>";
 					echo "</div>";
 				echo "</div>";
-
 		echo "</div>";
 	}
-}
-
  ?>
 </div>
-
 
 <script type="text/javascript">
 	function cancela_pass(){
@@ -128,6 +123,7 @@ if ($cambio){
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
+							$("#div_trabajo").load("afiliado/pass.php");
 							var datos = JSON.parse(response);
 							if (datos.error==0){
 								$("#datos_c").remove();

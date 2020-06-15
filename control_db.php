@@ -43,78 +43,7 @@
 			}
 			return json_encode($arreglo);
 		}
-		public function acceso(){
-			$userPOST = htmlspecialchars(trim($_REQUEST["userAcceso"]));
-			$passPOST = htmlspecialchars(trim($_REQUEST["passAcceso"]));
 
-<<<<<<< HEAD
-			$sql="select * from afiliados where Filiacion=:usuario and password=:pass";
-=======
-			self::set_names();
-			$sql="select idfolio, Filiacion, password, nombre, ape_pat, ape_mat from afiliados where Filiacion=:usuario and password=:pass";
->>>>>>> 98983bb4bd2f56b95432acfb71401d12bc5f069d
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":usuario",$userPOST);
-			$sth->bindValue(":pass",$passPOST);
-			$sth->execute();
-			$datos=$sth->fetch();
-
-			if(is_array($datos)){
-				$userBD = trim($datos['Filiacion']);
-				$passwordBD = trim($datos['password']);
-
-				if($userBD == $userPOST and $passPOST==$passwordBD){
-					$_SESSION['autoriza']=1;
-					$_SESSION['filiacion']=$datos['Filiacion'];
-					$_SESSION['nombre']=$datos['nombre'];
-					$_SESSION['ape_pat']=$datos['ape_pat'];
-					$_SESSION['ape_mat']=$datos['ape_mat'];
-					$_SESSION['idfolio']=$datos['idfolio'];
-					$_SESSION['llave']=md5(rand(10000,99999).$passwordBD);
-
-					$_SESSION['administrador']=0;
-					$_SESSION['hasta']=date("Y");
-					$_SESSION['foco']=mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
-
-					$arr=array();
-					$arr=array('acceso'=>1,'idpersona'=>$_SESSION['idfolio']);
-					return json_encode($arr);
-				}
-			}
-			else {
-				$sql="select * from usuarios where NOMBRE=:usuario and CLAVE_ACC=:pass";
-				$sth = $this->dbh->prepare($sql);
-				$sth->bindValue(":usuario",$userPOST);
-				$sth->bindValue(":pass",$passPOST);
-				$sth->execute();
-				$datos=$sth->fetch();
-				if(is_array($datos)){
-					$userBD = trim($datos['NOMBRE']);
-					$passwordBD = trim($datos['CLAVE_ACC']);
-					if($userPOST == $userBD and $passPOST==$passwordBD){
-						$_SESSION['autoriza']=1;
-						$_SESSION['filiacion']=$datos['RFC'];
-						$_SESSION['nombre']=$datos['NOMBRE'];
-						$_SESSION['idfolio']=$datos['CLV_PER'];
-						$_SESSION['ape_pat']="";
-						$_SESSION['ape_mat']="";
-
-						$_SESSION['administrador']=1;
-						$_SESSION['hasta']=date("Y");
-						$_SESSION['foco']=mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
-
-						$arr=array();
-						$arr=array('acceso'=>1,'idpersona'=>0);
-						return json_encode($arr);
-					}
-				}
-				else{
-					$arr=array();
-					$arr=array('acceso'=>0,'idpersona'=>0);
-					return json_encode($arr);
-				}
-			}
-		}
 		public function ses(){
 			if(isset($_SESSION['idfolio']) and isset($_SESSION['idfolio']) and (strlen($_SESSION['llave'])>0)){
 				$arr=array();
@@ -324,7 +253,6 @@
 
 		public function borrar($DbTableName, $key,$id){
 			try{
-
 				$sql="delete from $DbTableName where $key=$id";
 				$this->dbh->query($sql);
 				return 1;
@@ -352,7 +280,6 @@
 
 		public function afiliado(){
 			try{
-
 				$sql="select * from afiliados where idfolio=:idfolio";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -364,7 +291,7 @@
 			}
 		}
 		public function cambios($tipo,$idfolio){
-			if($tipo==1){					///////////////////////Contraseña
+			if($tipo=="pass"){					///////////////////////Contraseña
 				$sql="select * from bit_datos where idfolio=:idfolio and up_pass=1";
 			}
 			if($tipo==2){					///////////////////////Correo
@@ -384,7 +311,6 @@
 			$sth->execute();
 			return $sth->fetch();
 		}
-
 		public function blo_lista(){
 			try{
 
@@ -421,7 +347,6 @@
 				return "Database access FAILED! ".$e->getMessage();
 			}
 		}
-
 		public function subir_file(){
 			$contarx=0;
 			$arr=array();
@@ -507,7 +432,6 @@
 			}
 			return "$x";
 		}
-
 	}
 
 	if(strlen($ctrl)>0){

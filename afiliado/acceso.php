@@ -73,52 +73,51 @@
 						echo "</div>";
 					echo "</div>";
 				echo "</div>";
-				?>
 
-      </div>
-      <div class='card-footer'>
-        <div class="btn-group">
-          <button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>
-        </div>
-      </div>
-    </div>
-  </form>
-<?php
+      echo "</div>";
+      echo "<div class='card-footer'>";
+				$cambio=$db->cambios(2,$_SESSION['idfolio']);
+        echo "<div class='btn-group'>";
+					if (!$cambio){
+	          echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
+					}
+        echo "</div>";
+      echo "</div>";
+    echo "</div>";
+  echo "</form>";
 
-$cambio=$db->cambios(2,$_SESSION['idfolio']);
+
 if ($cambio){
-	if($cambio['up_correo']==1){
-		echo "<br><div class='card' id='datos_c'>";
-			echo "<div class='card-header'>";
-				echo "<i class='fas fa-exclamation'></i> Datos de acceso - en breve serán actualizados en las oficinas de caja de ahorro";
+	echo "<br><div class='card' id='datos_c'>";
+		echo "<div class='card-header'>";
+			echo "<i class='fas fa-exclamation'></i> Datos de acceso - en breve serán actualizados en las oficinas de caja de ahorro";
+		echo "</div>";
+		echo "<div class='card-body'>";
+			echo "<div class='row'>";
+				echo "<div class='col-6'>";
+					echo "<label for='c2'>Correo</label>";
+					echo "<input class='form-control form-control-sm' type='text' id='e_civ1' NAME='e_civ1' value='".$cambio['correo']."' readonly>";
+				echo "</div>";
+
+				echo "<div class='col-6'>";
+					echo "<label for='c1'>Celular</label>";
+					echo "<input class='form-control form-control-sm' type='text' id='d_dom1' NAME='d_dom1' value='".$cambio['celular']."' readonly>";
+				echo "</div>";
+
+					////////////////////
 			echo "</div>";
-			echo "<div class='card-body'>";
+		echo "</div>";
+				//////////////////////////////
+			echo "<div class='card-footer'>";
 				echo "<div class='row'>";
 					echo "<div class='col-6'>";
-						echo "<label for='c2'>Correo</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='e_civ1' NAME='e_civ1' value='".$cambio['correo']."' readonly>";
+						echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_acceso()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
 					echo "</div>";
-
-					echo "<div class='col-6'>";
-						echo "<label for='c1'>Celular</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='d_dom1' NAME='d_dom1' value='".$cambio['celular']."' readonly>";
-					echo "</div>";
-
-
-						////////////////////
 				echo "</div>";
 			echo "</div>";
-					//////////////////////////////
-				echo "<div class='card-footer'>";
-					echo "<div class='row'>";
-						echo "<div class='col-6'>";
-							echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_acceso()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
-						echo "</div>";
-					echo "</div>";
-				echo "</div>";
 
-		echo "</div>";
-	}
+	echo "</div>";
+
 }
  ?>
 </div>
@@ -138,6 +137,7 @@ if ($cambio){
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
+							$("#div_trabajo").load("afiliado/acceso.php");
 							var datos = JSON.parse(response);
 							if (datos.error==0){
 								$("#datos_c").remove();

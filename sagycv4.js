@@ -234,37 +234,37 @@
 				return false;
 		}
 	}
-	
+
 	$(document).on('submit','#acceso',function(e){
 		e.preventDefault();
-		var userAcceso=document.getElementById("userAcceso").value;
-		var passAcceso=document.getElementById("passAcceso").value;
-		$.ajax({
-		  url: "control_db.php",
-			type: "POST",
-		  data: {
-				"ctrl":"control",
-				"function":"acceso",
-				"userAcceso":userAcceso,
-				"passAcceso":passAcceso
-		  },
-		  success: function( response ) {
-				var data = JSON.parse(response);
-				if (data.acceso==1){
-					acceso();
-					$('#myModal').modal('hide');
-					$("#modal_dispo").addClass("modal-lg");
-				}
-				else{
-					Swal.fire({
-						  type: 'error',
-						  title: 'Usuario o contraseña incorrecta',
-						  showConfirmButton: false,
-						  timer: 1000
-					})
-				}
-		  }
-		});
+		var user=$("#usuario").val();
+		var pass=$("#password").val();
+		if(user.length==0 && pass.length==0){
+			var dataString = $(this).serialize()+"&function=acceso&ctrl=control";
+
+			$.ajax({
+			  url: "dash/db_login.php",
+				type: "POST",
+			  data:  dataString,
+			  success: function( response ) {
+					console.log(response);
+					var data = JSON.parse(response);
+					if (data.acceso==1){
+						acceso();
+						$('#myModal').modal('hide');
+						$("#modal_dispo").addClass("modal-lg");
+					}
+					else{
+						Swal.fire({
+							  type: 'error',
+							  title: 'Usuario o contraseña incorrecta',
+							  showConfirmButton: false,
+							  timer: 1000
+						})
+					}
+			  }
+			});
+		}
 	});
 	//////////////////////subir archivos
 	$(document).on("click","[id^='fileup_']",function(e){

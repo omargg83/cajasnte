@@ -12,7 +12,6 @@ class Escritorio extends Sagyc{
 	}
 	public function busca_afiliados(){
 		try{
-			self::set_names();
 			if (isset($_REQUEST['buscar']) and strlen(trim($_REQUEST['buscar']))>0){
 				$texto=trim(htmlspecialchars($_REQUEST['buscar']));
 				$sql="SELECT * from afiliados
@@ -37,11 +36,12 @@ class Escritorio extends Sagyc{
 			$sth->bindValue(":idfolio",$idfolio);
 			$sth->execute();
 			$resp=$sth->fetch(PDO::FETCH_OBJ);
-/*
-			$arreglo =array();
-			$arreglo+=array('password'=>trim($resp->Filiacion));
-			$x=$this->update('afiliados',array('idfolio'=>$idfolio), $arreglo);
-*/
+
+			/*
+				$arreglo =array();
+				$arreglo+=array('password'=>trim($resp->Filiacion));
+				$x=$this->update('afiliados',array('idfolio'=>$idfolio), $arreglo);
+			*/
 			////////////////////////////////////////aca
 			$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
 			$sth = $this->dbh->prepare($sql);
