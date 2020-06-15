@@ -234,6 +234,7 @@
 				return false;
 		}
 	}
+	
 	$(document).on('submit','#acceso',function(e){
 		e.preventDefault();
 		var userAcceso=document.getElementById("userAcceso").value;

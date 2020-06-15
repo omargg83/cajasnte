@@ -12,23 +12,25 @@
 		public $derecho=array();
 		public $arreglo;
 		public $limite=300;
+		private $mysqluser;
+		private $mysqlpass="";
+		private $servidor="";
+		private $bdd="";
 
 		public function __construct(){
 			try{
 				$this->Salud = array();
 				date_default_timezone_set("America/Mexico_City");
-				$_SESSION['mysqluser']="sagyce18_sagyc";
-				$_SESSION['mysqlpass']="sagyc123$";
-				$_SESSION['servidor'] ="sagyc2.com.mx";
-				$_SESSION['bdd']="sagyce18_caja";
-				$this->dbh = new PDO("mysql:host=".$_SESSION['servidor'].";dbname=".$_SESSION['bdd']."", $_SESSION['mysqluser'], $_SESSION['mysqlpass']);
+				$mysqluser="sagyce18_sagyc";
+				$mysqlpass="sagyc123$";
+				$servidor="sagyc2.com.mx";
+				$bdd="sagyce18_caja";
+				$this->dbh = new PDO("mysql:host=$servidor;dbname=$bdd", $mysqluser, $mysqlpass);
+				$this->dbh->query("SET NAMES 'utf8'");
 			}
 			catch(PDOException $e){
 				return "Database access FAILED!";
 			}
-		}
-		public function set_names(){
-			return $this->dbh->query("SET NAMES 'utf8'");
 		}
 		public function login(){
 			$arreglo=array();
@@ -45,7 +47,6 @@
 			$userPOST = htmlspecialchars($_REQUEST["userAcceso"]);
 			$passPOST = htmlspecialchars($_REQUEST["passAcceso"]);
 
-			self::set_names();
 			$sql="select * from afiliados where Filiacion=:usuario and password=:pass";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":usuario",$userPOST);
@@ -240,7 +241,7 @@
 		public function insert($DbTableName, $values = array()){
 			$arreglo=array();
 			try{
-				self::set_names();
+
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
 				foreach ($values as $field => $v)
@@ -273,7 +274,7 @@
 		public function update($DbTableName, $id = array(), $values = array()){
 			$arreglo=array();
 			try{
-				self::set_names();
+
 				$this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 				$x="";
 				$idx="";
@@ -317,7 +318,7 @@
 
 		public function borrar($DbTableName, $key,$id){
 			try{
-				self::set_names();
+
 				$sql="delete from $DbTableName where $key=$id";
 				$this->dbh->query($sql);
 				return 1;
@@ -328,7 +329,7 @@
 		}
 		public function general($sql,$tipo=1){
 			try{
-				self::set_names();
+
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
 				if($tipo==1){
@@ -345,7 +346,7 @@
 
 		public function afiliado(){
 			try{
-				self::set_names();
+
 				$sql="select * from afiliados where idfolio=:idfolio";
 				$sth = $this->dbh->prepare($sql);
 				$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -380,7 +381,7 @@
 
 		public function blo_lista(){
 			try{
-				self::set_names();
+
 				$sql="select * from bit_bloques limit 1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
@@ -392,7 +393,7 @@
 		}
 		public function blog_alerta(){
 			try{
-				self::set_names();
+
 				$sql="select * from bit_blog where alerta=1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
@@ -404,7 +405,7 @@
 		}
 		public function blog_noticia(){
 			try{
-				self::set_names();
+
 				$sql="select * from bit_blog where noticia=1";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
