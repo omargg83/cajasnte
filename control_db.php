@@ -44,10 +44,15 @@
 			return json_encode($arreglo);
 		}
 		public function acceso(){
-			$userPOST = htmlspecialchars($_REQUEST["userAcceso"]);
-			$passPOST = htmlspecialchars($_REQUEST["passAcceso"]);
+			$userPOST = htmlspecialchars(trim($_REQUEST["userAcceso"]));
+			$passPOST = htmlspecialchars(trim($_REQUEST["passAcceso"]));
 
+<<<<<<< HEAD
 			$sql="select * from afiliados where Filiacion=:usuario and password=:pass";
+=======
+			self::set_names();
+			$sql="select idfolio, Filiacion, password, nombre, ape_pat, ape_mat from afiliados where Filiacion=:usuario and password=:pass";
+>>>>>>> 98983bb4bd2f56b95432acfb71401d12bc5f069d
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":usuario",$userPOST);
 			$sth->bindValue(":pass",$passPOST);
@@ -55,8 +60,9 @@
 			$datos=$sth->fetch();
 
 			if(is_array($datos)){
-				$userBD = $datos['Filiacion'];
-				$passwordBD = $datos['password'];
+				$userBD = trim($datos['Filiacion']);
+				$passwordBD = trim($datos['password']);
+
 				if($userBD == $userPOST and $passPOST==$passwordBD){
 					$_SESSION['autoriza']=1;
 					$_SESSION['filiacion']=$datos['Filiacion'];
