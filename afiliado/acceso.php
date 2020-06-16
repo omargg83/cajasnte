@@ -132,7 +132,7 @@ if ($cambio){
 				Aceptar: function () {
 					$.ajax({
 	 					data:  {
-							"function":"cancela_acceso"
+							"function":"cancela_datos"
 	 					},
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',

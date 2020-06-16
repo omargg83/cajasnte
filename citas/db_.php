@@ -134,7 +134,7 @@ class Escritorio extends Sagyc{
 	}
 	public function citas_lista($tipo){
 		try{
-			self::set_names();
+
 			$fecha=date('Y-m-d')." 00:00:00";
 			$sql="select * from citas left outer join afiliados on afiliados.idfolio=citas.idfolio
 			where apartado=2 and tipo='$tipo' and fecha>='$fecha'";
@@ -148,7 +148,7 @@ class Escritorio extends Sagyc{
 	}
 	public function citas_bloqueo(){
 		try{
-			self::set_names();
+
 			$sql="select * from diasno";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
@@ -160,7 +160,7 @@ class Escritorio extends Sagyc{
 	}
 	public function citas_bloqueocred(){ //para los dias de creditos
 		try{
-			self::set_names();
+
 			$sql="select * from diasnocred";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();
@@ -172,7 +172,7 @@ class Escritorio extends Sagyc{
 	}
 	public function cita_ver($id){
 		try{
-			self::set_names();
+
 			$fecha=date('Y-m-d')." 00:00:00";
 			$sql="select citas.*, afiliados.nombre, afiliados.ape_pat, afiliados.ape_mat, afiliados.Filiacion from citas left outer join afiliados on afiliados.idfolio=citas.idfolio
 			where citas.id='$id'";
@@ -186,7 +186,7 @@ class Escritorio extends Sagyc{
 	}
 	public function citas_afiliados(){
 		try{
-			self::set_names();
+
 			$fecha=date('Y-m-d')." 00:00:00";
 			$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) and fecha>='$fecha' order by fecha desc";
 			$sth = $this->dbh->prepare($sql);

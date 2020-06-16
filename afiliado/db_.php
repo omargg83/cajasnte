@@ -34,8 +34,8 @@ class Escritorio extends Sagyc{
 		$r_rrg=$_REQUEST['r_rrg'];
 		$c_psp=$_REQUEST['c_psp'];
 
-		$correo=$_REQUEST['correo'];
-		$celular=$_REQUEST['celular'];
+		//$correo=$_REQUEST['correo'];
+		//$celular=$_REQUEST['celular'];
 
 		if($row['d_dom']!=$d_dom){
 			$cambios.=" d_dom:".trim($d_dom);
@@ -67,7 +67,7 @@ class Escritorio extends Sagyc{
 		if($row['c_psp']!=$c_psp){
 			$cambios.=" c_psp:".trim($c_psp);
 		}
-
+		/*
 		$cambio_cel=0;
 		if($row['correo']!=$correo){
 			$cambios.=" correo:".trim($correo);
@@ -78,8 +78,7 @@ class Escritorio extends Sagyc{
 			$cambios.=" celular:".trim($celular);
 			$cambio_cel=1;
 		}
-
-
+		*/
 		if(strlen($cambios)>1){
 			$arreglo+=array('d_dom'=>trim($d_dom));
 			$arreglo+=array('e_civ'=>trim($e_civ));
@@ -91,37 +90,17 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('d_sin'=>trim($d_sin));
 			$arreglo+=array('r_rrg'=>trim($r_rrg));
 			$arreglo+=array('c_psp'=>trim($c_psp));
-			$arreglo+=array('correo'=>trim($correo));
-			$arreglo+=array('celular'=>trim($celular));
-
-			//$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_datos=1 or up_datos=0 or up_datos is null) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$rowx=$sth->fetch();
-			$contar=$sth->rowCount();
 
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fdatos_sol'=>$fecha);
 			$arreglo+=array('up_datos'=>1);
-
-			if($cambio_cel==1){
-				$arreglo+=array('up_correo'=>1);
-				$arreglo+=array('fcorreo_sol'=>$fecha);
-			}
-
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$rowx['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['Filiacion']);
-				$arreglo+=array('nombre'=>$row['nombre']);
-				$arreglo+=array('ape_pat'=>$row['ape_pat']);
-				$arreglo+=array('ape_mat'=>$row['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
+			$arreglo+=array('tipo'=>"DATOS");
+			$arreglo+=array('idfolio'=>$row['idfolio']);
+			$arreglo+=array('filiacion'=>$row['Filiacion']);
+			$arreglo+=array('nombre'=>$row['nombre']);
+			$arreglo+=array('ape_pat'=>$row['ape_pat']);
+			$arreglo+=array('ape_mat'=>$row['ape_mat']);
+			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
 		else{
@@ -130,6 +109,27 @@ class Escritorio extends Sagyc{
 			$arr+=array('terror'=>"No hay cambios");
 			return json_encode($arr);
 		}
+	}
+	public function cancela_datos(){
+		$x="";
+		$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+		$sth->execute();
+		$row=$sth->fetch();
+
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
 	}
 
 	public function guardar_acceso(){			/////////////////////////////////////PARA CAMBIOS DE ACCESO
@@ -177,6 +177,28 @@ class Escritorio extends Sagyc{
 			return json_encode($arr);
 		}
 	}
+	public function cancela_acceso(){
+		$x="";
+		$sql="select * from bit_datos where idfolio=:idfolio and up_correo=1";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
+		$sth->execute();
+		$row=$sth->fetch();
+		$contar=$sth->rowCount();
+
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
+	}
 
 	public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
 		$x="";
@@ -211,43 +233,6 @@ class Escritorio extends Sagyc{
 			return json_encode($arr);
 		}
 	}
-	public function cancela_datos(){
-		$x="";
-		$sql="select * from bit_datos where idfolio=:idfolio and up_datos=1";
-		$sth = $this->dbh->prepare($sql);
-		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-		$sth->execute();
-		$row=$sth->fetch();
-		$contar=$sth->rowCount();
-
-		$arreglo =array();
-		$arreglo+=array('up_datos'=>0);
-		$arreglo+=array('up_correo'=>0);
-		$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-		return $x;
-	}
-	public function cancela_acceso(){
-		$x="";
-		$sql="select * from bit_datos where idfolio=:idfolio and up_correo=1";
-		$sth = $this->dbh->prepare($sql);
-		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-		$sth->execute();
-		$row=$sth->fetch();
-		$contar=$sth->rowCount();
-
-		$x=$this->borrar('bit_datos','id',$row['id']);
-		if($x){
-			$arr=array();
-			$arr+=array('error'=>0);
-			$arr+=array('terror'=>"");
-		}
-		else{
-			$arr=array();
-			$arr+=array('error'=>1);
-			$arr+=array('terror'=>"Error favor de verificar");
-		}
-		return json_encode($arr);
-	}
 	public function cancela_pass(){
 		$x="";
 		$sql="select * from bit_datos where idfolio=:idfolio and up_pass=1";
@@ -270,6 +255,7 @@ class Escritorio extends Sagyc{
 		}
 		return json_encode($arr);
 	}
+
 }
 
 $db = new Escritorio();

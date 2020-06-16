@@ -82,7 +82,8 @@
         $fecha_entrada = strtotime($faportacion);
 
     		echo "<div class='card-footer'>";
-          if($fecha_actual <= $fecha_entrada){
+					$cambio=$db->cambios(4,$idfolio);
+          if($fecha_actual <= $fecha_entrada and !$cambio){
             echo "<div class='btn-group'>";
               echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
             echo "</div>";
@@ -94,32 +95,28 @@
       echo "</div>";
     	echo "</form>";
 
-      $cambio=$db->cambios(4,$idfolio);
       if(is_array($cambio)){
-        if($cambio['up_aportacion']==1){
-          echo "<br><div class='card' id='datos_c'>";
-            echo "<div class='card-header'>";
-              echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar - en breve serán actualizados en las oficinas de caja de ahorro";
-            echo "</div>";
-            echo "<div class='card-body'>";
-              echo "<div class='row'>";
-                echo "<div class='col-4'>";
-                echo "<label>Aportación Total Para Ahorro</label>";
-                echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
-                echo "</div>";
-                ///////////////////////////////
-              echo "</div>";
-            echo "</div>";
-            echo "<div class='card-footer'>";
-              echo "<div class='row'>";
-                echo "<div class='col-6'>";
-                  echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_aporta()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
-                echo "</div>";
-              echo "</div>";
-            echo "</div>";
-
+        echo "<br><div class='card' id='datos_c'>";
+          echo "<div class='card-header'>";
+            echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar - en breve serán actualizados en las oficinas de caja de ahorro";
           echo "</div>";
-        }
+          echo "<div class='card-body'>";
+            echo "<div class='row'>";
+              echo "<div class='col-4'>";
+              echo "<label>Aportación Total Para Ahorro</label>";
+              echo "<input class='form-control' type='text' id='a_qui1' NAME='a_qui1' value='" .number_format($cambio['a_qui'],2)."' placeholder='Aportacion Ahorro' readonly>";
+              echo "</div>";
+              ///////////////////////////////
+            echo "</div>";
+          echo "</div>";
+          echo "<div class='card-footer'>";
+            echo "<div class='row'>";
+              echo "<div class='col-6'>";
+                echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_aporta()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
+              echo "</div>";
+            echo "</div>";
+          echo "</div>";
+        echo "</div>";
       }
     echo "</div>";
 ?>
@@ -139,6 +136,7 @@
             url:  "aportacion/db_.php",
             type:  'post',
             success:  function (response) {
+							$("#div_trabajo").load("aportacion/aportacion.php");
 							var datos = JSON.parse(response);
 							if (datos.error==0){
 								$("#datos_c").remove();

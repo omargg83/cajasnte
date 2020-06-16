@@ -116,32 +116,17 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('PE'=>trim($PE));
 			$arreglo+=array('BFE'=>trim($BFE));
 
-			////////////////////////////////////////aca
-			//$x=$this->update('afiliados',array('idfolio'=>$_SESSION['idfolio']), $arreglo);
-
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_bene=1 or up_bene=0 or up_bene is null) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$rowx=$sth->fetch();
-			$contar=$sth->rowCount();
-
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fbene_sol'=>$fecha);
 			$arreglo+=array('up_bene'=>1);
 
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$rowx['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['Filiacion']);
-				$arreglo+=array('nombre'=>$row['nombre']);
-				$arreglo+=array('ape_pat'=>$row['ape_pat']);
-				$arreglo+=array('ape_mat'=>$row['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
-			////////////////////////////
+			$arreglo+=array('idfolio'=>$row['idfolio']);
+			$arreglo+=array('filiacion'=>$row['Filiacion']);
+			$arreglo+=array('tipo'=>"BENEFICIARIOS");
+			$arreglo+=array('nombre'=>$row['nombre']);
+			$arreglo+=array('ape_pat'=>$row['ape_pat']);
+			$arreglo+=array('ape_mat'=>$row['ape_mat']);
+			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
 		else{
@@ -158,9 +143,19 @@ class Escritorio extends Sagyc{
 		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 		$sth->execute();
 		$row=$sth->fetch();
-		$contar=$sth->rowCount();
-		$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-		return $x;
+		
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
 	}
 }
 

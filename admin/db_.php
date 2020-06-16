@@ -12,7 +12,7 @@ class Oficios extends Sagyc{
 		parent::__construct();
 	}
 	public function bloques_guardar(){
-		self::set_names();
+
 		$x="";
 		$arreglo =array();
 
@@ -116,7 +116,7 @@ class Oficios extends Sagyc{
 	}
 	public function blog_editar($id){
 		try{
-			self::set_names();
+
 			$sql="select * from bit_blog where id=:id";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":id",$id);
@@ -129,7 +129,7 @@ class Oficios extends Sagyc{
 	}
 	public function blog_lista(){
 		try{
-			self::set_names();
+
 			$sql="select * from bit_blog";
 			$sth = $this->dbh->prepare($sql);
 			//$sth->bindValue(":idfolio",$_SESSION['idfolio']);

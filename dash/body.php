@@ -65,7 +65,7 @@
           if($fecha_actual <= $fecha_entrada){
             echo "<a href='#' id='imprime_formato' title='Imprimir' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>Formato de retiro</span></a>";
           }
-					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Acceso</span></a>
+					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Correo</span></a>
 					<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
 
           echo "<hr>

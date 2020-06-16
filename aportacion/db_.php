@@ -54,34 +54,19 @@ class Escritorio extends Sagyc{
 				}
 			}
 
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_aportacion=1 or up_aportacion=0 or up_aportacion is null) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
-			$sth->execute();
-			$rowx=$sth->fetch();
-			$contar=$sth->rowCount();
-
 			$arreglo =array();
 			$arreglo+=array('up_aportacion'=>1);
-			if (isset($_REQUEST['a_qui'])){
-				$arreglo+=array('a_qui'=>$_REQUEST['a_qui']);
-			}
-
+			$arreglo+=array('a_qui'=>$a_qui);
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('faport_sol'=>$fecha);
 			$arreglo+=array('up_aportacion'=>1);
-
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$rowx['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$row['idfolio']);
-				$arreglo+=array('filiacion'=>$row['Filiacion']);
-				$arreglo+=array('nombre'=>$row['nombre']);
-				$arreglo+=array('ape_pat'=>$row['ape_pat']);
-				$arreglo+=array('ape_mat'=>$row['ape_mat']);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
+			$arreglo+=array('tipo'=>"APORTACION");
+			$arreglo+=array('idfolio'=>$row['idfolio']);
+			$arreglo+=array('filiacion'=>$row['Filiacion']);
+			$arreglo+=array('nombre'=>$row['nombre']);
+			$arreglo+=array('ape_pat'=>$row['ape_pat']);
+			$arreglo+=array('ape_mat'=>$row['ape_mat']);
+			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
 		else{
@@ -98,10 +83,19 @@ class Escritorio extends Sagyc{
 		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 		$sth->execute();
 		$row=$sth->fetch();
-		$contar=$sth->rowCount();
-
-		$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-		return $x;
+	
+		$x=$this->borrar('bit_datos','id',$row['id']);
+		if($x){
+			$arr=array();
+			$arr+=array('error'=>0);
+			$arr+=array('terror'=>"");
+		}
+		else{
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error favor de verificar");
+		}
+		return json_encode($arr);
 	}
 }
 

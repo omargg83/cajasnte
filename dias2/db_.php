@@ -6,7 +6,7 @@ class Diasnocre extends Sagyc{
 
 	public function dias(){
 		try{
-			self::set_names();
+
 			$sql="SELECT * FROM diasnocred";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();

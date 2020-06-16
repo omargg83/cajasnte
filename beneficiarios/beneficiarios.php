@@ -204,7 +204,8 @@
       $fecha_entrada = strtotime($fbeneficiarios);
 
         echo "<div class='card-footer'>";
-          if($fecha_actual <= $fecha_entrada){
+					$cambio=$db->cambios(5,$idfolio);
+          if($fecha_actual <= $fecha_entrada and !$cambio){
             echo "<div class='btn-group'>";
               echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
             echo "</div>";
@@ -216,9 +217,8 @@
       echo "</div>";
     	echo "</form>";
 
-    	$cambio=$db->cambios(5,$idfolio);
+
       if(is_array($cambio)){
-        if($cambio['up_bene']==1){
     		echo "<br><div class='card' id='datos_c'>";
     			echo "<div class='card-header'>";
     				echo "<i class='fas fa-exclamation'></i> Datos generales actuales pendientes por actualizar - en breve serán actualizados en las oficinas de caja de ahorro";
@@ -310,13 +310,10 @@
               echo "</div>";
             echo "</div>";
           echo "</div>";
-
     		echo "</div>";
-    	}
       }
-
     echo "</div>";
-    echo "</div>";
+  echo "</div>";
 ?>
 
 
@@ -332,21 +329,28 @@
             data:  {
               "function":"cancela_bene"
             },
-            url:  "control_db.php",
+            url:  "beneficiarios/db_.php",
             type:  'post',
             success:  function (response) {
-              if (!isNaN(response)){
-                $("#datos_c").remove();
-                Swal.fire({
-                  type: 'success',
-                  title: "Se canceló correctamente",
-                  showConfirmButton: false,
-                  timer: 1000
-                });
-              }
-              else{
-
-              }
+							$("#div_trabajo").load("beneficiarios/beneficiarios.php");
+							var datos = JSON.parse(response);
+							if (datos.error==0){
+								$("#datos_c").remove();
+								Swal.fire({
+									type: 'success',
+									title: "Se canceló correctamente",
+									showConfirmButton: false,
+									timer: 1000
+								});
+							}
+							else{
+								Swal.fire({
+									type: 'error',
+									title: "Error favor de verificar",
+									showConfirmButton: false,
+									timer: 2000
+								});
+							}
             }
           });
         },

@@ -13,7 +13,7 @@ class Escritorio extends Sagyc{
 
 	public function afiliado(){
 		try{
-			self::set_names();
+
 			$sql="select * from afiliados where idfolio=:idfolio";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -26,7 +26,7 @@ class Escritorio extends Sagyc{
 	}
 	public function creditos(){
 		try{
-			self::set_names();
+
 			$sql="select * from creditos where filiacion=:filiacion";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":filiacion",$_SESSION['filiacion']);
@@ -39,7 +39,7 @@ class Escritorio extends Sagyc{
 	}
 	public function datos_credito($clv_cred){
 		try{
-			self::set_names();
+
 			$sql="SELECT clv_cred,crx.idfolio,fecha,crx.monto,observa,crx.estado,plazo,if(crx.estado=1,'ACTIVO','INACTIVO') as cred_esta,interes,crx.total,crx.quin_ini,crx.anio_ini,crx.quin_fin,crx.anio_fin,nocheque,aportacion,(select saldo_actual from detallepago where idcredito=crx.clv_cred order by anio desc,quincena desc,iddetalle limit 1) as saldo_actual FROM creditos crx where crx.clv_cred=:clv_cred";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":clv_cred",$clv_cred);
@@ -52,7 +52,7 @@ class Escritorio extends Sagyc{
 	}
 	public function credito_detalle($clv_cred){
 		try{
-			self::set_names();
+
 			$sql="select anio,if (estado=1,'A',if(estado=6,'Inicial',if(estado=7,'Reim',ROUND(quincena,0)))) as quin_nombre,saldo_anterior,monto,saldo_actual, observaciones from detallepago where idcredito=:clv_cred order by anio,quincena,iddetalle";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":clv_cred",$clv_cred);
@@ -65,7 +65,7 @@ class Escritorio extends Sagyc{
 	}
 	public function aporta($clv_cred){
 		try{
-			self::set_names();
+
 			$sql="select SUM(monto) as aporta from detallepago where idcredito=:clv_cred order by anio,quincena,iddetalle";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":clv_cred",$clv_cred);

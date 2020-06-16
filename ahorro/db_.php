@@ -12,7 +12,7 @@ class Escritorio extends Sagyc{
 	}
 	public function datos_ahorro($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,
 			if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio and anio=:anio_tmp
 			order by anio,quincena,idregistro asc";
@@ -29,7 +29,7 @@ class Escritorio extends Sagyc{
 	}
 	public function ahorro($anio_tmp){
 		try{
-			self::set_names();
+
 
 			$sql="select sum(monto) as monto,sum(montointeres) as interesx from registro where idfolio=:idfolio and anio=:anio_tmp";
 			$sth = $this->dbh->prepare($sql);
@@ -45,7 +45,7 @@ class Escritorio extends Sagyc{
 	}
 	public function anio_ant_interes($anio_tmp){
 		try{
-			self::set_names();
+
 			$ANIX=$anio_tmp-1;
 
 			$sql="select SUM(montointeres) as interestotal from registro where idfolio=:idfolio and anio=:anio_tmp order by anio,quincena";
@@ -61,7 +61,7 @@ class Escritorio extends Sagyc{
 	}
 	public function xahorro_anterior($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select * from registro where idfolio=:idfolio and anio<:anio_tmp order by anio desc,quincena desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -75,7 +75,7 @@ class Escritorio extends Sagyc{
 	}
 	public function ahorro_tmp($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select sum(monto) as monto from registro where idfolio=:idfolio and anio=:anio_tmp and monto>=0";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -89,7 +89,7 @@ class Escritorio extends Sagyc{
 	}
 	public function retiro_tmp($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select sum(monto) as montoxy from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto<0";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -103,7 +103,7 @@ class Escritorio extends Sagyc{
 	}
 	public function ahorro_anual($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select sum(monto) as ahorroanual from registro where idfolio=:idfolio and anio=:anio_tmp and registro.monto>0";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -117,7 +117,7 @@ class Escritorio extends Sagyc{
 	}
 	public function saldofinal($anio_tmp){
 		try{
-			self::set_names();
+
 			$sql="select idfolio,anio,ahorrototal,saldofinal,saldo_anterior,monto,interes,montointeres,interestotal,if (retiro=1,'R',ROUND(quincena,0)) as quin_nombre,observaciones from registro where idfolio=:idfolio order by anio desc,quincena desc,idregistro desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
