@@ -78,6 +78,9 @@
 			if (!$cambio){
         echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
 			}
+			else{
+				echo "<b>Información pendiente por actualizar</b>";
+			}
       echo "</div>";
     echo "</div>";
     echo "</div>";

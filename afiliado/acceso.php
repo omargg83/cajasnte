@@ -81,6 +81,9 @@
 					if (!$cambio){
 	          echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
 					}
+					else{
+						echo "<b>Información pendiente por actualizar</b>";
+					}
         echo "</div>";
       echo "</div>";
     echo "</div>";
@@ -132,11 +135,12 @@ if ($cambio){
 				Aceptar: function () {
 					$.ajax({
 	 					data:  {
-							"function":"cancela_datos"
+							"function":"cancela_acceso"
 	 					},
 	 					url:  "afiliado/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
+							console.log(response);
 							$("#div_trabajo").load("afiliado/acceso.php");
 							var datos = JSON.parse(response);
 							if (datos.error==0){

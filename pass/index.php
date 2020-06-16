@@ -59,22 +59,23 @@
 						type:  'post',
 						timeout:10000,
 						success:  function (response) {
-              if (!isNaN(response)){
+              var datos = JSON.parse(response);
+							if (datos.error==0){
                 Swal.fire({
                   type: 'success',
                   title: "Se reestablecio la contraseña correctamente",
                   showConfirmButton: false,
                   timer: 1000
                 });
-              }
-              else{
+							}
+							else{
                 Swal.fire({
                   type: 'error',
                   title: "error favor de verificar",
                   showConfirmButton: false,
                   timer: 1000
                 });
-              }
+							}
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
 							if(textStatus==="timeout") {

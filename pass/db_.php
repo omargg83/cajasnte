@@ -36,7 +36,7 @@ class Escritorio extends Sagyc{
 			$sth->bindValue(":idfolio",$idfolio);
 			$sth->execute();
 			$resp=$sth->fetch(PDO::FETCH_OBJ);
-
+			$arreglo=array();
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fpass_sol'=>$fecha);
 			$arreglo+=array('up_pass'=>1);

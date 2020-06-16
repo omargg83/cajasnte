@@ -205,14 +205,19 @@
 
         echo "<div class='card-footer'>";
 					$cambio=$db->cambios(5,$idfolio);
-          if($fecha_actual <= $fecha_entrada and !$cambio){
-            echo "<div class='btn-group'>";
-              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
-            echo "</div>";
-          }
-          else{
-    				echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
-    			}
+					if(!$cambio){
+						if($fecha_actual <= $fecha_entrada ){
+	            echo "<div class='btn-group'>";
+	              echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
+	            echo "</div>";
+	          }
+	          else{
+	    				echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
+	    			}
+					}
+					else{
+						echo "<b>Información pendiente por actualizar/b>";
+					}
         echo "</div>";
       echo "</div>";
     	echo "</form>";

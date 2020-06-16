@@ -163,22 +163,6 @@ echo "<div class='container' id='div_trabajo'>";
 						echo "<input class='form-control form-control-sm' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal'>";
 					echo "</div>";
 				echo "</div>";
-
-				/*
-				echo "<div class='col-3'>";
-					echo "<div class='form-group'>";
-						echo "<label for='correo'>Correo</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='correo' NAME='correo' value='".$row['correo']."' placeholder='Correo o email'>";
-					echo "</div>";
-				echo "</div>";
-
-				echo "<div class='col-3'>";
-					echo "<div class='form-group'>";
-						echo "<label for='celular'>Telefono Celular</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='celular' NAME='celular' value='".$row['celular']."' placeholder='Celular'>";
-					echo "</div>";
-				echo "</div>";
-				*/
       echo "</div>";
     echo "</div>";
 
@@ -190,13 +174,18 @@ echo "<div class='container' id='div_trabajo'>";
 		$cambio=$db->cambios(3,$idfolio);
 
 		echo "<div class='card-footer'>";
-			if($fecha_actual <= $fecha_entrada and !$cambio){
-				echo "<div class='btn-group'>";
-					echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
-				echo "</div>";
+			if(!$cambio){
+				if($fecha_actual <= $fecha_entrada){
+					echo "<div class='btn-group'>";
+						echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
+					echo "</div>";
+				}
+				else{
+					echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
+				}
 			}
 			else{
-				echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
+				echo "<b>Información pendiente por actualizar</b>";
 			}
 		echo "</div>";
   echo "</div>";
