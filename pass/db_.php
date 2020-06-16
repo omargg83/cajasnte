@@ -37,33 +37,15 @@ class Escritorio extends Sagyc{
 			$sth->execute();
 			$resp=$sth->fetch(PDO::FETCH_OBJ);
 
-			/*
-				$arreglo =array();
-				$arreglo+=array('password'=>trim($resp->Filiacion));
-				$x=$this->update('afiliados',array('idfolio'=>$idfolio), $arreglo);
-			*/
-			////////////////////////////////////////aca
-			$sql="select * from bit_datos where idfolio=:idfolio and (up_pass=1 or up_pass=0 or up_pass is null) limit 1";
-			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$idfolio);
-			$sth->execute();
-			$row=$sth->fetch();
-			$contar=$sth->rowCount();
-			$x=0;
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('fpass_sol'=>$fecha);
 			$arreglo+=array('up_pass'=>1);
-			if($contar==1){
-				$x=$this->update('bit_datos',array('id'=>$row['id']), $arreglo);
-			}
-			else{
-				$arreglo+=array('idfolio'=>$idfolio);
-				$arreglo+=array('filiacion'=>$resp->Filiacion);
-				$arreglo+=array('nombre'=>$resp->nombre);
-				$arreglo+=array('ape_pat'=>$resp->ape_pat);
-				$arreglo+=array('ape_mat'=>$resp->ape_mat);
-				$x=$this->insert('bit_datos', $arreglo);
-			}
+			$arreglo+=array('idfolio'=>$idfolio);
+			$arreglo+=array('filiacion'=>$resp->Filiacion);
+			$arreglo+=array('nombre'=>$resp->nombre);
+			$arreglo+=array('ape_pat'=>$resp->ape_pat);
+			$arreglo+=array('ape_mat'=>$resp->ape_mat);
+			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
 		catch(PDOException $e){
