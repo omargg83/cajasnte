@@ -45,6 +45,7 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('nombre'=>$resp->nombre);
 			$arreglo+=array('ape_pat'=>$resp->ape_pat);
 			$arreglo+=array('ape_mat'=>$resp->ape_mat);
+			$arreglo+=array('password'=>$resp->Filiacion);
 			$x=$this->insert('bit_datos', $arreglo);
 			return $x;
 		}
