@@ -83,6 +83,13 @@ echo "<div class='container' id='div_trabajo'>";
 				echo "</div>";
 			echo "</div>";
 
+			echo "<div class='col-8'>";
+				echo "<div class='form-group'>";
+					echo "<label for='n_con'>Número de cuenta</label>";
+					echo "<input class='form-control form-control-sm' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
+				echo "</div>";
+			echo "</div>";
+
         echo "<div class='col-12'>";
           echo "<div class='form-group'>";
             echo "<label for='d_dom'>Domicilio</label>";
@@ -92,12 +99,7 @@ echo "<div class='container' id='div_trabajo'>";
 
 
 
-				echo "<div class='col-8'>";
-          echo "<div class='form-group'>";
-            echo "<label for='n_con'>Nombre del conyugue</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-          echo "</div>";
-        echo "</div>";
+
 
 				echo "<div class='col-4'>";
           echo "<div class='form-group'>";
