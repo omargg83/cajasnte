@@ -39,8 +39,6 @@
           }
           echo "</span></a>";
 
-
-
           /////////////////aportacion
           echo "<a href='#aportacion/aportacion' title='Aportación'><i class='far fa-money-bill-alt'></i> <span>Aportación";
           $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
@@ -59,6 +57,7 @@
           }
           echo "</span></a>";				/////////////// listo
 
+					echo "<a href='#bancos/datos' title='Acceso'><i class='fas fa-at'></i> <span>Bancos</span></a>";
 
           $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
           $fecha_entrada = strtotime(fecha($row['fretiro']));
