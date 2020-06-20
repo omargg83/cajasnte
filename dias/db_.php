@@ -44,7 +44,6 @@ class Diasno extends Sagyc{
 
 	public function dias_edit($iddias){
 		try{
-			parent::set_names();
 			$sql="SELECT * FROM diasno where iddias=:iddias";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":iddias",$iddias);
