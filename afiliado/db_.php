@@ -68,16 +68,16 @@ class Escritorio extends Sagyc{
 			$cambios.=" c_psp:".trim($c_psp);
 		}
 		/*
-		$cambio_cel=0;
-		if($row['correo']!=$correo){
-			$cambios.=" correo:".trim($correo);
-			$cambio_cel=1;
-		}
+			$cambio_cel=0;
+			if($row['correo']!=$correo){
+				$cambios.=" correo:".trim($correo);
+				$cambio_cel=1;
+			}
 
-		if($row['celular']!=$celular){
-			$cambios.=" celular:".trim($celular);
-			$cambio_cel=1;
-		}
+			if($row['celular']!=$celular){
+				$cambios.=" celular:".trim($celular);
+				$cambio_cel=1;
+			}
 		*/
 		if(strlen($cambios)>1){
 			$arreglo+=array('d_dom'=>trim($d_dom));

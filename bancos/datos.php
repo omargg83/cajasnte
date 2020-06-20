@@ -8,21 +8,18 @@
 	$ape_mat=$row['ape_mat'];
 	$nombre=$row['nombre'];
 
-	$d_dom=$row['d_dom'];
-	$l_loc=$row['l_loc'];
-	$m_mun=$row['m_mun'];
-
-	$e_civ=$row['e_civ'];
-	$conyuge=$row['n_con'];
-
-	$c_c_t=$row['c_c_t'];
-	$d_sin=$row['d_sin'];
-	$u_bic=$row['u_bic'];
-	$r_rrg=$row['r_rrg'];
-	$c_psp=$row['c_psp'];
-
-	$correo=$row['correo'];
-	$celular=$row['celular'];
+	$tipo_cuenta="";
+	$num_cuenta="";
+	$titular="";
+	$clave_banco="";
+	$plaza_banxico="";
+	$sucursal="";
+	$tipo_cuenta2="";
+	$benef_app_paterno="";
+	$benef_app_materno="";
+	$benef_nombre="";
+	$benef_direccion="";
+	$benef_ciudad="";
 
 echo "<div class='container' id='div_trabajo'>";
 	echo "<form id='form_comision' action='' data-lugar='bancos/db_' data-funcion='guardar_datos' data-destino='bancos/datos' data-div='div_trabajo'>";
@@ -72,89 +69,106 @@ echo "<div class='container' id='div_trabajo'>";
 
 			echo "<hr>";
 			echo "<div class='row'>";
-			echo "<div class='col-4'>";
-				echo "<div class='form-group'>";
-					echo "<label for='e_civ'>Tipo de cuenta</label>";
-					echo "<select class='form-control form-control-sm' name='e_civ' id='e_civ'>";
-					echo "<option value='' selected style='color: silver;'>Seleccione...</option>";
-						echo  "<option value='SANTAN'"; if ($e_civ=='SANTAN'){echo  " selected";}			echo  ">SANTANDER</option>";
-						echo  "<option value='CASADO'"; if ($e_civ=='CASADO'){echo  " selected";}			echo  ">OTRAS</option>";
-					echo  "</select>";
+				echo "<div class='col-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='e_civ'>Tipo de cuenta</label>";
+						echo "<select class='form-control form-control-sm' name='tipo_cuenta' id='tipo_cuenta'>";
+							echo  "<option value='SANTAN'"; if ($tipo_cuenta=='SANTAN'){echo  " selected";}			echo  ">SANTANDER</option>";
+							echo  "<option value='CASADO'"; if ($tipo_cuenta=='CASADO'){echo  " selected";}			echo  ">OTRAS</option>";
+						echo  "</select>";
+					echo "</div>";
 				echo "</div>";
-			echo "</div>";
-
-			echo "<div class='col-8'>";
-				echo "<div class='form-group'>";
-					echo "<label for='n_con'>Número de cuenta</label>";
-					echo "<input class='form-control form-control-sm' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
-				echo "</div>";
-			echo "</div>";
-
-        echo "<div class='col-12'>";
-          echo "<div class='form-group'>";
-            echo "<label for='d_dom'>Domicilio</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='d_dom' NAME='d_dom' value='".$row['d_dom']."' placeholder='Dirección'>";
-          echo "</div>";
-        echo "</div>";
-
-
-
-
 
 				echo "<div class='col-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='l_loc'>Localidad</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Localidad'>";
-          echo "</div>";
-        echo "</div>";
-
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='m_mun'>Municipio</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Municipio'>";
-          echo "</div>";
-        echo "</div>";
-
-////////////////////////
-				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-          echo "<div class='form-group'>";
-            echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
-							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema1' data-id='0' data-lugar='ayuda/tema1' title='Ubicación Clave Centro de Trabajo' ><i class='far fa-question-circle'></i> </button>";
-            echo "<input class='form-control form-control-sm' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Clave Centro de Trabajo'>";
-
-          echo "</div>";
-        echo "</div>";
-
-				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
-						echo "<label for='u_bic'>Ubicación</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Ubicación'>";
+						echo "<label for='n_con'>Número de cuenta</label>";
+						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='$num_cuenta' placeholder='Número de cuenta' maxlength=20>";
 					echo "</div>";
 				echo "</div>";
 
-				echo "<div class='col-3'>";
+				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
-						echo "<label for='d_sin'>Delegación / CT</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Delegación'>";
+						echo "<label for='n_con'>Nombre del titular</label>";
+						echo "<input class='form-control form-control-sm' type='text' id='titular' NAME='titular' value='$titular' placeholder='Nombre del titular' maxlength=40>";
 					echo "</div>";
 				echo "</div>";
 
-				echo "<div class='col-3'>";
-					echo "<div class='form-group'>";
-						echo "<label for='r_rrg'>Región</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Región'>";
-					echo "</div>";
-				echo "</div>";
+	      echo "<div class='col-3'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Clave del banco.</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='clave_banco' NAME='clave_banco' value='$clave_banco' placeholder='Clave del banco' maxlength=5>";
+	        echo "</div>";
+	      echo "</div>";
+
+	      echo "<div class='col-3'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Plaza Banxico</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='plaza_banxico' NAME='plaza_banxico' value='$plaza_banxico' placeholder='Plaza Banxico' maxlength=5>";
+	        echo "</div>";
+	    	echo "</div>";
+
+	      echo "<div class='col-3'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Sucursal titular</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='sucursal' NAME='sucursal' value='$sucursal' placeholder='Sucursal titular' maxlength=5>";
+	        echo "</div>";
+	    	echo "</div>";
 
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
-						echo "<label for='c_psp'>Clave Presupuestal</label>";
-							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema2' data-id='0' data-lugar='ayuda/tema2' title='Ubicación Clave Presupuestal' ><i class='far fa-question-circle'></i> </button>";
-						echo "<input class='form-control form-control-sm' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal'>";
+						echo "<label for='e_civ'>Tipo de cuenta</label>";
+						echo "<select class='form-control form-control-sm' name='tipo_cuenta2' id='tipo_cuenta2'>";
+							echo  "<option value='02'"; if ($tipo_cuenta2=='02'){echo  " selected";}			echo  ">02 - Débito</option>";
+							echo  "<option value='04'"; if ($tipo_cuenta2=='04'){echo  " selected";}			echo  ">40 - Clabe</option>";
+						echo  "</select>";
 					echo "</div>";
 				echo "</div>";
-      echo "</div>";
-    echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Apellido paterno del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_app_paterno' NAME='benef_app_paterno' value='$benef_app_paterno' placeholder='Apellido paterno del beneficiario' maxlength=20>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Apellido materno del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_app_materno' NAME='benef_app_materno' value='$benef_app_materno' placeholder='Apellido materno del beneficiario' maxlength=20>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Nombre del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_nombre' NAME='benef_nombre' value='$benef_nombre' placeholder='Nombre del beneficiario' maxlength=120>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-8'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Dirección del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_direccion' NAME='benef_direccion' value='$benef_direccion' placeholder='Dirección del beneficiario' maxlength=140>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Ciudad del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_ciudad' NAME='benef_ciudad' value='$benef_ciudad' placeholder='Ciudad del beneficiario' maxlength=35>";
+	        echo "</div>";
+	    	echo "</div>";
+
+
+
+
+    	echo "</div>";
+  echo "</div>";
+
+
+
+
+
 
 		$row=$db->blo_lista();
 		$fusuario=fecha($row['fusuario']);
