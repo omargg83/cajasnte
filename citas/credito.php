@@ -116,7 +116,7 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+5M", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+6M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',
