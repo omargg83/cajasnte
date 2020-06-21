@@ -12,10 +12,6 @@
 		public $derecho=array();
 		public $arreglo;
 		public $limite=300;
-		private $mysqluser;
-		private $mysqlpass="";
-		private $servidor="";
-		private $bdd="";
 
 		public function __construct(){
 			try{
@@ -306,11 +302,15 @@
 			if($tipo==5){					///////////////////////beneficiarios
 				$sql="select * from bit_datos where idfolio=:idfolio and up_bene=1";
 			}
+			if($tipo==6){					///////////////////////bancos
+				$sql="select * from bit_bancos where idfolio=:idfolio and up_date=1";
+			}
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$idfolio);
 			$sth->execute();
 			return $sth->fetch();
 		}
+
 		public function blo_lista(){
 			try{
 

@@ -29,8 +29,6 @@ class Escritorio extends Sagyc{
 	}
 	public function ahorro($anio_tmp){
 		try{
-
-
 			$sql="select sum(monto) as monto,sum(montointeres) as interesx from registro where idfolio=:idfolio and anio=:anio_tmp";
 			$sth = $this->dbh->prepare($sql);
 

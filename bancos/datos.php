@@ -21,8 +21,25 @@
 	$benef_direccion="";
 	$benef_ciudad="";
 
+	$res=$db->bancos();
+	if($res){
+		$tipo_cuenta=$res->tipo_cuenta;
+		$num_cuenta=$res->num_cuenta;
+		$titular=$res->titular;
+		$clave_banco=$res->clave_banco;
+		$plaza_banxico=$res->plaza_banxico;
+		$sucursal=$res->sucursal;
+		$tipo_cuenta2=$res->tipo_cuenta2;
+		$benef_app_paterno=$res->benef_app_paterno;
+		$benef_app_materno=$res->benef_app_materno;
+		$benef_nombre=$res->benef_nombre;
+		$benef_direccion=$res->benef_direccion;
+		$benef_ciudad=$res->benef_ciudad;
+	}
+
+
 echo "<div class='container' id='div_trabajo'>";
-	echo "<form id='form_comision' action='' data-lugar='bancos/db_' data-funcion='guardar_datos' data-destino='bancos/datos' data-div='div_trabajo'>";
+	echo "<form id='form_comision' action='' data-lugar='bancos/db_' data-funcion='guardar_bancos' data-destino='bancos/datos' data-div='div_trabajo'>";
 	  echo "<input class='form-control form-control-sm' type='hidden' id='id' NAME='id' value='$idfolio' readonly>";
   echo "<div class='card'>";
 		echo "<div class='card-header'>";
@@ -82,21 +99,21 @@ echo "<div class='container' id='div_trabajo'>";
 				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='n_con'>Número de cuenta</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='$num_cuenta' placeholder='Número de cuenta' maxlength=20>";
+						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='$num_cuenta' placeholder='Número de cuenta' maxlength=20 required>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
 						echo "<label for='n_con'>Nombre del titular</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='titular' NAME='titular' value='$titular' placeholder='Nombre del titular' maxlength=40>";
+						echo "<input class='form-control form-control-sm' type='text' id='titular' NAME='titular' value='$titular' placeholder='Nombre del titular' maxlength=40 required>";
 					echo "</div>";
 				echo "</div>";
 
 	      echo "<div class='col-3'>";
 	        echo "<div class='form-group'>";
 	          echo "<label for='d_dom'>Clave del banco.</label>";
-	          echo "<input class='form-control form-control-sm' type='text' id='clave_banco' NAME='clave_banco' value='$clave_banco' placeholder='Clave del banco' maxlength=5>";
+	          echo "<input class='form-control form-control-sm' type='text' id='clave_banco' NAME='clave_banco' value='$clave_banco' placeholder='Clave del banco' maxlength=5 required>";
 	        echo "</div>";
 	      echo "</div>";
 
@@ -159,34 +176,21 @@ echo "<div class='container' id='div_trabajo'>";
 	        echo "</div>";
 	    	echo "</div>";
 
-
-
-
     	echo "</div>";
   echo "</div>";
 
-
-
-
-
-
-		$row=$db->blo_lista();
-		$fusuario=fecha($row['fusuario']);
-		$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
-		$fecha_entrada = strtotime($fusuario);
-
-		$cambio=$db->cambios(3,$idfolio);
+		$cambio=$db->cambios(6,$idfolio);
 
 		echo "<div class='card-footer'>";
 			if(!$cambio){
-				if($fecha_actual <= $fecha_entrada){
+				//if($fecha_actual <= $fecha_entrada){
 					echo "<div class='btn-group'>";
 						echo "<button class='btn btn-warning btn-sm' type='submit'><i class='fas fa-sync'></i>Enviar cambios</button>";
 					echo "</div>";
-				}
-				else{
-					echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
-				}
+				//}
+				//else{
+					//echo "<b>Lo sentimos, por el momento no se pueden actualizar estos datos en Caja de Ahorro</b>";
+				//}
 			}
 			else{
 				echo "<b>Información pendiente por actualizar</b>";
@@ -203,80 +207,103 @@ echo "<div class='container' id='div_trabajo'>";
 			echo "</div>";
 			echo "<div class='card-body'>";
 				echo "<div class='row'>";
-					echo "<div class='col-12'>";
-						echo "<label for='c1'>Domicilio</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='d_dom1' NAME='d_dom1' value='".$cambio['d_dom']."' readonly>";
+
+					echo "<div class='col-4'>";
+						echo "<div class='form-group'>";
+							echo "<label for='e_civ'>Tipo de cuenta</label>";
+							echo "<select class='form-control form-control-sm' name='tipo_cuenta' id='tipo_cuenta' readonly>";
+								echo  "<option value='SANTAN'"; if ($cambio['tipo_cuenta']=='SANTAN'){echo  " selected";}			echo  ">SANTANDER</option>";
+								echo  "<option value='CASADO'"; if ($cambio['tipo_cuenta']=='CASADO'){echo  " selected";}			echo  ">OTRAS</option>";
+							echo  "</select>";
+						echo "</div>";
 					echo "</div>";
 
 					echo "<div class='col-4'>";
-						echo "<label for='c2'>Estado civil</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='e_civ1' NAME='e_civ1' value='".$cambio['e_civ']."' readonly>";
+						echo "<div class='form-group'>";
+							echo "<label for='n_con'>Número de cuenta</label>";
+							echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='".$cambio['num_cuenta']."' placeholder='Número de cuenta' maxlength=20 readonly>";
+						echo "</div>";
 					echo "</div>";
-						////////////////////
 
-						echo "<div class='col-8'>";
-		          echo "<div class='form-group'>";
-		            echo "<label for='n_con'>Nombre del conyugue</label>";
-		            echo "<input class='form-control form-control-sm' type='text' id='n_con1' NAME='n_con1' value='".$cambio['n_con']."' placeholder='Conyugue' readonly>";
-		          echo "</div>";
-		        echo "</div>";
-
-						echo "<div class='col-4'>";
-		          echo "<div class='form-group'>";
-		            echo "<label for='l_loc'>Localidad</label>";
-		            echo "<input class='form-control form-control-sm' type='text' id='l_loc1' NAME='l_loc1' value='".$cambio['l_loc']."' placeholder='Localidad' readonly>";
-		          echo "</div>";
-		        echo "</div>";
-
-						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-		          echo "<div class='form-group'>";
-		            echo "<label for='m_mun'>Municipio</label>";
-		            echo "<input class='form-control form-control-sm' type='text' id='m_mun1' NAME='m_mun1' value='".$cambio['m_mun']."' placeholder='Municipio' readonly>";
-		          echo "</div>";
-		        echo "</div>";
-
-						echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
-		          echo "<div class='form-group'>";
-		            echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
-		            echo "<input class='form-control form-control-sm' type='text' id='c_c_t1' NAME='c_c_t1' value='".$cambio['c_c_t']."' placeholder='Clave Centro de Trabajo' readonly>";
-		          echo "</div>";
-		        echo "</div>";
-
-						echo "<div class='col-3'>";
-							echo "<div class='form-group'>";
-								echo "<label for='u_bic'>Ubicación</label>";
-								echo "<input class='form-control form-control-sm' type='text' id='u_bic1' NAME='u_bic1' value='".$cambio['u_bic']."' placeholder='Ubicación' readonly>";
-							echo "</div>";
+					echo "<div class='col-4'>";
+						echo "<div class='form-group'>";
+							echo "<label for='n_con'>Nombre del titular</label>";
+							echo "<input class='form-control form-control-sm' type='text' id='titular' NAME='titular' value='".$cambio['titular']."' placeholder='Nombre del titular' maxlength=40 readonly>";
 						echo "</div>";
+					echo "</div>";
 
-						echo "<div class='col-3'>";
-							echo "<div class='form-group'>";
-								echo "<label for='d_sin'>Delegación</label>";
-								echo "<input class='form-control form-control-sm' type='text' id='d_sin1' NAME='d_sin1' value='".$cambio['d_sin']."' placeholder='Delegación' readonly>";
-							echo "</div>";
-						echo "</div>";
+					echo "<div class='col-3'>";
+		        echo "<div class='form-group'>";
+		          echo "<label for='d_dom'>Clave del banco.</label>";
+		          echo "<input class='form-control form-control-sm' type='text' id='clave_banco' NAME='clave_banco' value='".$cambio['clave_banco']."' placeholder='Clave del banco' maxlength=5 readonly>";
+		        echo "</div>";
+		      echo "</div>";
 
-						echo "<div class='col-3'>";
-							echo "<div class='form-group'>";
-								echo "<label for='r_rrg'>Región</label>";
-								echo "<input class='form-control form-control-sm' type='text' id='r_rrg1' NAME='r_rrg1' value='".$cambio['r_rrg']."' placeholder='Región' readonly>";
-							echo "</div>";
-						echo "</div>";
+					echo "<div class='col-3'>";
+					 echo "<div class='form-group'>";
+						 echo "<label for='d_dom'>Plaza Banxico</label>";
+						 echo "<input class='form-control form-control-sm' type='text' id='plaza_banxico' NAME='plaza_banxico' value='".$cambio['plaza_banxico']."' placeholder='Plaza Banxico' maxlength=5 readonly>";
+					 echo "</div>";
+				 echo "</div>";
 
-						echo "<div class='col-3'>";
-							echo "<div class='form-group'>";
-								echo "<label for='c_psp'>Clave Presupuestal</label>";
-								echo "<input class='form-control form-control-sm' type='text' id='c_psp1' NAME='c_psp1' value='".$cambio['c_psp']."' placeholder='Clave Presupuestal' readonly>";
-							echo "</div>";
-						echo "</div>";
+				 echo "<div class='col-3'>";
+					 echo "<div class='form-group'>";
+						 echo "<label for='d_dom'>Sucursal titular</label>";
+						 echo "<input class='form-control form-control-sm' type='text' id='sucursal' NAME='sucursal' value='".$cambio['sucursal']."' placeholder='Sucursal titular' maxlength=5 readonly>";
+					 echo "</div>";
+				 echo "</div>";
 
+				 echo "<div class='col-3'>";
+ 					echo "<div class='form-group'>";
+ 						echo "<label for='e_civ'>Tipo de cuenta</label>";
+ 						echo "<select class='form-control form-control-sm' name='tipo_cuenta2' id='tipo_cuenta2' readonly>";
+ 							echo  "<option value='02'"; if ($cambio['tipo_cuenta2']=='02'){echo  " selected";}			echo  ">02 - Débito</option>";
+ 							echo  "<option value='04'"; if ($cambio['tipo_cuenta2']=='04'){echo  " selected";}			echo  ">40 - Clabe</option>";
+ 						echo  "</select>";
+ 					echo "</div>";
+ 				echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Apellido paterno del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_app_paterno' NAME='benef_app_paterno' value='".$cambio['benef_app_paterno']."' placeholder='Apellido paterno del beneficiario' maxlength=20 readonly>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Apellido materno del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_app_materno' NAME='benef_app_materno' value='".$cambio['benef_app_materno']."' placeholder='Apellido materno del beneficiario' maxlength=20 readonly>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Nombre del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_nombre' NAME='benef_nombre' value='".$cambio['benef_nombre']."' placeholder='Nombre del beneficiario' maxlength=120 readonly>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-8'>";
+	        echo "<div class='form-group'>";
+	          echo "<label for='d_dom'>Dirección del beneficiario</label>";
+	          echo "<input class='form-control form-control-sm' type='text' id='benef_direccion' NAME='benef_direccion' value='".$cambio['benef_direccion']."' placeholder='Dirección del beneficiario' maxlength=140 readonly>";
+	        echo "</div>";
+	    	echo "</div>";
+
+				echo "<div class='col-4'>";
+					echo "<div class='form-group'>";
+						echo "<label for='d_dom'>Ciudad del beneficiario</label>";
+						echo "<input class='form-control form-control-sm' type='text' id='benef_ciudad' NAME='benef_ciudad' value='".$cambio['benef_ciudad']."' placeholder='Ciudad del beneficiario' maxlength=35 readonly>";
 					echo "</div>";
 				echo "</div>";
+			echo "</div>";
+		echo "</div>";
 					//////////////////////////////
 				echo "<div class='card-footer'>";
 					echo "<div class='row'>";
 						echo "<div class='col-6'>";
-							echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_datos()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
+							echo "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_bancos()'><i class='fas fa-eraser'></i>Cancelar cambios</button>";
 						echo "</div>";
 					echo "</div>";
 				echo "</div>";
@@ -290,7 +317,7 @@ echo "</div>";
 
 <script type="text/javascript">
 
-	function cancela_datos(){
+	function cancela_bancos(){
 		$.confirm({
 			title: 'Cancelar',
 			content: '¿Desea cancelar la actualización de información?',
@@ -300,10 +327,11 @@ echo "</div>";
 	 					data:  {
 							"function":"cancela_datos"
 	 					},
-	 					url:  "afiliado/db_.php",
+	 					url:  "bancos/db_.php",
 	 					type:  'post',
 		 				success:  function (response) {
-							$("#div_trabajo").load("afiliado/datos.php");
+							console.log(response);
+							$("#div_trabajo").load("bancos/datos.php");
 							var datos = JSON.parse(response);
 							if (datos.error==0){
 								$("#datos_c").remove();
