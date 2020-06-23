@@ -34,7 +34,15 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		$cambios="";
+		$tipo_lay_out="";
 		$tipo_cuenta=$_REQUEST['tipo_cuenta'];
+		if($tipo_cuenta=="SANTAN"){
+			$tipo_lay_out="LA001";
+		}
+		if($tipo_cuenta=="EXTRNA"){
+			$tipo_lay_out="LA002";
+		}
+
 		$num_cuenta=$_REQUEST['num_cuenta'];
 		$titular=$_REQUEST['titular'];
 		$clave_banco=$_REQUEST['clave_banco'];
@@ -101,7 +109,7 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('nombre'=>$row['nombre']);
 			$arreglo+=array('ape_pat'=>$row['ape_pat']);
 			$arreglo+=array('ape_mat'=>$row['ape_mat']);
-
+			$arreglo+=array('tipo_lay_out'=>trim($tipo_lay_out));
 			$arreglo+=array('tipo_cuenta'=>trim($tipo_cuenta));
 			$arreglo+=array('num_cuenta'=>trim($num_cuenta));
 			$arreglo+=array('titular'=>trim($titular));

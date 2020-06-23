@@ -91,7 +91,7 @@ echo "<div class='container' id='div_trabajo'>";
 						echo "<label for='e_civ'>Tipo de cuenta</label>";
 						echo "<select class='form-control form-control-sm' name='tipo_cuenta' id='tipo_cuenta'>";
 							echo  "<option value='SANTAN'"; if ($tipo_cuenta=='SANTAN'){echo  " selected";}			echo  ">SANTANDER</option>";
-							echo  "<option value='CASADO'"; if ($tipo_cuenta=='CASADO'){echo  " selected";}			echo  ">OTRAS</option>";
+							echo  "<option value='EXTRNA'"; if ($tipo_cuenta=='EXTRNA'){echo  " selected";}			echo  ">EXTERNA</option>";
 						echo  "</select>";
 					echo "</div>";
 				echo "</div>";
