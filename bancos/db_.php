@@ -10,13 +10,12 @@ class Escritorio extends Sagyc{
 	public function __construct(){
 		parent::__construct();
 	}
-	public function bancos(){
+	public function catalogo(){
 		try{
-			$sql="select * from bancos where idfolio=:idfolio";
+			$sql="select * from cat_bancos order by nombre asc";
 			$sth = $this->dbh->prepare($sql);
-			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
-			return $sth->fetch(PDO::FETCH_OBJ);
+			return $sth->fetchAll(PDO::FETCH_OBJ);
 		}
 		catch(PDOException $e){
 			return "Database access FAILED! ".$e->getMessage();
@@ -36,77 +35,54 @@ class Escritorio extends Sagyc{
 		$cambios="";
 		$tipo_lay_out="";
 		$tipo_cuenta=$_REQUEST['tipo_cuenta'];
+
 		if($tipo_cuenta=="SANTAN"){
 			$tipo_lay_out="LA001";
+			$clave_banco="";
 			$num=16;
+			$bancon="";
 		}
-
-		if($tipo_cuenta=="EXTRNA"){
-			$tipo_lay_out="LA002";
+		else{
 			$num=18;
+			$sql="select * from cat_bancos where clave='$tipo_cuenta'";
+			$sth = $this->dbh->prepare($sql);
+			$sth->execute();
+			$banco=$sth->fetch();
+			$bancon=$banco['nombre'];
+
+			$clave_banco=$tipo_cuenta;
+			$tipo_cuenta="EXTRNA";
+			$tipo_lay_out="LA002";
 		}
 
-		$num_cuenta=$_REQUEST['num_cuenta'];
+		$num_cuenta=trim($_REQUEST['num_cuenta']);
+		$num_cuenta2=trim($_REQUEST['num_cuenta2']);
+		if($num_cuenta!=$num_cuenta2){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"la cuenta no coincide, favor de verificar");
+			return json_encode($arr);
+		}
+
 		if(strlen($num_cuenta)!=$num){
 			$arr=array();
 			$arr+=array('error'=>1);
 			$arr+=array('terror'=>"Número de cuenta incorrecto son $num digitos");
 			return json_encode($arr);
 		}
-		$titular=$_REQUEST['titular'];
-		$clave_banco=$_REQUEST['clave_banco'];
-		$plaza_banxico=$_REQUEST['plaza_banxico'];
-		$sucursal=$_REQUEST['sucursal'];
-		$tipo_cuenta2=$_REQUEST['tipo_cuenta2'];
-		$benef_app_paterno=$_REQUEST['benef_app_paterno'];
-		$benef_app_materno=$_REQUEST['benef_app_materno'];
-		$benef_nombre=$_REQUEST['benef_nombre'];
-		$benef_direccion=$_REQUEST['benef_direccion'];
-		$benef_ciudad=$_REQUEST['benef_ciudad'];
 
-		$res=$this->bancos();
 		$cambios="";
-		if($res){
-			if($res->tipo_cuenta!=$tipo_cuenta){
-				$cambios.=" $tipo_cuenta:".trim($tipo_cuenta);
-			}
-			if($res->num_cuenta!=$num_cuenta){
-				$cambios.=" $num_cuenta:".trim($num_cuenta);
-			}
-			if($res->titular!=$titular){
-				$cambios.=" $titular:".trim($titular);
-			}
-			if($res->clave_banco!=$clave_banco){
-				$cambios.=" $clave_banco:".trim($clave_banco);
-			}
-			if($res->plaza_banxico!=$plaza_banxico){
-				$cambios.=" $plaza_banxico:".trim($plaza_banxico);
-			}
-			if($res->sucursal!=$sucursal){
-				$cambios.=" $sucursal:".trim($sucursal);
-			}
-			if($res->tipo_cuenta2!=$tipo_cuenta2){
-				$cambios.=" $tipo_cuenta2:".trim($tipo_cuenta2);
-			}
-			if($res->benef_app_paterno!=$benef_app_paterno){
-				$cambios.=" $benef_app_paterno:".trim($benef_app_paterno);
-			}
-			if($res->benef_app_materno!=$benef_app_materno){
-				$cambios.=" $benef_app_materno:".trim($benef_app_materno);
-			}
-			if($res->benef_nombre!=$benef_nombre){
-				$cambios.=" $benef_nombre:".trim($benef_nombre);
-			}
-			if($res->benef_direccion!=$benef_direccion){
-				$cambios.=" $benef_direccion:".trim($benef_direccion);
-			}
-			if($res->benef_ciudad!=$benef_ciudad){
-				$cambios.=" $benef_ciudad:".trim($benef_ciudad);
-			}
+		if($row['tipo_cuenta']!=$tipo_cuenta){
+			$cambios.=" tipo_cuenta:".trim($tipo_cuenta);
 		}
-		else{
-			$cambios="cambios";
+		if($row['num_cuenta']!=$num_cuenta){
+			$cambios.=" num_cuenta:".trim($num_cuenta);
 		}
+		if($row['clave_banco']!=$clave_banco){
+			$cambios.=" clave_banco:".trim($clave_banco);
+		}
+
+
 
 		if(strlen($cambios)>1){
 			$arr=array();
@@ -119,32 +95,12 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('ape_pat'=>$row['ape_pat']);
 			$arreglo+=array('ape_mat'=>$row['ape_mat']);
 			$arreglo+=array('tipo_lay_out'=>trim($tipo_lay_out));
+
 			$arreglo+=array('tipo_cuenta'=>trim($tipo_cuenta));
 			$arreglo+=array('num_cuenta'=>trim($num_cuenta));
-			$arreglo+=array('titular'=>trim($titular));
+			$arreglo+=array('clave_banco'=>trim($clave_banco));
+			$arreglo+=array('banco'=>$bancon);
 
-			if (trim($tipo_cuenta)=='SANTAN'){
-				$arreglo+=array('clave_banco'=>"");
-				$arreglo+=array('plaza_banxico'=>"");
-				$arreglo+=array('sucursal'=>"");
-				$arreglo+=array('tipo_cuenta2'=>"");
-				$arreglo+=array('benef_app_paterno'=>"");
-				$arreglo+=array('benef_app_materno'=>"");
-				$arreglo+=array('benef_nombre'=>"");
-				$arreglo+=array('benef_direccion'=>"");
-				$arreglo+=array('benef_ciudad'=>"");
-			}
-			else{
-				$arreglo+=array('clave_banco'=>trim($clave_banco));
-				$arreglo+=array('plaza_banxico'=>trim($plaza_banxico));
-				$arreglo+=array('sucursal'=>trim($sucursal));
-				$arreglo+=array('tipo_cuenta2'=>trim($tipo_cuenta2));
-				$arreglo+=array('benef_app_paterno'=>trim($benef_app_paterno));
-				$arreglo+=array('benef_app_materno'=>trim($benef_app_materno));
-				$arreglo+=array('benef_nombre'=>trim($benef_nombre));
-				$arreglo+=array('benef_direccion'=>trim($benef_direccion));
-				$arreglo+=array('benef_ciudad'=>trim($benef_ciudad));
-			}
 			$x=$this->insert('bit_bancos', $arreglo);
 			return $x;
 		}
@@ -176,6 +132,7 @@ class Escritorio extends Sagyc{
 		}
 		return json_encode($arr);
 	}
+
 }
 
 $db = new Escritorio();
