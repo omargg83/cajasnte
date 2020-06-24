@@ -62,7 +62,8 @@
           $fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
           $fecha_entrada = strtotime(fecha($row['fretiro']));
           if($fecha_actual <= $fecha_entrada){
-            echo "<a href='#' id='imprime_formato' title='Imprimir' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>Formato de retiro</span></a>";
+            echo "<a href='#' id='imprime_formato' title='Imprimir Formato de retiro con cheque' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>F. retiro con Cheq.</span></a>";
+						echo "<a href='#' id='imprime_formato2' title='Imprimir Formato de retiro con Transferencia' data-lugar='ahorro/formato2' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>F. retiro con Transf.</span></a>";
           }
 					echo "<a href='#afiliado/acceso' title='Acceso'><i class='fas fa-at'></i> <span>Correo</span></a>
 					<a href='#afiliado/pass' title='Contraseña'><i class='fas fa-key'></i> <span>Contraseña</span></a>";
