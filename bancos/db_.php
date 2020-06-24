@@ -38,12 +38,21 @@ class Escritorio extends Sagyc{
 		$tipo_cuenta=$_REQUEST['tipo_cuenta'];
 		if($tipo_cuenta=="SANTAN"){
 			$tipo_lay_out="LA001";
+			$num=16;
 		}
+
 		if($tipo_cuenta=="EXTRNA"){
 			$tipo_lay_out="LA002";
+			$num=18;
 		}
 
 		$num_cuenta=$_REQUEST['num_cuenta'];
+		if(strlen($num_cuenta)!=$num){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Número de cuenta incorrecto son $num digitos");
+			return json_encode($arr);
+		}
 		$titular=$_REQUEST['titular'];
 		$clave_banco=$_REQUEST['clave_banco'];
 		$plaza_banxico=$_REQUEST['plaza_banxico'];
@@ -113,16 +122,29 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('tipo_cuenta'=>trim($tipo_cuenta));
 			$arreglo+=array('num_cuenta'=>trim($num_cuenta));
 			$arreglo+=array('titular'=>trim($titular));
-			$arreglo+=array('clave_banco'=>trim($clave_banco));
-			$arreglo+=array('plaza_banxico'=>trim($plaza_banxico));
-			$arreglo+=array('sucursal'=>trim($sucursal));
-			$arreglo+=array('tipo_cuenta2'=>trim($tipo_cuenta2));
-			$arreglo+=array('benef_app_paterno'=>trim($benef_app_paterno));
-			$arreglo+=array('benef_app_materno'=>trim($benef_app_materno));
-			$arreglo+=array('benef_nombre'=>trim($benef_nombre));
-			$arreglo+=array('benef_direccion'=>trim($benef_direccion));
-			$arreglo+=array('benef_ciudad'=>trim($benef_ciudad));
 
+			if (trim($tipo_cuenta)=='SANTAN'){
+				$arreglo+=array('clave_banco'=>"");
+				$arreglo+=array('plaza_banxico'=>"");
+				$arreglo+=array('sucursal'=>"");
+				$arreglo+=array('tipo_cuenta2'=>"");
+				$arreglo+=array('benef_app_paterno'=>"");
+				$arreglo+=array('benef_app_materno'=>"");
+				$arreglo+=array('benef_nombre'=>"");
+				$arreglo+=array('benef_direccion'=>"");
+				$arreglo+=array('benef_ciudad'=>"");
+			}
+			else{
+				$arreglo+=array('clave_banco'=>trim($clave_banco));
+				$arreglo+=array('plaza_banxico'=>trim($plaza_banxico));
+				$arreglo+=array('sucursal'=>trim($sucursal));
+				$arreglo+=array('tipo_cuenta2'=>trim($tipo_cuenta2));
+				$arreglo+=array('benef_app_paterno'=>trim($benef_app_paterno));
+				$arreglo+=array('benef_app_materno'=>trim($benef_app_materno));
+				$arreglo+=array('benef_nombre'=>trim($benef_nombre));
+				$arreglo+=array('benef_direccion'=>trim($benef_direccion));
+				$arreglo+=array('benef_ciudad'=>trim($benef_ciudad));
+			}
 			$x=$this->insert('bit_bancos', $arreglo);
 			return $x;
 		}
