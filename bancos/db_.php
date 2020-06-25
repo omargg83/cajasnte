@@ -40,7 +40,7 @@ class Escritorio extends Sagyc{
 			$tipo_lay_out="LA001";
 			$clave_banco="";
 			$num=16;
-			$bancon="";
+			$bancon="SANTANDER";
 		}
 		else{
 			$num=18;
