@@ -62,7 +62,7 @@
 			echo "<div class='row'>";
 				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
-						echo "<label for='e_civ'>Tipo de cuenta</label>";
+						echo "<label for='e_civ'>Banco</label>";
 						echo "<select class='form-control form-control-sm' name='tipo_cuenta' id='tipo_cuenta'>";
 							echo  "<option value='SANTAN'"; if ($tipo_cuenta=='SANTAN'){echo  " selected";} echo  "> SANTANDER</option>";
 							$res=$db->catalogo();
@@ -79,6 +79,7 @@
 					echo "<div class='form-group'>";
 						echo "<label for='n_con'>Número de cuenta</label>";
 						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='$num_cuenta' placeholder='Número de cuenta' maxlength=20 required>";
+						echo "<small id='a_qui' class='form-text text-muted'>Si su banco NO ES SANTANDER, favor de poner la cuenta CLABE de 18 digitos</small>";
 					echo "</div>";
 				echo "</div>";
 
@@ -121,7 +122,7 @@
 				echo "<div class='row'>";
 					echo "<div class='col-4'>";
 						echo "<div class='form-group'>";
-							echo "<label for='e_civ'>Tipo de cuenta</label>";
+							echo "<label for='e_civ'>Banco</label>";
 							echo "<input class='form-control form-control-sm' type='text' id='tipo_cuenta' NAME='tipo_cuenta' value='";
 								if ($cambio['tipo_cuenta']=='SANTAN'){echo  "SANTANDER"; } else{
 									echo $cambio['banco'];

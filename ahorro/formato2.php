@@ -38,13 +38,13 @@
 		$pdf->ezText("");
 		$pdf->ezText("(___________________________________________________________________________)CANTIDAD CON LETRA");
 		$pdf->ezText("");
-		$pdf->ezText("<b>A LA CUENTA:</b> \t".trim($row['num_cuenta'])." DE LA INSTITUCIÓN BANCARIA:".trim($row['banco']));
+		$pdf->ezText("A LA CUENTA: \t"." "."<b>".trim($row['num_cuenta'])."</b>"." "." DE LA INSTITUCIÓN BANCARIA:"."<b>"." ".trim($row['banco'])."</b>");
 		$pdf->ezText("");
 		$pdf->ezText("POR CONCEPTO DE RETIRO PARCIAL DE MI AHORRO");
 		$pdf->ezText("");
-		$pdf->ezText("<b>NOMBRE:</b> \t".trim($row['nombre'])." ".trim($row['ape_pat'])." ".trim($row['ape_mat']));
+		$pdf->ezText("NOMBRE: \t"." "."<b>".trim($row['nombre'])." ".trim($row['ape_pat'])." ".trim($row['ape_mat'])."</b>");
 		$pdf->ezText("");
-		$pdf->ezText("<b>FECHA DEL TRAMITE: </b> \t".$dias[date('w')]." ".date('d')." DE ".$meses[date('n')-1]. " DEL ".date('Y'));
+		$pdf->ezText("FECHA DEL TRAMITE: \t"." "."<b>".$dias[date('w')]." ".date('d')." DE ".$meses[date('n')-1]. " DEL ".date('Y')."</b>");
 		$pdf->ezText("");
 		$pdf->ezText("");
 		$pdf->ezText("");
