@@ -64,6 +64,18 @@
           echo"<a href='#creditos/credito' title='Consulta de Creditos'><i class='fas fa-money-check-alt'></i><span>Créditos</span></a>";
           echo"<a href='#ahorro/ahorro' title='Consulta de Ahorro'><i class='fas fa-university'></i> <span>Ahorro</span></a>";
 
+					echo "<hr>";
+					echo"<a href='#citas/index' title='Agendar Cita en caja de ahorro'><i class='far fa-calendar-check'></i><span>Citas</span></a>";
+					echo"<a href='#bancos/datos' title='Ingresar cuenta bancaria para deposito de ahorro'><i class='fas fa-university'></i> <span>Bancos</span></a>";
+
+
+					$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
+					$fecha_entrada = strtotime(fecha($row['fretiro']));
+					if($fecha_actual <= $fecha_entrada){
+						echo "<a href='#' id='imprime_formato' title='Imprimir Formato de retiro con cheque' data-lugar='ahorro/formato' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>F. retiro con Cheq.</span></a>";
+						echo "<a href='#' id='imprime_formato2' title='Imprimir Formato de retiro con Transferencia' data-lugar='ahorro/formato2' data-tipo='1' title='Formato de retiro'><i class='fas fa-print'></i><span>F. retiro con Transf.</span></a>";
+					}
+					echo "<hr>";
 
         }
       ?>
