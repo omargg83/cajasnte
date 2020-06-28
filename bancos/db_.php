@@ -39,7 +39,7 @@ class Escritorio extends Sagyc{
 		if($tipo_cuenta=="SANTAN"){
 			$tipo_lay_out="LA001";
 			$clave_banco="";
-			$num=16;
+			$num=11;
 			$bancon="SANTANDER";
 		}
 		else{

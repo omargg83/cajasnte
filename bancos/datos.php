@@ -77,15 +77,15 @@
 
 				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Número de cuenta</label>";
+						echo "<label for='n_con'>No. de cuenta (11 digitos para Santander)</label>";
 						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta' NAME='num_cuenta' value='$num_cuenta' placeholder='Número de cuenta' maxlength=20 required>";
-						echo "<small id='a_qui' class='form-text text-muted'>Si su banco NO ES SANTANDER, favor de poner la cuenta CLABE de 18 digitos</small>";
+						echo "<small id='a_qui' class='form-text text-muted'><b>Si tu banco NO ES SANTANDER, favor de poner la cuenta CLABE de 18 digitos</b></small>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-4'>";
 					echo "<div class='form-group'>";
-						echo "<label for='n_con'>Confirmar de cuenta</label>";
+						echo "<label for='n_con'>Confirmar cuenta</label>";
 						echo "<input class='form-control form-control-sm' type='text' id='num_cuenta2' NAME='num_cuenta2' value='' placeholder='Número de cuenta' maxlength=20 required>";
 					echo "</div>";
 				echo "</div>";
@@ -111,6 +111,14 @@
 		echo "</div>";
   echo "</div>";
 	echo "</form>";
+	echo "<br>";
+	echo "<div class='container'>";
+	echo "<div class='card'>";
+		echo "<div class='card-header'>";
+			echo"Cuando ingreses tu información de la cuenta, esta puede tardar hasta <b>24 horas</b> en actualizarse en las oficinas de caja de ahorro, por favor se paciente.";
+		echo "</div>";
+	echo "</div>";
+	echo "</div>";
 
 	if ($cambio){
 	echo "<br>";
