@@ -41,7 +41,7 @@ echo "<div class='card'>";
   echo "<div class='card-body'>";
     echo "<div class='row'>";
       echo "<div class='col-6'>";
-          echo "<label>Por favor Seleccione el Dia</label>";
+          echo "<label>Por favor Seleccione el dia a partir del 13 de julio del 2020</label>";
           echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
       echo "</div>";
       echo "<div class='col-3'>";
