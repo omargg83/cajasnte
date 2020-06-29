@@ -35,9 +35,11 @@
 		$pdf->ezText("SNTE SECCIÓN 15 HIDALGO, REALICE TRANSFERENCIA BANCARIA POR LA CANTIDAD DE: ");
 		$pdf->ezText("");
 		$pdf->ezText('$ _________________________________ ');
-		$pdf->ezText("      CANTIDAD CON NÚMERO ");
-		$pdf->ezText("(___________________________________________________________________________)");
-		$pdf->ezText("												CANTIDAD CON LETRA");
+		$pdf->ezText("          Cantidad con número ");
+		$pdf->ezText("");
+		$pdf->ezText("(____________________________________________________________________________________________)");
+		$pdf->ezText("Cantidad con letra",10,array('justification'=>'center')               );
+		$pdf->ezText("");
 		$pdf->ezText("A LA CUENTA: \t"." "."<b>".trim($row['num_cuenta'])."</b>"." "." DE LA INSTITUCIÓN BANCARIA:"."<b>"." ".trim($row['banco'])."</b>");
 		$pdf->ezText("");
 		$pdf->ezText("POR CONCEPTO DE RETIRO PARCIAL DE MI AHORRO");
