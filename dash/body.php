@@ -20,9 +20,9 @@
           <a href='#admin/blog' title='Bloques'><i class='fas fa-rss-square'></i><span>Anuncios</span></a>
           <a href='#admin/bitacora' title='Bitacora'><i class='fas fa-clipboard-list'></i><span>Bitacora</span></a>
           <a href='#pass/index' title='Cambio de contraseña'><i class='fas fa-key'></i><span>Contraseñas</span></a>
-          <a href='#citas/index2' title='Creditos'><i class='far fa-calendar-check'></i><span>Citas</span></a>";
-				//	<a href='#dias/index' title='dias'><i class='far fa-calendar-check'></i><span>Dias Retiros NO</span></a>
-				//	<a href='#dias2/index' title='dias2'><i class='far fa-calendar-check'></i><span>Dias Creditos NO</span></a>
+          <a href='#citas/index2' title='Creditos'><i class='far fa-calendar-check'></i><span>Citas</span></a>
+					<a href='#dias/index' title='dias'><i class='far fa-calendar-check'></i><span>Dias Retiros NO</span></a>
+					<a href='#dias2/index' title='dias2'><i class='far fa-calendar-check'></i><span>Dias Creditos NO</span></a>";
         }
         else{
           echo "<hr>";
