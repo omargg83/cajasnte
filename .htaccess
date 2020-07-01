@@ -19,7 +19,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
  Header set Content-Security-Policy: "default-src https:"
  Header set Content-Security-Policy: "style-src https:"
  Header set Content-Security-Policy: "font-src https:"
- Header set Content-Security-Policy: "script-src https:"
+# Header set Content-Security-Policy: "script-src https:"
 
 # hasta aqui descomentar
 
