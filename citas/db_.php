@@ -23,10 +23,23 @@ class Escritorio extends Sagyc{
 			$tipo=$_REQUEST['tipo'];
 			///////////retiro=1
 			///////////credito=2
+
+			////////////////////////////para asignar automaticamente
 			if($hora="asignar"){
-				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
-				return json_encode($arreglo);
+				$fec=explode("-",$_REQUEST['desde']);
+
+				$query="select count(fecha) as numero, fecha from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
+				$sth = $this->dbh->prepare($query);
+				$sth->execute();
+				$resp=$sth->fetchAll();
+				$x="";
+				foreach($resp as $key){
+					$x.=$key[0];
+					$x.=$key[1];
+				}
+				return "alho $query  $x";
 			}
+			///////////////////////////hasta aqui
 
 			$verifica = date("Y-m-d", strtotime($desde));
 			if($tipo==1){
@@ -60,7 +73,6 @@ class Escritorio extends Sagyc{
 				$sql="select * from citas where tipo='$tipo' and fecha='$fechax' and (apartado=1 and limite<'$actual')";
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
-
 
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 				$arreglo+=array('fecha'=>$fechax);
@@ -201,7 +213,6 @@ class Escritorio extends Sagyc{
 	}
 	public function citas_afiliados(){
 		try{
-
 			$fecha=date('Y-m-d')." 00:00:00";
 			$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) and fecha>='$fecha' order by fecha desc";
 			$sth = $this->dbh->prepare($sql);
@@ -215,7 +226,6 @@ class Escritorio extends Sagyc{
 	}
 	public function cancelar_cita(){
 		$cita=$_REQUEST['cita'];
-
 		$arreglo=array();
 		$arreglo+=array('apartado'=>3);
 		$arreglo+=array('realizada'=>2);
