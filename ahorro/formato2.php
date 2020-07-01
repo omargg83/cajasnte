@@ -50,10 +50,17 @@
 		$pdf->ezText("");
 		$pdf->ezText("");
 		$pdf->ezText("");
-
+		$pdf->ezText("");
 		$pdf->ezText("_____________________________",10,array('justification'=>'center'));
 		$pdf->ezText("<b>FIRMA</b> ",10,array('justification'=>'center'));
-
+		$pdf->ezText("");
+		$pdf->ezText("");
+		$pdf->ezText("");
+		$pdf->ezText("");
+		$pdf->ezText("");
+		$pdf->ezText("");
+		$pdf->ezText("Ten en cuenta que este formato sera valido si antes llenaste los datos bancarios");
+		$pdf->ezText("de transferencia en la plataforma, a fin de que estos se muestren en el documento.");
 		$pdf->ezStream(array('compress'=>0));
 
 
