@@ -80,21 +80,21 @@
         echo "</div>";
       echo "</div>";
     echo "</div>";
-  echo "</div>";
-  echo "<hr>";
+	  echo "<br>";
 
-	echo "<div class='container' id='checar'>";
 
-	echo "</div>";
+		echo "<div id='checar'>";
 
-	echo "<div class='container'>";
-	echo "<div class='card'>";
-		echo "<div class='card-header'>";
-			echo "Recuerda que solo tienes derecho a una cancelación y a una cita, procura no faltar y llegar a tiempo por favor.";
-			echo "<br>";
-			echo"Todas las citas aquí generadas serán atendidas exclusivamente en las oficinas centrales de Pachuca.";
 		echo "</div>";
-	echo "</div>";
+
+
+		echo "<div class='card'>";
+			echo "<div class='card-header'>";
+				echo "Recuerda que solo tienes derecho a una cancelación y a una cita, procura no faltar y llegar a tiempo por favor.";
+				echo "<br>";
+				echo"Todas las citas aquí generadas serán atendidas exclusivamente en las oficinas centrales de Pachuca.";
+			echo "</div>";
+		echo "</div>";
 	echo "</div>";
 ?>
 
@@ -240,6 +240,7 @@ function verificar(tipo){
           url:   'citas/db_.php',
           type:  'post',
           success:  function (response) {
+						console.log(response);
             clearInterval(timerUpdate);
             var datos = JSON.parse(response);
             if (datos.activo==1){

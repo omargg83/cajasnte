@@ -4,7 +4,7 @@
 		$("#cargando").removeClass("is-active");
 		acceso();
 		if(intval==""){
-			intval=window.setInterval("sesion_ver()",180000);
+			intval=setInterval(function(){ sesion_ver(); }, 180000);
 		}
 	});
 

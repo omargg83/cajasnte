@@ -43,23 +43,12 @@
 	<!--   Core JS Files   -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-	<!--
-		<script src="librerias15/jquery-3.4.1.min.js" type="text/javascript"></script>
-	-->
-
 	<!--   url   -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 
-	<!--
-		<script src="librerias15/jquery/jquery-ui.js"></script>
-		<link rel="stylesheet" type="text/css" href="librerias15/jquery/jquery-ui.min.css" />
-	-->
-
-
 	<!-- Animation library for notifications   -->
   <link href="librerias15/animate.css" rel="stylesheet" type="text/css"/>
-
 
 	<!--   Alertas   -->
 	<script src="librerias15/swal/dist/sweetalert2.min.js"></script>
@@ -116,6 +105,5 @@
 	<!--<link rel="stylesheet" href="librerias15/css/bootstrap.min.css">-->
 	<!--<script src="librerias15/js/bootstrap.js"></script>-->
 	<script src="librerias15/jQuery-MD5-master/jquery.md5.js"></script>
-
 
 </html>

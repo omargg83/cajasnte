@@ -1,6 +1,5 @@
 <?php
 require_once("../control_db.php");
-if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
 class Escritorio extends Sagyc{
 	private $accesox;
@@ -11,25 +10,41 @@ class Escritorio extends Sagyc{
 		parent::__construct();
 	}
 	public function citas(){
+		$arreglo=array();
 		$maxcitas_retiros=3;   /////////////variable para maximo numero de citas
 		$maxcitas_creditos=2;   /////////////variable para maximo numero de citas
 		$max=0;
-		$sql="select * from ";
-		
+
 		try{
 			$desde=$_REQUEST['desde'];
 			$hora=$_REQUEST['hora'];
+
 			$minuto=$_REQUEST['minuto'];
 			$tipo=$_REQUEST['tipo'];
 			///////////retiro=1
 			///////////credito=2
+			if($hora="asignar"){
+				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+				return json_encode($arreglo);
+			}
 
+			$verifica = date("Y-m-d", strtotime($desde));
 			if($tipo==1){
 				$max=$maxcitas_retiros;
+				$bloq="select * from diasno where fecha='$verifica'";
 			}
 			if($tipo==2){
 				$max=$maxcitas_creditos;
+				$bloq="select * from diasnocred where fecha='$verifica'";
 			}
+			//////////////////comprueba que efectivamente no este el dia bloqueado;
+			$sth = $this->dbh->prepare($bloq);
+			$sth->execute();
+			if($sth->rowCount()>0){
+				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+				return json_encode($arreglo);
+			}
+			////////////////hasta aqui
 
 			$actual=date('Y-m-d H:i:s');
 			$fechax = date("Y-m-d", strtotime($desde))." $hora:$minuto:00";
@@ -46,7 +61,7 @@ class Escritorio extends Sagyc{
 				$sth = $this->dbh->prepare($sql);
 				$sth->execute();
 
-				$arreglo=array();
+
 				$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
 				$arreglo+=array('fecha'=>$fechax);
 				$arreglo+=array('caja'=>1);
@@ -147,9 +162,8 @@ class Escritorio extends Sagyc{
 			return "Database access FAILED! ".$e->getMessage();
 		}
 	}
-	public function citas_bloqueo(){
+	public function citas_bloqueo(){	//para los dias de retiro
 		try{
-
 			$sql="select * from diasno";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();

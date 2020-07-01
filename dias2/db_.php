@@ -1,12 +1,9 @@
 <?php
 require_once("../control_db.php");
-if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
 class Diasnocre extends Sagyc{
-
 	public function dias(){
 		try{
-
 			$sql="SELECT * FROM diasnocred";
 			$sth = $this->dbh->prepare($sql);
 			$sth->execute();

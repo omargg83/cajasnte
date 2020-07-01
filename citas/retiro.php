@@ -47,6 +47,7 @@ echo "<div class='card'>";
       echo "<div class='col-3'>";
         echo "<label>Hora</label>";
         echo "<select class='form-control' name='hora' id='hora'>";
+					//echo  "<option value='asignar'>Buscar automaticamente</option>";
           echo  "<option value='9'>9</option>";
           echo  "<option value='10'>10</option>";
           echo  "<option value='11'>11</option>";
@@ -82,9 +83,7 @@ echo "<div class='card'>";
     echo "</div>";
   echo "</div>";
 echo "</div>";
-
-
- ?>
+?>
 
  <script>
 

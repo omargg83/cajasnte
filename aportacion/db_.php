@@ -1,6 +1,5 @@
 <?php
 require_once("../control_db.php");
-if (isset($_REQUEST['function'])){$function=$_REQUEST['function'];}	else{ $function="";}
 
 class Escritorio extends Sagyc{
 	private $accesox;
@@ -83,7 +82,7 @@ class Escritorio extends Sagyc{
 		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 		$sth->execute();
 		$row=$sth->fetch();
-	
+
 		$x=$this->borrar('bit_datos','id',$row['id']);
 		if($x){
 			$arr=array();

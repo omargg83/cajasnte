@@ -30,7 +30,6 @@
 		}
 	//////////////////////////////////////////hasta aqui el bloqueo
 
-
   $fecha=date("d-m-Y");
   $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
   $fecha1 = date ( "d-m-Y" , $nuevafecha );
@@ -77,8 +76,6 @@ echo "<div class='card'>";
     echo "</div>";
   echo "</div>";
 echo "</div>";
-
-
  ?>
 
  <script>
