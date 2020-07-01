@@ -14,7 +14,8 @@ class Escritorio extends Sagyc{
 		$maxcitas_retiros=3;   /////////////variable para maximo numero de citas
 		$maxcitas_creditos=2;   /////////////variable para maximo numero de citas
 		$max=0;
-
+		$sql="select * from ";
+		
 		try{
 			$desde=$_REQUEST['desde'];
 			$hora=$_REQUEST['hora'];
