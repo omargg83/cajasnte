@@ -28,11 +28,11 @@
 				$uno=$keys[0];
 				$dos=$keys[1];
 
-        $user=trim($_REQUEST[$uno]);
-				$pass=trim($_REQUEST[$dos]);
+        $user=clean_var($_REQUEST[$uno]);
+				$pass=clean_var($_REQUEST[$dos]);
 
-        $us_fake=$_REQUEST['usuario'];
-        $pa_fake=$_REQUEST['password'];
+        $us_fake=clean_var($_REQUEST['usuario']);
+        $pa_fake=clean_var($_REQUEST['password']);
 
         if(strlen($uno)<8 or strlen($dos)<8 or strlen($us_fake)>0 or strlen($pa_fake)>0){
           return 0;
@@ -126,7 +126,10 @@
     }
 
   }
-
+  function clean_var($val){
+    $val=htmlspecialchars(strip_tags(trim($val)));
+    return $val;
+  }
   $db = new daasldjflks();
   echo $db->acceso();
  ?>

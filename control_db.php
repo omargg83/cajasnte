@@ -2,6 +2,7 @@
 	if (!isset($_SESSION)) { session_start(); }
 	if (isset($_REQUEST['function'])){$function=clean_var($_REQUEST['function']);}	else{ $function="";}
 	if (isset($_REQUEST['ctrl'])){$ctrl=clean_var($_REQUEST['ctrl']);}	else{ $ctrl="";}
+
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 	date_default_timezone_set("America/Mexico_City");
