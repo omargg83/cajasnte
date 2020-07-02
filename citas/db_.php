@@ -18,26 +18,59 @@ class Escritorio extends Sagyc{
 		try{
 			$desde=$_REQUEST['desde'];
 			$hora=$_REQUEST['hora'];
-
-			$minuto=$_REQUEST['minuto'];
 			$tipo=$_REQUEST['tipo'];
 			///////////retiro=1
 			///////////credito=2
 
 			////////////////////////////para asignar automaticamente
-			if($hora="asignar"){
+			if($hora=="asignar"){
 				$fec=explode("-",$_REQUEST['desde']);
 
-				$query="select count(fecha) as numero, fecha from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
+				$x="";
+				$query="select count(fecha) as numero, fecha, TIME(fecha) as hora from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
 				$sth = $this->dbh->prepare($query);
 				$sth->execute();
 				$resp=$sth->fetchAll();
 				$x="";
+				$arr_hora=array();
 				foreach($resp as $key){
-					$x.=$key[0];
-					$x.=$key[1];
+					$arr_hora[$key['hora']]=$key['numero'];
 				}
-				return "alho $query  $x";
+				if($tipo==1){	//////////////retiro
+					$sale=1;
+					for($i=9; $i<=16 and $sale==1; $i++){
+						for($j=0; $j<=55 and $sale==1; $j=$j+5){
+							$h=str_pad($i,2,"0",STR_PAD_LEFT);
+							$t=str_pad($j,2,"0",STR_PAD_LEFT);
+							$hora="$h:$t:00";
+							if(isset($arr_hora[$hora])){
+								if($arr_hora[$hora]<3){
+									$sale=0;
+								}
+							}
+							else{
+								$sale=0;
+							}
+						}
+					}
+				}
+				if($tipo==2){	//////////////credito
+					for($i=9; $i<=16; $i++){
+						for($j=0; $j<=55; $j=$j+10){
+							$h=str_pad($i,2,"0",STR_PAD_LEFT);
+							$t=str_pad($j,2,"0",STR_PAD_LEFT);
+							$hora="$h:$t:00";
+							if(isset($arr_hora[$hora])){
+								if($arr_hora[$hora]<3){
+									$sale=0;
+								}
+							}
+							else{
+								$sale=0;
+							}
+						}
+					}
+				}
 			}
 			///////////////////////////hasta aqui
 
@@ -60,7 +93,7 @@ class Escritorio extends Sagyc{
 			////////////////hasta aqui
 
 			$actual=date('Y-m-d H:i:s');
-			$fechax = date("Y-m-d", strtotime($desde))." $hora:$minuto:00";
+			$fechax = date("Y-m-d", strtotime($desde))." $hora:00";
 			$limite=new DateTime();
 			$limite->modify("+6 minute");
 
@@ -109,7 +142,7 @@ class Escritorio extends Sagyc{
 							$t.= "</div>";
 							$t.= "<div class='col-3'>";
 									$t.= "<label>Hora</label>";
-									$t.= "<input class='form-control' type='text' id='hora' name='hora' value='$hora:$minuto:00' readonly>";
+									$t.= "<input class='form-control' type='text' id='hora' name='hora' value='$hora:00' readonly>";
 							$t.= "</div>";
 							$t.= "<div class='col-12'>";
 									$t.= "<label>Observaciones</label>";
