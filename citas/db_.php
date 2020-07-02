@@ -25,7 +25,6 @@ class Escritorio extends Sagyc{
 			////////////////////////////para asignar automaticamente
 			if($hora=="asignar"){
 				$fec=explode("-",$_REQUEST['desde']);
-
 				$x="";
 				$query="select count(fecha) as numero, fecha, TIME(fecha) as hora from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
 				$sth = $this->dbh->prepare($query);
@@ -36,8 +35,8 @@ class Escritorio extends Sagyc{
 				foreach($resp as $key){
 					$arr_hora[$key['hora']]=$key['numero'];
 				}
+				$sale=1;
 				if($tipo==1){	//////////////retiro
-					$sale=1;
 					for($i=9; $i<=16 and $sale==1; $i++){
 						for($j=0; $j<=55 and $sale==1; $j=$j+5){
 							$h=str_pad($i,2,"0",STR_PAD_LEFT);
@@ -55,8 +54,8 @@ class Escritorio extends Sagyc{
 					}
 				}
 				if($tipo==2){	//////////////credito
-					for($i=9; $i<=16; $i++){
-						for($j=0; $j<=55; $j=$j+10){
+					for($i=9; $i<=16 and $sale==1; $i++){
+						for($j=0; $j<=55 and $sale==1; $j=$j+10){
 							$h=str_pad($i,2,"0",STR_PAD_LEFT);
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							$hora="$h:$t:00";
@@ -70,6 +69,10 @@ class Escritorio extends Sagyc{
 							}
 						}
 					}
+				}
+				if($sale==1){
+					$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+					return json_encode($arreglo);
 				}
 			}
 			///////////////////////////hasta aqui
