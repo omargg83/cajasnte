@@ -41,14 +41,14 @@ echo "<div class='card'>";
   echo "<div class='card-body'>";
     echo "<div class='row'>";
       echo "<div class='col-3'>";
-          echo "<label>Seleccione el dia a partir del 13 de julio del 2020</label>";
+          echo "<label>Seleccione el dia a partir del 15 de julio del 2020</label>";
 			echo "</div>";
 			echo "<div class='col-2'>";
           echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
       echo "</div>";
-			echo "<div class='col-2'>";
+			echo "<div class='col-3'>";
         echo "<select class='form-control' name='hora' id='hora'>";
-					echo  "<option value='asignar'>Horario automatico</option>";
+					echo  "<option value='asignar'>¡Encuéntrame un lugar!</option>";
 					for($i=9; $i<=16; $i++){
 						echo "<optgroup label='$i'>";
 						for($j=0; $j<=55; $j=$j+5){

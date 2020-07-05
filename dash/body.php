@@ -72,7 +72,7 @@
 					$fecha_actual = strtotime(date("Y-m-d H:i:s",time()));
 					$fecha_entrada = strtotime(fecha($row['fretiro']));
 					if($fecha_actual <= $fecha_entrada){
-						echo"<a href='#formatos/format' title='Formatos'><i class='fas fa-print'></i><span>Formatos</span></a>";
+						echo"<a href='#formatos/format' title='Formatos'><i class='fas fa-print'></i><span>Formatos de retiro</span></a>";
 					}
 					echo "<hr>";
 

@@ -9,6 +9,11 @@
 		$sql="select * from afiliados where idfolio='".$_SESSION['idfolio']."'";
 		$row=$db->general($sql,0);
 
+		if (empty($row['num_cuenta'])) {
+    echo 'Lo sentimos, para poder imprimir el formato de retiro con transferencia, antes deberás llenar en <b>Bancos</b> tu información';
+		}
+		else {
+
 		set_include_path('../librerias15/pdf2/src/'.PATH_SEPARATOR.get_include_path());
 		include 'Cezpdf.php';
 
@@ -63,5 +68,5 @@
 		$pdf->ezText("de transferencia en la plataforma, a fin de que estos se muestren en el documento.");
 		$pdf->ezStream(array('compress'=>0));
 
-
+}
 ?>
