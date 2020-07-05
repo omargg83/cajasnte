@@ -31,7 +31,7 @@
 	//////////////////////////////////////////hasta aqui el bloqueo
 
   $fecha=date("d-m-Y");
-  $nuevafecha = strtotime ( '+13 day' , strtotime ( $fecha ) ) ;
+  $nuevafecha = strtotime ( '+10 day' , strtotime ( $fecha ) ) ;
   $fecha1 = date ( "d-m-Y" , $nuevafecha );
 
 echo "<div class='card'>";
@@ -48,7 +48,7 @@ echo "<div class='card'>";
       echo "</div>";
 			echo "<div class='col-3'>";
         echo "<select class='form-control' name='hora' id='hora'>";
-					echo  "<option value='asignar'>¡Encuéntrame un lugar!</option>";
+					echo  "<option value='asignar'>Búsqueda automática</option>";
 					for($i=9; $i<=16; $i++){
 						echo "<optgroup label='$i'>";
 						for($j=0; $j<=55; $j=$j+5){

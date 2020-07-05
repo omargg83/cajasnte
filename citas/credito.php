@@ -48,7 +48,7 @@ echo "<div class='card'>";
       echo "</div>";
       echo "<div class='col-3'>";
         echo "<select class='form-control' name='hora' id='hora'>";
-					echo  "<option value='asignar'>Encontrar automatico</option>";
+					echo  "<option value='asignar'>Búsqueda automática</option>";
 					for($i=9; $i<=16; $i++){
 						echo "<optgroup label='$i'>";
 						for($j=0; $j<=55; $j=$j+10){
