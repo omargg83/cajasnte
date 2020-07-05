@@ -339,7 +339,7 @@ function cancela_previo(cita){
 		boxWidth: '800px',
 		content: '¿Desea cancelar la cita?',
 		buttons: {
-			Confirmar: function () {
+			Si: function () {
 				$.ajax({
 					data: {
 						"function":"pre_cancela",
@@ -388,7 +388,7 @@ function cancela_previo(cita){
 					}
 				});
 			},
-			Cancelar: function () {
+			No: function () {
 
 			}
 		}
