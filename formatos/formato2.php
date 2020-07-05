@@ -35,9 +35,7 @@
 		$pdf->ezText("<b>FORMATO DE RETIRO CAJA DE AHORRO </b>",10,array('justification'=>'center'));
 		$pdf->ezText("");
 		$pdf->ezText("");
-		$pdf->ezText("POR MEDIO DE LA PRESENTE EXPRESO MI VOLUNTAD DE QUE CAJA DE AHORRO Y CRÉDITO DEL");
-		$pdf->ezText("");
-		$pdf->ezText("SNTE SECCIÓN 15 HIDALGO, REALICE TRANSFERENCIA BANCARIA POR LA CANTIDAD DE: ");
+		$pdf->ezText("POR MEDIO DE LA PRESENTE EXPRESO MI VOLUNTAD DE QUE CAJA DE AHORRO Y CRÉDITO DEL SNTE SECCIÓN 15 HIDALGO, REALICE TRANSFERENCIA BANCARIA POR LA CANTIDAD DE:",10,array('justification'=>'all'));
 		$pdf->ezText("");
 		$pdf->ezText('$ _________________________________ ');
 		$pdf->ezText("          Cantidad con número ");
