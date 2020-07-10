@@ -11,6 +11,13 @@ class Escritorio extends Sagyc{
 	}
 	public function guardar_beneficiarios(){	/////////////////////////////////////PARA CAMBIOS DE beneficiarios
 		$x="";
+		if(strlen($_SESSION['idfolio'])==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
+
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -18,25 +25,25 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		$cambios="";
-		$BA=$_REQUEST['ben1'];
-		$PA=$_REQUEST['parentesco1'];
-		$BFA=$_REQUEST['porcentaje1'];
+		$BA=clean_var($_REQUEST['ben1']);
+		$PA=clean_var($_REQUEST['parentesco1']);
+		$BFA=clean_var($_REQUEST['porcentaje1']);
 
-		$BB=$_REQUEST['ben2'];
-		$PB=$_REQUEST['parentesco2'];
-		$BFB=$_REQUEST['porcentaje2'];
+		$BB=clean_var($_REQUEST['ben2']);
+		$PB=clean_var($_REQUEST['parentesco2']);
+		$BFB=clean_var($_REQUEST['porcentaje2']);
 
-		$BC=$_REQUEST['ben3'];
-		$PC=$_REQUEST['parentesco3'];
-		$BFC=$_REQUEST['porcentaje3'];
+		$BC=clean_var($_REQUEST['ben3']);
+		$PC=clean_var($_REQUEST['parentesco3']);
+		$BFC=clean_var($_REQUEST['porcentaje3']);
 
-		$BD=$_REQUEST['ben4'];
-		$PD=$_REQUEST['parentesco4'];
-		$BFD=$_REQUEST['porcentaje4'];
+		$BD=clean_var($_REQUEST['ben4']);
+		$PD=clean_var($_REQUEST['parentesco4']);
+		$BFD=clean_var($_REQUEST['porcentaje4']);
 
-		$BE=$_REQUEST['ben5'];
-		$PE=$_REQUEST['parentesco5'];
-		$BFE=$_REQUEST['porcentaje5'];
+		$BE=clean_var($_REQUEST['ben5']);
+		$PE=clean_var($_REQUEST['parentesco5']);
+		$BFE=clean_var($_REQUEST['porcentaje5']);
 
 		if($row['BA']!=$BA){
 			$cambios.=" BA:".trim($BA);

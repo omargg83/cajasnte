@@ -29,7 +29,7 @@ class Escritorio extends Sagyc{
 	}
 	public function reset_pass(){
 		try{
-			$idfolio=$_REQUEST['folio'];
+			$idfolio=clean_var($_REQUEST['folio']);
 			$sql="select * from afiliados where idfolio=:idfolio";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$idfolio);

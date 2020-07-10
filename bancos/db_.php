@@ -23,7 +23,14 @@ class Escritorio extends Sagyc{
 	public function guardar_bancos(){			////////PARA CAMBIOS DE DATOS
 		$x="";
 		$arreglo =array();
-		$id=$_REQUEST['id'];
+		$id=clean_var($_REQUEST['id']);
+		if(strlen($id)==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
+
 
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
@@ -33,7 +40,7 @@ class Escritorio extends Sagyc{
 
 		$cambios="";
 		$tipo_lay_out="";
-		$tipo_cuenta=$_REQUEST['tipo_cuenta'];
+		$tipo_cuenta=clean_var($_REQUEST['tipo_cuenta']);
 
 		if($tipo_cuenta=="SANTAN"){
 			$tipo_lay_out="LA001";
@@ -54,8 +61,8 @@ class Escritorio extends Sagyc{
 			$tipo_lay_out="LA002";
 		}
 
-		$num_cuenta=trim($_REQUEST['num_cuenta']);
-		$num_cuenta2=trim($_REQUEST['num_cuenta2']);
+		$num_cuenta=clean_var($_REQUEST['num_cuenta']);
+		$num_cuenta2=clean_var($_REQUEST['num_cuenta2']);
 		if($num_cuenta!=$num_cuenta2){
 			$arr=array();
 			$arr+=array('error'=>1);

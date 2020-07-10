@@ -17,18 +17,18 @@ class Diasnocre extends Sagyc{
 
 	function guardar_dias(){
 		$x="";
-		if (isset($_REQUEST['id'])){$id=$_REQUEST['id'];}
+		if (isset($_REQUEST['id'])){$id=clean_var($_REQUEST['id']);}
 		$arreglo =array();
 		if (isset($_REQUEST['descripcion'])){
-			$arreglo+=array('descripcion'=>$_REQUEST['descripcion']);
+			$arreglo+=array('descripcion'=>clean_var($_REQUEST['descripcion']));
 		}
 		if (isset($_REQUEST['fecha'])){
-			$fx=explode("-",$_REQUEST['fecha']);
+			$fx=explode("-",clean_var($_REQUEST['fecha']));
 			$arreglo+=array('fecha'=>$fx['2']."-".$fx['1']."-".$fx['0']);
 		}
 
 		if (isset($_REQUEST['recurrente'])){
-			$arreglo+=array('recurrente'=>$_REQUEST['recurrente']);
+			$arreglo+=array('recurrente'=>clean_var($_REQUEST['recurrente']));
 		}
 		if($id==0){
 			$x.=$this->insert('diasnocred', $arreglo);

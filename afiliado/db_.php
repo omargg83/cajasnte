@@ -13,7 +13,13 @@ class Escritorio extends Sagyc{
 	public function guardar_datos(){			/////////////////////////////////////PARA CAMBIOS DE DATOS
 		$x="";
 		$arreglo =array();
-		$id=$_REQUEST['id'];
+		$id=clean_var($_REQUEST['id']);
+		if(strlen($id)==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
 
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
@@ -22,16 +28,16 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		$cambios="";
-		$d_dom=$_REQUEST['d_dom'];
-		$e_civ=$_REQUEST['e_civ'];
-		$n_con=$_REQUEST['n_con'];
-		$l_loc=$_REQUEST['l_loc'];
-		$m_mun=$_REQUEST['m_mun'];
-		$c_c_t=$_REQUEST['c_c_t'];
-		$u_bic=$_REQUEST['u_bic'];
-		$d_sin=$_REQUEST['d_sin'];
-		$r_rrg=$_REQUEST['r_rrg'];
-		$c_psp=$_REQUEST['c_psp'];
+		$d_dom=clean_var($_REQUEST['d_dom']);
+		$e_civ=clean_var($_REQUEST['e_civ']);
+		$n_con=clean_var($_REQUEST['n_con']);
+		$l_loc=clean_var($_REQUEST['l_loc']);
+		$m_mun=clean_var($_REQUEST['m_mun']);
+		$c_c_t=clean_var($_REQUEST['c_c_t']);
+		$u_bic=clean_var($_REQUEST['u_bic']);
+		$d_sin=clean_var($_REQUEST['d_sin']);
+		$r_rrg=clean_var($_REQUEST['r_rrg']);
+		$c_psp=clean_var($_REQUEST['c_psp']);
 
 		//$correo=$_REQUEST['correo'];
 		//$celular=$_REQUEST['celular'];
@@ -134,7 +140,14 @@ class Escritorio extends Sagyc{
 	public function guardar_acceso(){			/////////////////////////////////////PARA CAMBIOS DE ACCESO
 		$x="";
 		$arreglo =array();
-		$idfolio=$_REQUEST['id'];
+		$idfolio=clean_var($_REQUEST['id']);
+		if(strlen($idfolio)==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
+
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":idfolio",$idfolio);
@@ -142,8 +155,8 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		$cambios="";
-		$correo=$_REQUEST['correo'];
-		$celular=$_REQUEST['celular'];
+		$correo=clean_var($_REQUEST['correo']);
+		$celular=clean_var($_REQUEST['celular']);
 		if($row['correo']!=$correo){
 			$cambios.=" d_dom:".trim($correo);
 		}
@@ -157,8 +170,8 @@ class Escritorio extends Sagyc{
 			$arreglo+=array('tipo'=>"CORREO");
 			$arreglo+=array('fcorreo_sol'=>$fecha);
 			$arreglo+=array('up_correo'=>1);
-			$arreglo+=array('correo'=>trim($_REQUEST['correo']));
-			$arreglo+=array('celular'=>trim($_REQUEST['celular']));
+			$arreglo+=array('correo'=>clean_var($_REQUEST['correo']));
+			$arreglo+=array('celular'=>clean_var($_REQUEST['celular']));
 
 			$arreglo+=array('idfolio'=>$row['idfolio']);
 			$arreglo+=array('filiacion'=>$row['Filiacion']);
@@ -202,7 +215,14 @@ class Escritorio extends Sagyc{
 	public function guardar_pass(){				/////////////////////////////////////PARA CAMBIOS DE CONTRASEÑA
 		$x="";
 		$arreglo =array();
-		$idfolio=$_REQUEST['id'];
+		$idfolio=clean_var($_REQUEST['id']);
+		if(strlen($idfolio)==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
+
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":idfolio",$idfolio);
@@ -210,7 +230,7 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		if(trim($_REQUEST['pass1'])==trim($_REQUEST['pass2'])){
-			$arreglo+=array('password'=>trim($_REQUEST['pass1']));
+			$arreglo+=array('password'=>trim(clean_var($_REQUEST['pass1'])));
 
 			$fecha=date("Y-m-d H:i:s");
 			$arreglo+=array('tipo'=>"PASSWORD");

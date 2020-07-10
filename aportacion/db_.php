@@ -10,6 +10,13 @@ class Escritorio extends Sagyc{
 		parent::__construct();
 	}
 	public function guardar_aportacion(){			/////////////////////////////////////PARA CAMBIOS DE APORTACIONES
+		if(strlen($_SESSION['idfolio'])==0){
+			$arr=array();
+			$arr+=array('error'=>1);
+			$arr+=array('terror'=>"Error de sesión, favor de verificar o reingresar");
+			return json_encode($arr);
+		}
+		
 		$sql="select * from afiliados where idfolio=:idfolio";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":idfolio",$_SESSION['idfolio']);
@@ -17,7 +24,7 @@ class Escritorio extends Sagyc{
 		$row=$sth->fetch();
 
 		$cambios="";
-		$a_qui=$_REQUEST['a_qui'];
+		$a_qui=clean_var($_REQUEST['a_qui']);
 		if($a_qui<100){
 			return "la aportación no puede ser menor de 100";
 		}

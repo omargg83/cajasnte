@@ -16,15 +16,15 @@ class Escritorio extends Sagyc{
 		$max=0;
 
 		try{
-			$desde=$_REQUEST['desde'];
-			$hora=$_REQUEST['hora'];
-			$tipo=$_REQUEST['tipo'];
+			$desde=clean_var($_REQUEST['desde']);
+			$hora=clean_var($_REQUEST['hora']);
+			$tipo=clean_var($_REQUEST['tipo']);
 			///////////retiro=1
 			///////////credito=2
 
 			////////////////////////////para asignar automaticamente
 			if($hora=="asignar"){
-				$fec=explode("-",$_REQUEST['desde']);
+				$fec=explode("-",clean_var($_REQUEST['desde']));
 				$x="";
 				$query="select count(fecha) as numero, fecha, TIME(fecha) as hora from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
 				$sth = $this->dbh->prepare($query);
@@ -175,8 +175,8 @@ class Escritorio extends Sagyc{
 	}
 	public function confirmar(){
 		try{
-			$cita=$_REQUEST['cita'];
-			$observaciones=$_REQUEST['observaciones'];
+			$cita=clean_var($_REQUEST['cita']);
+			$observaciones=clean_var($_REQUEST['observaciones']);
 			$actual=date('Y-m-d H:i:s');
 			$arreglo=array();
 			$arreglo+=array('idfolio'=>$_SESSION['idfolio']);
@@ -261,7 +261,7 @@ class Escritorio extends Sagyc{
 		}
 	}
 	public function cancelar_cita(){
-		$cita=$_REQUEST['cita'];
+		$cita=clean_var($_REQUEST['cita']);
 		$arreglo=array();
 		$arreglo+=array('apartado'=>3);
 		$arreglo+=array('realizada'=>2);
@@ -269,7 +269,7 @@ class Escritorio extends Sagyc{
 		return $x;
 	}
 	public function pre_cancela(){
-		$cita=$_REQUEST['cita'];
+		$cita=clean_var($_REQUEST['cita']);
 		$x=$this->borrar('citas',"id",$cita);
 		return $x;
 	}
