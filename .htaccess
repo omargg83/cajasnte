@@ -2,6 +2,8 @@ RewriteEngine On
 # RewriteBase /
 Options All -Indexes
 
+  ErrorDocument 404 /
+
   RewriteCond %{HTTP_HOST} !=localhost
   RewriteCond %{HTTP_HOST} !=127.0.0.1
   RewriteCond %{REMOTE_ADDR} !=127.0.0.1
