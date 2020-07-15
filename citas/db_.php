@@ -21,12 +21,11 @@ class Escritorio extends Sagyc{
 			$tipo=clean_var($_REQUEST['tipo']);
 			///////////retiro=1
 			///////////credito=2
-
 			////////////////////////////para asignar automaticamente
 			if($hora=="asignar"){
 				$fec=explode("-",clean_var($_REQUEST['desde']));
 				$x="";
-				$query="select count(fecha) as numero, fecha, TIME(fecha) as hora from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo=1 and realizada=0 group by fecha order by fecha asc";
+				$query="select count(fecha) as numero, fecha, TIME(fecha) as hora from citas where year(fecha)=".$fec[2]." and month(fecha)=".$fec[1]." and day(fecha)=".$fec[0]." and tipo='$tipo' and apartado=2 group by fecha order by fecha asc";
 				$sth = $this->dbh->prepare($query);
 				$sth->execute();
 				$resp=$sth->fetchAll();
@@ -53,6 +52,7 @@ class Escritorio extends Sagyc{
 						}
 					}
 				}
+
 				if($tipo==2){	//////////////credito
 					for($i=9; $i<=16 and $sale==1; $i++){
 						for($j=0; $j<=55 and $sale==1; $j=$j+10){
@@ -75,6 +75,9 @@ class Escritorio extends Sagyc{
 					return json_encode($arreglo);
 				}
 			}
+			else{
+				$hora.=":00";
+			}
 			///////////////////////////hasta aqui
 
 			$verifica = date("Y-m-d", strtotime($desde));
@@ -96,7 +99,7 @@ class Escritorio extends Sagyc{
 			////////////////hasta aqui
 
 			$actual=date('Y-m-d H:i:s');
-			$fechax = date("Y-m-d", strtotime($desde))." $hora:00";
+			$fechax = date("Y-m-d", strtotime($desde))." $hora";
 			$limite=new DateTime();
 			$limite->modify("+6 minute");
 
@@ -145,7 +148,7 @@ class Escritorio extends Sagyc{
 							$t.= "</div>";
 							$t.= "<div class='col-3'>";
 									$t.= "<label>Hora</label>";
-									$t.= "<input class='form-control' type='text' id='hora' name='hora' value='$hora:00' readonly>";
+									$t.= "<input class='form-control' type='text' id='hora' name='hora' value='$hora' readonly>";
 							$t.= "</div>";
 							$t.= "<div class='col-12'>";
 									$t.= "<label>Observaciones</label>";
@@ -154,7 +157,7 @@ class Escritorio extends Sagyc{
 						$t.= "</div>";
 						$t.="<div class='row'>";
 							$t.= "<div class='col-12'>";
-								$x.="<div class='btn-group'>";
+								$t.="<div class='btn-group'>";
 									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='confirmar_cita()'><i class='far fa-calendar-check'></i>Confirmar cita</button>";
 									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_previo()'><i class='far fa-trash-alt'></i>Cancelar</button>";
 								$t.="</div>";

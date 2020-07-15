@@ -1,15 +1,13 @@
 <?php
 	require_once("db_.php");
-
   $row=$db->afiliado();
   $folio=$row['idfolio'];
   $filiacion=$row['Filiacion'];
   $ape_pat=$row['ape_pat'];
   $ape_mat=$row['ape_mat'];
   $nombre=$row['nombre'];
-
-  echo "<div id='reloj' style='
-        display:none;
+?>
+  <div id='reloj' style='display:none;
         position:absolute;
         float:right;
         top:100;
@@ -23,51 +21,52 @@
         box-shadow: 10px 2px 5px #999;
         -webkit-box-shadow: 10px 2px 5px #999;
         -moz-box-shadow: 10px 2px 5px #999;
-        filter: shadow(color=#999999, direction=135, strength=2);'>";
-  echo "</div>";
+        filter: shadow(color=#999999, direction=135, strength=2);'>
+  </div>
 
-  echo "<div class='container'>";
-  	echo "<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos' data-destino='afiliado/datos'>";
-  	  echo "<input class='form-control' type='hidden' id='id' NAME='id' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
-    echo "<div class='card'>";
-  		echo "<div class='card-header'>";
-  			echo "<img src='img/caja.png' width='20' alt='logo'> - ";
-  			echo "Programar cita";
-  		echo "</div>";
-      echo "<div class='card-body'>";
-        echo "<div class='row'>";
-          echo "<div class='col-xl-2 col-lg-2 col-md-2 col-sm-3'>";
-            echo "<div class='form-group'>";
-              echo "<label for='idfolio'>Socio</label>";
-              echo "<input class='form-control' type='text' id='idfolio' NAME='idfolio' value='".$row['idfolio']."' placeholder='No. Empleado' readonly>";
-            echo "</div>";
-          echo "</div>";
+  <div class='container'>
+  	<form id='form_comision' action='' data-lugar='control_db' data-funcion='guardar_datos' data-destino='afiliado/datos'>
+  	  <input class='form-control' type='hidden' id='id' NAME='id' value='<?php echo $row['idfolio']; ?>' placeholder='No. Empleado' readonly>
+    	<div class='card'>
+	  		<div class='card-header'>
+	  			<img src='img/caja.png' width='20' alt='logo'> -
+	  			Programar cita
+	  		</div>
+	      <div class='card-body'>
+	        <div class='row'>
+	          <div class='col-xl-2 col-lg-2 col-md-2 col-sm-2'>
+	            <div class='form-group'>
+	              <label for='idfolio'>Socio</label>
+	              <input class='form-control form-control-sm' type='text' id='idfolio' NAME='idfolio' value='<?php echo $row['idfolio']; ?>' placeholder='No. Empleado' readonly>
+	            </div>
+	          </div>
 
-          echo "<div class='col-xl-3 col-lg-4 col-md-4 col-sm-4'>";
+          <div class='col-xl-3 col-lg-3 col-md-3 col-sm-3'>
+            <div class='form-group'>
+              <label for='Filiacion'>Filiación</label>
+              <input class='form-control form-control-sm' type='text' id='Filiacion' NAME='Filiacion' value='<?php echo $filiacion; ?>' placeholder='Filiacion' readonly>
+            </div>
+          </div>
+
+					<?php
+          echo "<div class='col-xl-2 col-lg-4 col-md-4 col-sm-4'>";
             echo "<div class='form-group'>";
-              echo "<label for='Filiacion'>Filiación</label>";
-              echo "<input class='form-control' type='text' id='Filiacion' NAME='Filiacion' value='$filiacion' placeholder='Filiacion' readonly>";
+              echo "<label for='ape_pat'>A. Paterno</label>";
+              echo "<input class='form-control form-control-sm' type='text' id='ape_pat' NAME='ape_pat' value='$ape_pat' placeholder='APELLIDO PATERNO' readonly>";
             echo "</div>";
           echo "</div>";
 
           echo "<div class='col-xl-2 col-lg-4 col-md-4 col-sm-4'>";
             echo "<div class='form-group'>";
-              echo "<label for='ape_pat'>A. PATERNO</label>";
-              echo "<input class='form-control' type='text' id='ape_pat' NAME='ape_pat' value='$ape_pat' placeholder='APELLIDO PATERNO' readonly>";
-            echo "</div>";
-          echo "</div>";
-
-          echo "<div class='col-xl-2 col-lg-4 col-md-4 col-sm-4'>";
-            echo "<div class='form-group'>";
-              echo "<label for='ape_mat'>A. MATERNO</label>";
-              echo "<input class='form-control' type='text' id='ape_mat' NAME='ape_mat' value='$ape_mat' placeholder='APELLIDO MATERNO' readonly>";
+              echo "<label for='ape_mat'>A. Materno</label>";
+              echo "<input class='form-control form-control-sm' type='text' id='ape_mat' NAME='ape_mat' value='$ape_mat' placeholder='APELLIDO MATERNO' readonly>";
             echo "</div>";
           echo "</div>";
 
           echo "<div class='col-xl-3 col-lg-4 col-md-4 col-sm-4'>";
             echo "<div class='form-group'>";
-              echo "<label for='nombre'>NOMBRE (S)</label>";
-              echo "<input class='form-control' type='text' id='nombre' NAME='nombre' value='$nombre' placeholder='NOMBRE (S)' readonly>";
+              echo "<label for='nombre'>Nombre (s):</label>";
+              echo "<input class='form-control form-control-sm' type='text' id='nombre' NAME='nombre' value='$nombre' placeholder='NOMBRE (S)' readonly>";
             echo "</div>";
           echo "</div>";
         echo "</div>";
@@ -124,7 +123,7 @@ function retiro_p(){
   $.ajax({
     url: "citas/retiro.php",
     type: "POST",
-    timeout:1000,
+    timeout:10000,
     beforeSend: function () {
       $("#cargando").addClass("is-active");
     },
@@ -133,7 +132,13 @@ function retiro_p(){
       $("#reloj").hide();
       $('#checar').html(response);
       $("#cargando").removeClass("is-active");
-    }
+    },
+		error: function(jqXHR, textStatus, errorThrown) {
+			if(textStatus==="timeout") {
+				$("#cargando").removeClass("is-active");
+				$("#checar").html("<div class='container' style='background-color:white; width:300px'><center><img src='img/giphy.gif' width='300px'></center></div><br><center><div class='alert alert-danger' role='alert'>Ocurrio un error intente de nuevo en unos minutos, vuelva a entrar o presione ctrl + F5, para reintentar</div></center> ");
+			}
+		}
   });
 }
 function credito_p(){
@@ -240,7 +245,6 @@ function verificar(tipo){
           url:   'citas/db_.php',
           type:  'post',
           success:  function (response) {
-						console.log(response);
             clearInterval(timerUpdate);
             var datos = JSON.parse(response);
             if (datos.activo==1){
@@ -353,6 +357,7 @@ function cancela_previo(cita){
 
 					},
 					success:function(response){
+						console.log(response);
 						if(response==1){
 							clearInterval(timerUpdate);
 							$("#reloj").hide();

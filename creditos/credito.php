@@ -20,21 +20,20 @@
 		echo "</div>";
 		echo "<div class='card-body'>";
 			echo "<div class='row'>";
-				echo  "<div class='col-sm-4'>";
-					echo "Seleccione un crédito";
+				echo  "<div class='col-sm-3'>";
+					echo "Seleccione un crédito:";
 				echo "</div>";
-				echo  "<div class='col-sm-8'>";
-					echo "<select class='form-control' name='clv_cred' id='clv_cred' class='form-control' onchange='clv_cred()'>";
+				echo  "<div class='col-sm-9'>";
+					echo "<select class='form-control form-control-sm' name='clv_cred' id='clv_cred' class='form-control' onchange='clv_cred()'>";
 					echo "<option value='' disabled selected style='color: silver;'>Seleccione un credito</option>";
 					foreach($resp as $key){
-					echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".$key['fecha']." : ".number_format($key['monto'],2)."</option>";
+					echo  "<option value='".$key['clv_cred']."'>#".$key['clv_cred']." ".fecha($key['fecha'])." : $".number_format($key['monto'],2)."</option>";
 					}
 					echo  "</select>";
 				echo "</div>";
 			echo "</div>";
 		echo "</div>";
-
-		echo "<div class='card-footer'>";
+		echo "<div class='card-body'>";
 			echo "<div class='btn-group'>";
 				echo "<button class='btn btn-warning btn-sm' type='button' onclick='clv_cred()'><i class='fas fa-sync-alt'></i>Consultar</a>";
 				echo "<button class='btn btn-warning btn-sm' id='imprime_comision' title='Imprimir' data-lugar='creditos/imprimir' data-tipo='1' type='button'><i class='fas fa-print'></i>Imprimir</button>";

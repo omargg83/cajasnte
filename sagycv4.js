@@ -884,6 +884,7 @@
 						      $("#cargando").addClass("is-active");
 						    },
 						    success:function(response){
+									console.log("timeout"+response);
 						      $('#checar').html(response);
 						      $("#cargando").removeClass("is-active");
 						    }
@@ -898,6 +899,7 @@
 						      $("#cargando").addClass("is-active");
 						    },
 						    success:function(response){
+									console.log("timeout"+response);
 						      $('#checar').html(response);
 						      $("#cargando").removeClass("is-active");
 						    }
