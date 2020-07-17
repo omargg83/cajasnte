@@ -263,7 +263,7 @@ function verificar(tipo){
             else{
               Swal.fire({
   								type: 'error',
-  								title: "No disponible, seleccionar otro horario",
+  								title: datos.texto,
   								showConfirmButton: false,
   								timer: 3000
   						});

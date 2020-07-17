@@ -30,41 +30,50 @@
 		}
 	//////////////////////////////////////////hasta aqui el bloqueo
 
-  $fecha=date("d-m-Y");
-  $nuevafecha = strtotime ( '+10 day' , strtotime ( $fecha ) ) ;
-  $fecha1 = date ( "d-m-Y" , $nuevafecha );
+  $fecha=date("Y-m-d");
+  $nuevafecha = strtotime ( '+9 day' , strtotime ( $fecha ) ) ;
+  $fecha1 = date("Y-m-d", $nuevafecha );
 
-echo "<div class='card'>";
-  echo "<div class='card-header'>";
-    echo "Citas para retiro";
-  echo "</div>";
-  echo "<div class='card-body'>";
-    echo "<div class='row'>";
-      echo "<div class='col-3'>";
-          echo "<label>Seleccione el dia a partir del 27 de julio del 2020</label>";
-			echo "</div>";
-			echo "<div class='col-2'>";
-          echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
-      echo "</div>";
-			echo "<div class='col-3'>";
-        echo "<select class='form-control' name='hora' id='hora'>";
-					echo  "<option value='asignar'>Búsqueda automática</option>";
-					for($i=9; $i<=16; $i++){
-						echo "<optgroup label='$i'>";
-						for($j=0; $j<=55; $j=$j+5){
-							$t=str_pad($j,2,"0",STR_PAD_LEFT);
-							echo  "<option value='$i:$t'>$i:$t</option>";
+	$dia_semana=date("w", strtotime($fecha1));
+	if($dia_semana==0){			//////////////si es domingo pasalo al lunes
+		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha1 ) ) ;
+	}
+	if($dia_semana==6){			/////////////si es sabado pasalo al lunes
+		$nuevafecha = strtotime ( '+2 day' , strtotime ( $fecha1 ) ) ;
+	}
+	$fecha1 = date ( "d-m-Y" , $nuevafecha );
+
+	echo "<div class='card'>";
+	  echo "<div class='card-header'>";
+	    echo "Citas para retiro";
+	  echo "</div>";
+	  echo "<div class='card-body'>";
+	    echo "<div class='row'>";
+	      echo "<div class='col-3'>";
+	          echo "<label>Seleccione el dia a partir del 27 de julio del 2020</label>";
+				echo "</div>";
+				echo "<div class='col-2'>";
+	          echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
+	      echo "</div>";
+				echo "<div class='col-3'>";
+	        echo "<select class='form-control' name='hora' id='hora'>";
+						echo  "<option value='asignar'>Búsqueda automática</option>";
+						for($i=9; $i<=16; $i++){
+							echo "<optgroup label='$i'>";
+							for($j=0; $j<=55; $j=$j+5){
+								$t=str_pad($j,2,"0",STR_PAD_LEFT);
+								echo  "<option value='$i:$t'>$i:$t</option>";
+							}
+							echo "</optgroup>";
 						}
-						echo "</optgroup>";
-					}
-        echo  "</select>";
-      echo "</div>";
-      echo "<div class='col-3'>";
-        echo "<button class='btn btn-warning btn-sm' id='data' type='button' onclick='verificar(1)'><i class='far fa-calendar-check'></i>Comprobar disponibilidad</button>";
-      echo "</div>";
-    echo "</div>";
-  echo "</div>";
-echo "</div>";
+	        echo  "</select>";
+	      echo "</div>";
+	      echo "<div class='col-3'>";
+	        echo "<button class='btn btn-warning btn-sm' id='data' type='button' onclick='verificar(1)'><i class='far fa-calendar-check'></i>Comprobar disponibilidad</button>";
+	      echo "</div>";
+	    echo "</div>";
+	  echo "</div>";
+	echo "</div>";
 ?>
 
  <script>

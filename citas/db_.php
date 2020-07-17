@@ -19,6 +19,16 @@ class Escritorio extends Sagyc{
 			$desde=clean_var($_REQUEST['desde']);
 			$hora=clean_var($_REQUEST['hora']);
 			$tipo=clean_var($_REQUEST['tipo']);
+
+			$dia_semana=date("w", strtotime($desde));
+
+			////////////para bloquear sabados y domingos
+			if($dia_semana==0 or $dia_semana==6){
+				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo,'texto'=>"No hay horarios de atención sabados y domingos");
+				return json_encode($arreglo);
+			}
+			//////////termina bloqueo
+
 			///////////retiro=1
 			///////////credito=2
 			////////////////////////////para asignar automaticamente
@@ -52,7 +62,6 @@ class Escritorio extends Sagyc{
 						}
 					}
 				}
-
 				if($tipo==2){	//////////////credito
 					for($i=9; $i<=16 and $sale==1; $i++){
 						for($j=0; $j<=55 and $sale==1; $j=$j+10){
@@ -71,7 +80,7 @@ class Escritorio extends Sagyc{
 					}
 				}
 				if($sale==1){
-					$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+					$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo,'texto'=>"No hay disponibilidad para el dia seleccionado");
 					return json_encode($arreglo);
 				}
 			}
@@ -93,7 +102,7 @@ class Escritorio extends Sagyc{
 			$sth = $this->dbh->prepare($bloq);
 			$sth->execute();
 			if($sth->rowCount()>0){
-				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo,'texto'=>"No hay disponibilidad para el horario seleccionado");
 				return json_encode($arreglo);
 			}
 			////////////////hasta aqui
@@ -168,7 +177,7 @@ class Escritorio extends Sagyc{
 				$arreglo=array('activo'=>1, 'dato'=>$x, 'tipo'=>$tipo, 'texto'=>$t);
 			}
 			else{
-				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo);
+				$arreglo=array('activo'=>0, 'dato'=>"0", 'tipo'=>$tipo,'texto'=>"No hay disponibilidad para el horario seleccionado");
 			}
 			return json_encode($arreglo);
 		}

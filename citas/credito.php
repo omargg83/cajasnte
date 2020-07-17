@@ -30,9 +30,18 @@
 		}
 	//////////////////////////////////////////hasta aqui el bloqueo
 
-  $fecha=date("d-m-Y");
-  $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
-  $fecha1 = date ( "d-m-Y" , $nuevafecha );
+	$fecha=date("Y-m-d");
+	$nuevafecha = strtotime ( '+10 day' , strtotime ( $fecha ) ) ;
+	$fecha1 = date("Y-m-d", $nuevafecha );
+
+	$dia_semana=date("w", strtotime($fecha1));
+	if($dia_semana==0){			//////////////si es domingo pasalo al lunes
+		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha1 ) ) ;
+	}
+	if($dia_semana==6){			/////////////si es sabado pasalo al lunes
+		$nuevafecha = strtotime ( '+2 day' , strtotime ( $fecha1 ) ) ;
+	}
+	$fecha1 = date ( "d-m-Y" , $nuevafecha );
 
 echo "<div class='card'>";
   echo "<div class='card-header'>";
