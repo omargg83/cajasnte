@@ -96,7 +96,7 @@
 				echo "<tr>";
 				echo "<th><center>Año</center></th>";
 				echo "<th><center>Quincena</center></th>";
-				echo "<th><center>Retiro</center></th>";
+				echo "<th><center>Saldo</center></th>";
 				echo "<th><center>Monto</center></th>";
 				echo "</tr>";
 				echo "</thead><tbody>";
@@ -122,8 +122,8 @@
 
 						if ($key['monto']>0){
 							echo "<td>";
-							echo "</td>";
-							echo "<td style='text-align: right;'>";
+							echo "</left></td>";
+							echo "<td style='text-align: center;'>";
 							echo number_format($key['monto'],2);
 							echo "</td>";
 						}
