@@ -167,7 +167,7 @@ class Escritorio extends Sagyc{
 						$t.="<div class='row'>";
 							$t.= "<div class='col-12'>";
 								$t.="<div class='btn-group'>";
-									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='confirmar_cita()'><i class='far fa-calendar-check'></i>Confirmar cita</button>";
+									$t.= "<button class='btn btn-danger btn-sm' type='button' onclick='confirmar_cita()'><i class='far fa-calendar-check'></i>Confirmar cita</button>";
 									$t.= "<button class='btn btn-warning btn-sm' type='button' onclick='cancela_previo()'><i class='far fa-trash-alt'></i>Cancelar</button>";
 								$t.="</div>";
 							$t.="</div>";

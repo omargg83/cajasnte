@@ -116,12 +116,12 @@
 <form id='acceso' action=''>
     <div class='container'>
         <center><img src='img/caja.png' width='150px'></center>
-        <p class='input_title'>Usuario o correo:</p>
+        <p class='input_title'>Rfc:</p>
         <div class='form-group input-group'>
           <div class='input-group-prepend'>
             <span class='input-group-text'> <i class='fas fa-user-circle'></i> </span>
           </div>
-          <input class='form-control' placeholder='Introduzca usuario o correo' type='text'  id='<?php echo $a;?>' name='<?php echo $a;?>' required autocomplete="off">
+          <input class='form-control' placeholder='Introduzca Rfc' type='text'  id='<?php echo $a;?>' name='<?php echo $a;?>' required autocomplete="off">
         </div>
         <p class='input_title'>Contraseña:</p>
         <div class='form-group input-group'>
