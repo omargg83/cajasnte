@@ -75,7 +75,7 @@ echo "<div class='container' id='div_trabajo'>";
         echo "<div class='col-12'>";
           echo "<div class='form-group'>";
             echo "<label for='d_dom'>Domicilio</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='d_dom' NAME='d_dom' value='".$row['d_dom']."' placeholder='Dirección'>";
+            echo "<input class='form-control form-control-sm' type='text' id='d_dom' NAME='d_dom' value='".$row['d_dom']."' placeholder='Dirección' maxlength='200'>";
           echo "</div>";
         echo "</div>";
 
@@ -107,21 +107,21 @@ echo "<div class='container' id='div_trabajo'>";
 				echo "<div class='col-8'>";
           echo "<div class='form-group'>";
             echo "<label for='n_con'>Nombre del conyugue</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue'>";
+            echo "<input class='form-control form-control-sm' type='text' id='n_con' NAME='n_con' value='".$row['n_con']."' placeholder='Conyugue' maxlength='100'>";
           echo "</div>";
         echo "</div>";
 
 				echo "<div class='col-4'>";
           echo "<div class='form-group'>";
             echo "<label for='l_loc'>Localidad</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Localidad'>";
+            echo "<input class='form-control form-control-sm' type='text' id='l_loc' NAME='l_loc' value='".$row['l_loc']."' placeholder='Localidad' maxlength='80'>";
           echo "</div>";
         echo "</div>";
 
 				echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4'>";
           echo "<div class='form-group'>";
             echo "<label for='m_mun'>Municipio</label>";
-            echo "<input class='form-control form-control-sm' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Municipio'>";
+            echo "<input class='form-control form-control-sm' type='text' id='m_mun' NAME='m_mun' value='".$row['m_mun']."' placeholder='Municipio' maxlength='80'>";
           echo "</div>";
         echo "</div>";
 
@@ -130,7 +130,7 @@ echo "<div class='container' id='div_trabajo'>";
           echo "<div class='form-group'>";
             echo "<label for='c_c_t'>Clave Centro de Trabajo</label>";
 							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema1' data-id='0' data-lugar='ayuda/tema1' title='Ubicación Clave Centro de Trabajo' ><i class='far fa-question-circle'></i> </button>";
-            echo "<input class='form-control form-control-sm' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Clave Centro de Trabajo'>";
+            echo "<input class='form-control form-control-sm' type='text' id='c_c_t' NAME='c_c_t' value='".$row['c_c_t']."' placeholder='Clave Centro de Trabajo' maxlength='100'>";
 
           echo "</div>";
         echo "</div>";
@@ -138,21 +138,21 @@ echo "<div class='container' id='div_trabajo'>";
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
 						echo "<label for='u_bic'>Ubicación</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Ubicación'>";
+						echo "<input class='form-control form-control-sm' type='text' id='u_bic' NAME='u_bic' value='".$row['u_bic']."' placeholder='Ubicación' maxlength='150'>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
 						echo "<label for='d_sin'>Delegación / CT</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Delegación'>";
+						echo "<input class='form-control form-control-sm' type='text' id='d_sin' NAME='d_sin' value='".$row['d_sin']."' placeholder='Delegación' maxlength='150'>";
 					echo "</div>";
 				echo "</div>";
 
 				echo "<div class='col-3'>";
 					echo "<div class='form-group'>";
 						echo "<label for='r_rrg'>Región</label>";
-						echo "<input class='form-control form-control-sm' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Región'>";
+						echo "<input class='form-control form-control-sm' type='text' id='r_rrg' NAME='r_rrg' value='".$row['r_rrg']."' placeholder='Región' maxlength='40'>";
 					echo "</div>";
 				echo "</div>";
 
@@ -160,7 +160,7 @@ echo "<div class='container' id='div_trabajo'>";
 					echo "<div class='form-group'>";
 						echo "<label for='c_psp'>Clave Presupuestal</label>";
 							echo "<button type='button' class='btn btn-outline-secondary btn-sm' id='winmodal_tema2' data-id='0' data-lugar='ayuda/tema2' title='Ubicación Clave Presupuestal' ><i class='far fa-question-circle'></i> </button>";
-						echo "<input class='form-control form-control-sm' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal'>";
+						echo "<input class='form-control form-control-sm' type='text' id='c_psp' NAME='c_psp' value='".$row['c_psp']."' placeholder='Clave Presupuestal' maxlength='150'>";
 					echo "</div>";
 				echo "</div>";
       echo "</div>";

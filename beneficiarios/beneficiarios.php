@@ -88,7 +88,7 @@
             echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-3'>";
               echo "<div class='form-group'>";
                 echo "<label for='parentesco1'>Parentesco</label>";
-                echo "<input class='form-control' type='text' id='parentesco1' NAME='parentesco1' value='$parentesco1'  >";
+                echo "<input class='form-control' type='text' id='parentesco1' NAME='parentesco1' value='$parentesco1' maxlength='25' >";
               echo "</div>";
             echo "</div>";
 
@@ -112,7 +112,7 @@
           echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-3'>";
             echo "<div class='form-group'>";
               echo "<label for='parentesco2'>Parentesco</label>";
-              echo "<input class='form-control' type='text' id='parentesco2' NAME='parentesco2' value='$parentesco2'  >";
+              echo "<input class='form-control' type='text' id='parentesco2' NAME='parentesco2' value='$parentesco2'  maxlength='25'>";
             echo "</div>";
           echo "</div>";
 
@@ -136,7 +136,7 @@
           echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-3'>";
             echo "<div class='form-group'>";
               echo "<label for='parentesco3'>Parentesco</label>";
-              echo "<input class='form-control' type='text' id='parentesco3' NAME='parentesco3' value='$parentesco3'  >";
+              echo "<input class='form-control' type='text' id='parentesco3' NAME='parentesco3' value='$parentesco3' maxlength='25' >";
             echo "</div>";
           echo "</div>";
 
@@ -160,7 +160,7 @@
           echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-3'>";
             echo "<div class='form-group'>";
               echo "<label for='parentesco4'>Parentesco</label>";
-              echo "<input class='form-control' type='text' id='parentesco4' NAME='parentesco4' value='$parentesco4'  >";
+              echo "<input class='form-control' type='text' id='parentesco4' NAME='parentesco4' value='$parentesco4' maxlength='25' >";
             echo "</div>";
           echo "</div>";
 

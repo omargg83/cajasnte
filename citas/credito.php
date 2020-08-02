@@ -50,7 +50,7 @@ echo "<div class='card'>";
   echo "<div class='card-body'>";
     echo "<div class='row'>";
       echo "<div class='col-3'>";
-          echo "<label>Por favor Seleccione el Dia</label>";
+          echo "<label>Por favor Seleccione el dia</label>";
 			echo "</div>";
 			echo "<div class='col-2'>";
           echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";

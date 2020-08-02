@@ -62,14 +62,14 @@
 					echo "<div class='col-6'>";
 						echo "<div class='form-group'>";
 							echo "<label for='correo'>Correo</label>";
-							echo "<input class='form-control form-control-sm' type='text' id='correo' NAME='correo' value='".$row['correo']."' placeholder='Correo o email'>";
+							echo "<input class='form-control form-control-sm' type='text' id='correo' NAME='correo' value='".$row['correo']."' placeholder='Correo o email' maxlength='95'>";
 						echo "</div>";
 					echo "</div>";
 
 					echo "<div class='col-6'>";
 						echo "<div class='form-group'>";
 							echo "<label for='celular'>Telefono Celular</label>";
-							echo "<input class='form-control form-control-sm' type='text' id='celular' NAME='celular' value='".$row['celular']."' placeholder='Celular'>";
+							echo "<input class='form-control form-control-sm' type='text' id='celular' NAME='celular' value='".$row['celular']."' placeholder='Celular' maxlength='20'>";
 						echo "</div>";
 					echo "</div>";
 				echo "</div>";
