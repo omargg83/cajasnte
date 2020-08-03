@@ -50,7 +50,7 @@
 	  echo "<div class='card-body'>";
 	    echo "<div class='row'>";
 	      echo "<div class='col-3'>";
-	          echo "<label>Por favor Seleccione el dia</label>";
+	          echo "<label>Por favor Seleccione un dia activo a partir del 12 de Agosto</label>";
 				echo "</div>";
 				echo "<div class='col-2'>";
 	          echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
@@ -111,7 +111,7 @@
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+5M",
+			maxDate: "+4M",
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',

@@ -31,7 +31,7 @@
 	//////////////////////////////////////////hasta aqui el bloqueo
 
 	$fecha=date("Y-m-d");
-	$nuevafecha = strtotime ( '+10 day' , strtotime ( $fecha ) ) ;
+	$nuevafecha = strtotime ( '+13 day' , strtotime ( $fecha ) ) ;
 	$fecha1 = date("Y-m-d", $nuevafecha );
 
 	$dia_semana=date("w", strtotime($fecha1));
@@ -45,12 +45,12 @@
 
 echo "<div class='card'>";
   echo "<div class='card-header'>";
-    echo "Citas para credito";
+    echo "Citas para crédito";
   echo "</div>";
   echo "<div class='card-body'>";
     echo "<div class='row'>";
       echo "<div class='col-3'>";
-          echo "<label>Por favor Seleccione el dia</label>";
+          echo "<label>Por favor Seleccione un dia activo del calendario a partir del 17 de Agosto</label>";
 			echo "</div>";
 			echo "<div class='col-2'>";
           echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
@@ -111,7 +111,7 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+6M", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+4M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',
