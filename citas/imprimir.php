@@ -47,8 +47,8 @@
 		$pdf->addText(40,540,12,"*********** IMPORTANTE, NO OLVIDES TRAER LOS SIGUIENTES DOCUMENTOS **************",590,'left');
 
 		if ($resp->tipo==2){
-			$pdf->addText(40,500,12,"Favor de presentarse 5 min. antes de su cita con último comprobante de pago a la fecha de su cita",590,'left');
-			$pdf->addText(40,480,12,"Original y copia de identificación.",590,'left');
+			$pdf->addText(40,500,12,"Último comprobante de pago a la fecha de su cita, Original y copia de identificación.",590,'left');
+			$pdf->addText(40,480,12,"Favor de presentarse 5 min. antes de su cita.",590,'left');
 		}
 		else {
 		$pdf->addText(40,500,12,"* Original INE o credencial del SNTE",590,'left');
