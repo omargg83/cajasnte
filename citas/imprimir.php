@@ -35,12 +35,26 @@
 		$pdf->addText(50,620,16,"Filiación: ".$resp->Filiacion,590,'left');
 		$pdf->addText(50,600,16,"Fecha y hora de la cita: ".$resp->fecha,590,'left');
 
-		$pdf->addText(40,560,12,"*********** IMPORTANTE, NO OLVIDES TRAER LOS SIGUIENTES DOCUMENTOS **************",590,'left');
+		if ($resp->tipo==2){
+			$pdf->addText(50,580,16,"Tipo de cita: CITA PARA SOLICITUD DE CREDITO",590,'left');
+		}
 
+		else {
+			$pdf->addText(50,580,16,"Tipo de cita: CITA PARA RETIRO DE AHORRO",590,'left');
+
+		}
+
+		$pdf->addText(40,540,12,"*********** IMPORTANTE, NO OLVIDES TRAER LOS SIGUIENTES DOCUMENTOS **************",590,'left');
+
+		if ($resp->tipo==2){
+			$pdf->addText(40,500,12,"Favor de presentarse 5 min. antes de su cita con último comprobante de pago a la fecha de su cita",590,'left');
+			$pdf->addText(40,480,12,"Original y copia de identificación.",590,'left');
+		}
+		else {
 		$pdf->addText(40,500,12,"* Original INE o credencial del SNTE",590,'left');
-		$pdf->addText(40,480,12,"* En caso de retiro de ahorro traer el formato REQUISITADO de retiro y estado de cta. de retiro",590,'left');
+		$pdf->addText(40,480,12,"* Traer el formato REQUISITADO de retiro y estado de cta. de retiro",590,'left');
 
-
+		}
 
 
 		$pdf->ezStream(array('compress'=>0));
