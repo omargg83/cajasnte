@@ -31,7 +31,7 @@
 	//////////////////////////////////////////hasta aqui el bloqueo
 
   $fecha=date("Y-m-d");
-  $nuevafecha = strtotime ( '+7 day' , strtotime ( $fecha ) ) ;
+  $nuevafecha = strtotime ( '+4 day' , strtotime ( $fecha ) ) ;
   $fecha1 = date("Y-m-d", $nuevafecha );
 
 	$dia_semana=date("w", strtotime($fecha1));
