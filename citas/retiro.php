@@ -31,7 +31,7 @@
 	//////////////////////////////////////////hasta aqui el bloqueo
 
   $fecha=date("Y-m-d");
-  $nuevafecha = strtotime ( '+4 day' , strtotime ( $fecha ) ) ;
+  $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
   $fecha1 = date("Y-m-d", $nuevafecha );
 
 	$dia_semana=date("w", strtotime($fecha1));
@@ -50,7 +50,7 @@
 	  echo "<div class='card-body'>";
 	    echo "<div class='row'>";
 	      echo "<div class='col-3'>";
-	          echo "<label>Por favor Seleccione un dia activo a partir del 12 de Agosto</label>";
+	          echo "<label>Por favor Seleccione un dia activo a partir del 17 de Agosto</label>";
 				echo "</div>";
 				echo "<div class='col-2'>";
 	          echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";

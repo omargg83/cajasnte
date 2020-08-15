@@ -56,11 +56,11 @@
 			echo "<hr>";
 			 ?>
       <div class="form-group input-group">
-        <label class="col-md-4 control-label" for="pass1">Contraseña</label>
+        <label class="col-md-4 control-label" for="pass1">Contraseña (máx. 20 caracteres)</label>
         <div class="input-group-prepend">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
         </div>
-        <input class="form-control" placeholder="Contraseña" type="password" id="pass1" name="pass1" required>
+        <input class="form-control" placeholder="Contraseña" type="password" id="pass1" name="pass1" required maxlength='20'>
       </div>
 
       <div class="form-group input-group">
@@ -68,7 +68,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
         </div>
-        <input class="form-control" placeholder="Repetir Contraseña" type="password"  id="pass2" name="pass2" required>
+        <input class="form-control" placeholder="Repetir Contraseña" type="password"  id="pass2" name="pass2" required maxlength='20'>
       </div>
     </div>
 <?php
