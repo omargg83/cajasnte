@@ -68,7 +68,7 @@
 <div align="center">
 	<div class='row'>
 		<div class='col-12'>
-			<img src='img/tempoxx.jpg' width='30%'>
+			<img src='img/tempo2.jpg' width='100%'>
 		</div>
 	</div>
 </div>
