@@ -53,7 +53,7 @@
 		else {
 		$pdf->addText(40,500,12,"* Original INE o credencial del SNTE",590,'left');
 		$pdf->addText(40,480,12,"* Traer el formato REQUISITADO de retiro y estado de cta. de retiro",590,'left');
-
+		$pdf->addText(40,440,12,"* Recuerda que solo puedes realizar un movimiento por quincena y por periodo.",590,'left');
 		}
 
 
