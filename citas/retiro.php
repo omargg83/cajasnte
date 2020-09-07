@@ -1,12 +1,14 @@
 <?php
 	require_once("db_.php");
 
-	////////////////////////////////////con esto se bloquea por 5 meses las citas
+	////////////////////////////////////con esto se bloquea por 3 meses las citas
 		$fecha=date("Y-m-d H:i:s");
-		$nuevafecha = strtotime ( '+5 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
+		$nuevafecha = strtotime ( '+3 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
 		$fecha1 = date ( "Y-m-d H:i:s" , $nuevafecha );
-
-		$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha between '$fecha' and '$fecha1') and tipo=1 and apartado=2";
+		//la consulta comentada permite hacer una cita de retiro si el profesor ya realizo una cita y la fecha de la cita no esta dentro del rango de la fecha actual y la fecha +3 meses
+		//en otras palabras permite hacer una cita si el profe ya realizo una
+		//$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha between '$fecha' and '$fecha1') and tipo=1 and apartado=2";
+		$sql="select * from citas where idfolio='".$_SESSION['idfolio']."' and (fecha <'$fecha1') and tipo=1 and apartado=2";
 		$sth = $db->dbh->query($sql);
 		$no_citas=$sth->rowCount();
 		$resp=$sth->fetchAll(PDO::FETCH_OBJ);
@@ -111,7 +113,7 @@
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+4M",
+			maxDate: "+3M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',

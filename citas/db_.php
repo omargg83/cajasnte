@@ -262,7 +262,8 @@ class Escritorio extends Sagyc{
 	public function citas_afiliados(){
 		try{
 			$fecha=date('Y-m-d')." 00:00:00";
-			$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) and fecha>='$fecha' order by fecha desc";
+		//	$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) and fecha>='$fecha' order by fecha desc";
+			$sql="select * from citas where idfolio=:idfolio and (apartado=2 or apartado=3) order by fecha desc";
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindValue(":idfolio",$_SESSION['idfolio']);
 			$sth->execute();
