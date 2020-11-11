@@ -63,8 +63,8 @@ class Escritorio extends Sagyc{
 					}
 				}
 				if($tipo==2){	//////////////credito
-					for($i=9; $i<=16 and $sale==1; $i++){
-						for($j=0; $j<=55 and $sale==1; $j=$j+10){
+					for($i=10; $i<=13 and $sale==1; $i++){
+						for($j=0; $j<=45 and $sale==1; $j=$j+10){
 							$h=str_pad($i,2,"0",STR_PAD_LEFT);
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							$hora="$h:$t:00";

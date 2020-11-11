@@ -3,7 +3,7 @@
 
 	////////////////////////////////////con esto se bloquea por 3 meses las citas
 		$fecha=date("Y-m-d H:i:s");
-		$nuevafecha = strtotime ( '+3 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
+		$nuevafecha = strtotime ( '+2 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
 		$fecha1 = date ( "Y-m-d H:i:s" , $nuevafecha );
 
 		//la consulta comentada permite hacer una cita de credito si el profesor ya realizo una cita y la fecha de la cita no esta dentro del rango de la fecha actual y la fecha +3 meses
@@ -60,9 +60,9 @@ echo "<div class='card'>";
       echo "<div class='col-3'>";
         echo "<select class='form-control' name='hora' id='hora'>";
 					echo  "<option value='asignar'>Búsqueda automática</option>";
-					for($i=9; $i<=16; $i++){
+					for($i=10; $i<=13; $i++){
 						echo "<optgroup label='$i'>";
-						for($j=0; $j<=55; $j=$j+10){
+						for($j=0; $j<=45; $j=$j+10){
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							echo  "<option value='$i:$t'>$i:$t</option>";
 						}
@@ -113,7 +113,7 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+2M", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+50D", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',
