@@ -62,7 +62,7 @@ echo "<div class='card'>";
 					echo  "<option value='asignar'>Búsqueda automática</option>";
 					for($i=10; $i<=13; $i++){
 						echo "<optgroup label='$i'>";
-						for($j=0; $j<=45; $j=$j+10){
+						for($j=0; $j<=50; $j=$j+10){
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							echo  "<option value='$i:$t'>$i:$t</option>";
 						}
