@@ -68,7 +68,7 @@
 <div align="center">
 	<div class='row'>
 		<div class='col-12'>
-			<img src='img/avfinnov.jpg' width='45%'>
+			<img src='img/avisodic.jpg' width='50%'>
 		</div>
 	</div>
 </div>
