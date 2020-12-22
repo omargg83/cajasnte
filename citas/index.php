@@ -74,7 +74,7 @@
       echo "<div class='card-footer'>";
         echo "<div class='btn-group'>";
         echo "<button class='btn btn-warning btn-sm' type='button' onclick='citas_listas()'><i class='fas fa-history'></i>Bitacora de citas</button>";
-      echo "<button class='btn btn-warning btn-sm' type='button' onclick='credito_p()'><i class='fas fa-money-check-alt'></i>Generar cita de Crédito</button>";
+    //  echo "<button class='btn btn-warning btn-sm' type='button' onclick='credito_p()'><i class='fas fa-money-check-alt'></i>Generar cita de Crédito</button>";
       //  echo "<button class='btn btn-warning btn-sm' type='button' onclick='retiro_p()'><i class='fas fa-university'></i>Generar cita de Retiro</button>";
         echo "</div>";
       echo "</div>";
