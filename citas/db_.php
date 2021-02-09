@@ -46,7 +46,7 @@ class Escritorio extends Sagyc{
 				}
 				$sale=1;
 				if($tipo==1){	//////////////retiro
-					for($i=9; $i<=16 and $sale==1; $i++){
+					for($i=10; $i<=13 and $sale==1; $i++){
 						for($j=0; $j<=55 and $sale==1; $j=$j+5){
 							$h=str_pad($i,2,"0",STR_PAD_LEFT);
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);

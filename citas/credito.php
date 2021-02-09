@@ -3,7 +3,7 @@
 
 	////////////////////////////////////con esto se bloquea por 3 meses las citas
 		$fecha=date("Y-m-d H:i:s");
-		$nuevafecha = strtotime ( '+0 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
+		$nuevafecha = strtotime ( '+3 month' , strtotime ( date("Y-m-d H:i:s") ) ) ;
 		$fecha1 = date ( "Y-m-d H:i:s" , $nuevafecha );
 
 		//la consulta comentada permite hacer una cita de credito si el profesor ya realizo una cita y la fecha de la cita no esta dentro del rango de la fecha actual y la fecha +3 meses
@@ -113,7 +113,7 @@ echo "</div>";
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+0D", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+3M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',

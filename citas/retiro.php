@@ -52,7 +52,7 @@
 	  echo "<div class='card-body'>";
 	    echo "<div class='row'>";
 	      echo "<div class='col-3'>";
-	          echo "<label>Por el momento no se podran hacer citas en octubre debido a la emergencia registrada en caja de ahorro. Agradecemos su comprensión</label>";
+	          echo "<label>Por favor Seleccione un dia activo</label>";
 				echo "</div>";
 				echo "<div class='col-2'>";
 	          echo "<input class='form-control fechacita' placeholder='Fecha' type='text' id='desde' name='desde' value='$fecha1' autocomplete='off' readonly>";
@@ -60,7 +60,7 @@
 				echo "<div class='col-3'>";
 	        echo "<select class='form-control' name='hora' id='hora'>";
 						echo  "<option value='asignar'>Búsqueda automática</option>";
-						for($i=9; $i<=16; $i++){
+						for($i=10; $i<=13; $i++){
 							echo "<optgroup label='$i'>";
 							for($j=0; $j<=55; $j=$j+5){
 								$t=str_pad($j,2,"0",STR_PAD_LEFT);
@@ -113,7 +113,7 @@
       firstDay: 0,
       isRTL: false,
       minDate: +1,
-			maxDate: "+50D", //aqui muestra el numero de meses maximo a activar en el calendario
+			maxDate: "+3M", //aqui muestra el numero de meses maximo a activar en el calendario
       numberOfMonths: 1,
       showMonthAfterYear: false,
       yearSuffix: '',
