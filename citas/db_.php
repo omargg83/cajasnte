@@ -11,8 +11,8 @@ class Escritorio extends Sagyc{
 	}
 	public function citas(){
 		$arreglo=array();
-		$maxcitas_retiros=3;   /////////////variable para maximo numero de citas
-		$maxcitas_creditos=2;   /////////////variable para maximo numero de citas
+		$maxcitas_retiros=5;   /////////////variable para maximo numero de citas
+		$maxcitas_creditos=3;   /////////////variable para maximo numero de citas
 		$max=0;
 
 		try{
