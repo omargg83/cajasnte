@@ -52,7 +52,7 @@ class Escritorio extends Sagyc{
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							$hora="$h:$t:00";
 							if(isset($arr_hora[$hora])){
-								if($arr_hora[$hora]<5){
+								if($arr_hora[$hora]<5){ //maximo numero de citas de retiro en busqueda automatica
 									$sale=0;
 								}
 							}
@@ -69,7 +69,7 @@ class Escritorio extends Sagyc{
 							$t=str_pad($j,2,"0",STR_PAD_LEFT);
 							$hora="$h:$t:00";
 							if(isset($arr_hora[$hora])){
-								if($arr_hora[$hora]<3){
+								if($arr_hora[$hora]<3){ //maximo numero de citas de creditos en busqueda automatica
 									$sale=0;
 								}
 							}
